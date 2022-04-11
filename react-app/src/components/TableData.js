@@ -2,7 +2,6 @@ import { Table, Switch, Space } from 'antd';
 import React, { useState } from 'react'
 import './TableData.css'
 const TableData = (props) => {
-    const [checkStrictly, setCheckStrictly] = useState(false);
     // rowSelection objects indicates the need for row selection
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -18,12 +17,9 @@ const TableData = (props) => {
 
     return (
         <>
-            <Space align="center" style={{ marginBottom: 16 }}>
-                CheckStrictly: <Switch checked={checkStrictly} onChange={setCheckStrictly} />
-            </Space>
             <Table
                 columns={props.columns}
-                rowSelection={{ ...rowSelection, checkStrictly }}
+                rowSelection={{ ...rowSelection }}
                 dataSource={props.data}
                 pagination={{ pageSize: 50 }} 
                 scroll={{ y: 240}}
