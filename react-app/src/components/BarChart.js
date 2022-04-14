@@ -1,94 +1,39 @@
 import React from 'react'
 import { Container } from "react-bootstrap";
-import * as d3 from 'd3';
+import {VictoryChart, VictoryVoronoiContainer, VictoryGroup, VictoryAxis, VictoryBar} from 'victory';
 
-// const BarChart = (props) => {
-//     return (
-//         <Container className="w-100">
-            
-//         </Container>
-//     );
-// }
-
-// export default BarChart;
-/*
-class Line extends React.Component {
-    drawLine() {
-        let xScale = d3.scaleTime()
-            .domain(d3.extent(this.props.data, ({date}) => date));
-            .rangeRound([0, this.props.width]);
-
-        let yScale = d3.scaleLinear()
-            .domain(d3.extent(this.props.data, ({value}) => value))
-            .rangeRound([this.props.height, 0]);
-
-        let line = d3.line()
-            .x((d) => xScale(d.date))
-            .y((d) => yScale(d.value));
-
-        return (
-            <path
-                className="line"
-                d={line(this.props.data)}
-            />
-        );
-    }
-
-    render() {
-        <svg
-           className="line-container"
-           width={this.props.width}
-           height={this.props.height}
+const BarChart = (props) => {
+    return (
+        <VictoryChart
+            domainPadding={10}
+            height={400}
+            width={400}
+            containerComponent={<VictoryVoronoiContainer />}
         >
-           {this.drawLine()}
-        </svg>
-    }
-}
-*/
+            <VictoryGroup colorScale={"qualitative"} offset={2}>
+            {/* Change here */}
+                {props.yAxis.length ? props.yAxis.map(y =>
+                    <VictoryBar
+                        data={props.data}
+                        x={(d) => d[props.xAxis]}
+                        y={d => d[y]}
+                        barWidth={2}
+                    />) : <p></p>}
 
-class BarChart extends React.Component {
+            </VictoryGroup>
+            <VictoryAxis
+                label={props.xAxis}
+                style={{
+                    // axis: { stroke: "#756f6a" },
+                    // axisLabel: { fontSize: 20, padding: 30 },
+                    // grid: { stroke: ({ tick }) => tick > 0.5 ? "red" : "grey" },
+                    ticks: { stroke: "grey", size: 1, transform: 'rotate(90deg)' },
+                    tickLabels: { fontSize: 15, padding: 5 }
+                }}
 
-   constructor(props)
-   {
-       super(props)
-   }
-   
-    drawLine() {    
-        try{
-        let xScale = d3.scaleTime()
-            .domain(d3.extent(this.props.data[this.props.X]))
-            .rangeRound([0, this.props.width]);
-
-        let yScale = d3.scaleLinear()
-            .domain(d3.extent(this.props.data[this.props.Y]))
-            .rangeRound([this.props.height, 0]);
-            
-        let line = d3.line()
-            .x((d) => xScale(d[this.props.X]))
-            .y((d) => yScale(d[this.props.Y]));
-           
-            return (
-                <path
-                    className="line"
-                    d={line(this.props.data)}
-                />
-            );
-        }
-        catch(e) {
-
-        }
-        return(<p>Hello</p>)
-    }
-
-    render() {
-        return (<svg
-            className="line-container"
-            width={this.props.width}
-            height={this.props.height}
-         >
-            {this.drawLine()}
-         </svg>)   
-    }
+            />
+        </VictoryChart>
+    );
 }
 
 export default BarChart;
