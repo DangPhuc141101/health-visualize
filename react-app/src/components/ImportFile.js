@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import TableData from './TableData'
-
-import './ImportFile.css'
+import { Navbar, Nav, Container, Modal, Form, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ImportFile(props) {
     const [file, setFile] = useState();
@@ -18,11 +18,11 @@ function ImportFile(props) {
     const handleOnChangeInput = (e) => {
         setQuery(e.target.value);
     }
-    
+
     const getInputName = (e) => {
         props.onSaveInputName(e.target.value);
     }
-    
+
     const handleOnSubmit = async (e) => {
         e.preventDefault();
 
@@ -70,54 +70,61 @@ function ImportFile(props) {
         }
         setDataSource(dataSourceTemp);
         props.saveListObject(dataSourceTemp)
-
     }
 
     const showModal = () => {
         setOnModal(true);
-        document.body.style.background = '#808080';
     }
 
-    const hideModal = () => {
-        setOnModal(false);
-        document.body.style.background = '#fff';
-    }
     return (
         <div>
-        <div className="modal" style={{display: onModal ? 'block' : 'none'}}>
-            <div className="modal-header">
-                <h2>REACTJS CSV IMPORT EXAMPLE TEST</h2>
-            </div>
-            <div className="modal-body">
-                <form>
-                    <div className="row">
-                        <input type={"file"}
-                            id={"csvFileInput"}
-                            name="upload_file"
-                            accept={".csv"}
-                            onChange={handleOnChange}
-                        />
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="#" onClick={showModal}>Upload</Nav.Link>
+                            <Nav.Link href="#pricing">Pricing</Nav.Link>
+                        </Nav>
+                        <Nav>
+                            <Nav.Link href="#deets">More deets</Nav.Link>
+                            <Nav.Link eventKey={2} href="#memes">
+                                Dank memes
+                            </Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+
+            <Modal
+                size="lg"
+                show={onModal}
+                onHide={() => setOnModal(false)}
+                aria-labelledby="example-modal-sizes-title-lg"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-lg">
+                        REACTJS CSV IMPORT EXAMPLE TEST
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group controlId="formFileSm" className="mb-3">
+                        <Form.Label>Small file input example</Form.Label>
+                        <Form.Control type="file" size="sm" name="upload_file" accept=".csv" onChange={handleOnChange} className="mb-2" />
+                        <Form.Control size="sm" placeholder="Small text" onChange={handleOnChangeInput} type="number" min={0} value={query} className="mb-2" />
+                        <Form.Control size="sm" placeholder="Small text" onChange={getInputName} type="text" className="mb-2" />
+                        <Button variant="secondary" size="sm" onClick={handleOnSubmit}>
+                            Import
+                        </Button>
+                    </Form.Group>
+                    <TableData columns={columns} data={dataSource} />
+                    <div className="d-flex flex-row-reverse">
+                        <Button className="mx-2" variant="secondary" size="sm" onClick={() => setOnModal(false)}> Close </Button>
+                        <Button className="mx-2" variant="outline-warning" size="sm" onClick={() => setOnModal(false)}> Ok </Button>
                     </div>
-                    <div className="row">
-                        <label>Number of row delete </label>
-                        <input placeholder="Start row header" onChange={handleOnChangeInput} type="number" min={0} value={query} />
-                    </div>
-                    <div className="row">
-                        <label>Name of data </label>
-                        <input placeholder="Name" onChange={getInputName}  />
-                    </div>
-                    <div className="row">
-                        <button onClick={handleOnSubmit}>IMPORT CSV</button>
-                    </div>
-                </form>
-                <TableData columns={columns} data={dataSource} />
-            </div>
-            <div className="modal-footer">
-                <button type="button" onClick={hideModal}>Ok</button>
-                <button type="button" onClick={hideModal}>Close</button>
-            </div>
-        </div>
-        <button onClick={showModal}> Upload</button>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }

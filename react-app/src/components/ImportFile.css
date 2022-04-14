@@ -1,6 +1,6 @@
 .modal {
     background-color: #fff;
-    width: 1000px;
+    width: 70%;
     border-radius: 10px;
     text-align: center;
     margin: 2rem auto;
@@ -43,4 +43,3 @@
 .modal-footer>* {
     margin: 0.25rem;
 }
-

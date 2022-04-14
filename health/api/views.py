@@ -25,7 +25,7 @@ def test(request):
         skip_row = int(request.GET.get('row'))
         health = pd.read_csv(myfile, skiprows=skip_row)
         # print(health)         
-        health = health.fillna('')
+        health = health.dropna()
         health.columns = change_header(health.columns.values)
         health_types = dict()
 

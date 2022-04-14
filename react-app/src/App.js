@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import './App.css';
 import ImportFile from './components/ImportFile';
 import Visualize from './components/Visualize';
@@ -21,7 +20,8 @@ function App() {
 
   const saveData = (data) => {
     setData(data.health);
-    setTypes(data.dtypes)
+    const type = JSON.parse(data.dtypes);
+    setTypes(type)
     
     const col = [];
     for (const key in data.health)
@@ -31,8 +31,8 @@ function App() {
   
   return (
       <div> 
-      <ImportFile onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>
-      <Visualize data={data} columns={columns} types={types} listObjData={listObject}/>
+        <ImportFile onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>
+        <Visualize data={data} columns={columns} types={types} listObjData={listObject}/>
       </div>
   );
 }

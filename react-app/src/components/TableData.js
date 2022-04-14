@@ -22,7 +22,7 @@ const TableData = (props) => {
                 rowSelection={{ ...rowSelection }}
                 dataSource={props.data}
                 pagination={{ pageSize: 50 }} 
-                scroll={{ y: 240}}
+                scroll={{ y: 240, x : 1000}}
             />
         </>
     );
