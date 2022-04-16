@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { VictoryBar, VictoryChart, VictoryHistogram, VictoryVoronoiContainer, VictoryLine, VictoryScatter, VictoryGroup, VictoryTooltip, VictoryAxis } from 'victory';
 import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
+import LineChart from './LineChart';
 
 const Visualize = (props) => {
     const [columnsSelected, setColumnsSelected] = useState([]);
@@ -46,7 +47,7 @@ const Visualize = (props) => {
                 {/* <BarChart data={props.data} X={xAxis} Y={yAxis} color={color} size={size} width={'500px'} height={'100vh'}></BarChart> */}
                 {typeChart === "bar" && props.listObjData && xAxis ? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></BarChart> : <p></p>}
                 {/* tham số data nên dung props.listObjData/*/}
-                {typeChart === "line" ? <p>Line</p> : <p></p>}
+                {typeChart === "line" && props.listObjData && xAxis ? <LineChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></LineChart> : <p></p>}
                 {typeChart === "bar" ? <p>Bar</p> : <p></p>}
                 {typeChart === "scatter" ? <p>Scatter</p> : <p></p>}
             </Col>
