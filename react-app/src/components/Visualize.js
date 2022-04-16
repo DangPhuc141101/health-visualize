@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { VictoryBar, VictoryChart, VictoryHistogram, VictoryVoronoiContainer, VictoryLine, VictoryScatter, VictoryGroup, VictoryTooltip, VictoryAxis } from 'victory';
 import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
+import ScatterChart from './ScatterChart/Chart';
+
 
 const Visualize = (props) => {
     const [columnsSelected, setColumnsSelected] = useState([]);
@@ -48,7 +50,7 @@ const Visualize = (props) => {
                 {/* tham số data nên dung props.listObjData/*/}
                 {typeChart === "line" ? <p>Line</p> : <p></p>}
                 {typeChart === "bar" ? <p>Bar</p> : <p></p>}
-                {typeChart === "scatter" ? <p>Scatter</p> : <p></p>}
+                {typeChart === "scatter" && props.listObjData && xAxis && yAxis.length>0 ? <ScatterChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></ScatterChart>: <p></p>}
             </Col>
             <Col xs={6} md={4}>
                 <Container className='h-50 w-100 overflow-auto p-3' style={{ borderBottom: '2px solid #000' }}>
@@ -69,7 +71,7 @@ const Visualize = (props) => {
                             <option className='text-center' value="bar">Bar</option>
                             <option className='text-center' value="line">Line</option>
                             <option className='text-center' value="pie">Pie</option>
-                            <option className='text-center' value="scatter">Sctter</option>
+                            <option className='text-center' value="scatter">Sactter</option>
                         </select>
                     </div>
                     <div className='mb-2 d-flex justify-content-between'>
