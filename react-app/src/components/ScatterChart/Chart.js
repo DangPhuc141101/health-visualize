@@ -2,8 +2,10 @@ import React,{useMemo} from 'react'
 // import { Container } from "react-bootstrap";
 import * as d3 from "d3";
 import {VictoryChart, VictoryVoronoiContainer, VictoryScatter, VictoryGroup, VictoryLegend} from 'victory';
-import { useD3 } from "d3blackbox";
 const ScatterChart = (props) => {
+    const dataLegend = props.yAxis.map((label) => {
+        return {"name": `${label}`}
+    })
     return (
         <VictoryChart
             domainPadding={10}
@@ -37,10 +39,21 @@ const ScatterChart = (props) => {
                     y={10}
                     orientation="horizontal"
                     gutter={20}
-                    style={{ border: { stroke: "black" } }}
                     colorScale={"qualitative"}
-                    data={props.data}
+                    data={dataLegend}
         />
+        {/* <VictoryLegend
+                x={125}
+                y={10}
+                title="Legend"
+                centerTitle
+                orientation="vertical"
+                gutter={20}
+                style={{ border: { stroke: "black" }, title: { fontSize: 10 } }}
+                // data={[{ name: "One" }, { name: "Two" }, { name: "Three" }]}
+                colorScale={"qualitative"}
+                data={dataLegend}
+            /> */}
            
         </VictoryChart>
     );
