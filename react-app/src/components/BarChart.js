@@ -11,7 +11,7 @@ const BarChart = (props) => {
             containerComponent={<VictoryVoronoiContainer />}
         >
             <VictoryGroup colorScale={"qualitative"} offset={2}>
-            {/* Change here */}
+                {/* Change here */}
                 {props.yAxis.length ? props.yAxis.map(y =>
                     <VictoryBar
                         data={props.data}

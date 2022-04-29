@@ -1,0 +1,9 @@
+.upload_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.upload_container .upload_btn {
+    display: flex;
+    height: 40px;
+}

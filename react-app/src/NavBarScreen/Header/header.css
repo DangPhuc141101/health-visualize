@@ -1,0 +1,32 @@
+.header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:  0;
+    padding: 5px;
+    width: 100%;
+    position: relative;
+    background-color: #1D81A2;
+    transform: translateY(-9px);
+}
+
+.header_container a {
+    color: #fff;
+}
+
+.header_container a:hover {
+    color: #fff;
+}
+
+/* ====== Header Title ====== */
+.header_container .header_title {
+    display: flex;
+}
+
+/* ========= Header Account ======== */
+.header_container .header_account {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 20px;
+}

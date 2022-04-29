@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { VictoryBar, VictoryChart, VictoryHistogram, VictoryVoronoiContainer, VictoryLine, VictoryScatter, VictoryGroup, VictoryTooltip, VictoryAxis } from 'victory';
 import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
+import PieChart from './PieChart/PieChart';
 
 const Visualize = (props) => {
     const [columnsSelected, setColumnsSelected] = useState([]);
@@ -40,14 +41,15 @@ const Visualize = (props) => {
     const handleChangeColor = (e) => {
         setColor(e.target.value);
     }
+
     return (
         <Row className='w-100' style={{ height: '100vh' }}>
             <Col className='border-right border-dark' xs={12} md={8}>
                 {/* <BarChart data={props.data} X={xAxis} Y={yAxis} color={color} size={size} width={'500px'} height={'100vh'}></BarChart> */}
-                {typeChart === "bar" && props.listObjData && xAxis ? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></BarChart> : <p></p>}
+                {typeChart === "bar" && props.listObjData && xAxis ? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.data}></BarChart> : <p></p>}
                 {/* tham số data nên dung props.listObjData/*/}
                 {typeChart === "line" ? <p>Line</p> : <p></p>}
-                {typeChart === "bar" ? <p>Bar</p> : <p></p>}
+                {typeChart === "pie" && props.listObjData ? <PieChart data={props.listObjData} xAxis={xAxis} yAxis={yAxis}/> : <p></p>}
                 {typeChart === "scatter" ? <p>Scatter</p> : <p></p>}
             </Col>
             <Col xs={6} md={4}>
