@@ -16,6 +16,9 @@ const Upload = (props) => {
   const [query, setQuery] = useState(0);
   const [onModal, setOnModal] = useState(false);
 
+  console.log(dataSource);
+  console.log(columns)
+
   const handleOnChange = (e) => {
       setFile(e.target.files[0]);
   };

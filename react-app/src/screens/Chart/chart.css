@@ -29,14 +29,14 @@
     overflow-y: scroll;
 }
 
+/* .chart_datasets .dataset_items {
+    overflow-y: scroll;
+} */
+
 .chart_columns .chart_datasets {
     cursor: move;
     user-select: none;
     z-index: 1;
-}
-
-.react-draggable {
-    z-index: 11111111111111111111;
 }
 
 .chart_columns .chart_filters p{
@@ -91,3 +91,15 @@
 .chart_names .items_container .item span{
     font-size: 10px;
 }
+
+/* ========= Axis ============= */
+.chart_axis{
+    display: block;
+    height: 278px;
+    /* border-bottom: 1px solid #1D81A2; */
+    overflow-y: scroll;
+}
+
+/* .chart_axis .axis_container {
+    overflow-y: scroll;
+} */

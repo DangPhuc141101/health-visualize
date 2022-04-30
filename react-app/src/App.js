@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen/HomeScreen';
 import { Container } from 'react-bootstrap';
 import Upload from './screens/upload/Upload';
 import Chart from './screens/Chart/Chart'
+import Table from './screens/Table/Table';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       col.push(key);
     setColumns(col);
   }
+
   
   return (
     <Router>
@@ -49,6 +51,7 @@ function App() {
               <Route path='/' element={<HomeScreen/>} exact/>
               <Route path='/upload' element={<Upload onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>}/>
               <Route path='/chart' element={<Chart data={data} columns={columns} types={types} listObjData={listObject} />}/>
+              <Route path='/table' element={<Table data={data} columns={columns}/>}/>
               {/* <ImportFile onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>
               <Visualize data={data} columns={columns} types={types} listObjData={listObject}/> */}
             </Routes>

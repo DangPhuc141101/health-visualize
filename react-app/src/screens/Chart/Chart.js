@@ -7,6 +7,7 @@ import { FcLineChart, FcPieChart } from 'react-icons/fc';
 import { IoMdArrowDropdownCircle } from 'react-icons/io';
 import { MdOutlineStackedBarChart } from 'react-icons/md';
 import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
+import DropFile from '../DropFile/DropFile';
 import './chart.css';
 
 const Chart = (props) => {
@@ -28,8 +29,8 @@ const Chart = (props) => {
                     <div className='dataset_list'>
                       {props.columns.map((e) => (
                       <Draggable>
-                        <ListGroup>
-                              <ListGroup.Item>{e}</ListGroup.Item>
+                          <ListGroup>
+                                <ListGroup.Item>{e}</ListGroup.Item>
                           </ListGroup>
                       </Draggable>
                       ))}
@@ -97,30 +98,15 @@ const Chart = (props) => {
                   {/* ===== Axis ====== */}
                   <div className='chart_axis'>
                       <div className='axis_container'>
+                            {/* === X === */}
                             <InputGroup.Text id="basic-addon1">X-Axis</InputGroup.Text>
-                          <InputGroup className="mb-3" id='1'>
-                            <FormControl
-                              placeholder="Name Field1"
-                              aria-label="xAxis"
-                              aria-describedby="basic-addon1"
-                            />
-                          </InputGroup>
+                            <DropFile/>
+                            {/* === Y === */}
                             <InputGroup.Text id="basic-addon2">Y-Axis</InputGroup.Text>
-                          <InputGroup className="mb-3" id='2'>
-                            <FormControl
-                              placeholder="Name Field2"
-                              aria-label="YAxis"
-                              aria-describedby="basic-addon2"
-                            />
-                          </InputGroup>
+                            <DropFile/>
+                            {/* === Legend === */}
                             <InputGroup.Text id="basic-addon3">Legend</InputGroup.Text>
-                          <InputGroup className="mb-3" id='3'>
-                            <FormControl
-                              placeholder="Name Field3"
-                              aria-label="legend"
-                              aria-describedby="basic-addon3"
-                            />
-                          </InputGroup>
+                            <DropFile/>
                       </div>
                   </div>
                 </div>
