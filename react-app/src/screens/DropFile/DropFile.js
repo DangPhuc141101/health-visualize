@@ -3,10 +3,18 @@ import {useDropzone} from 'react-dropzone';
 
 const DropFile = (props) => {
 
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({noClick: true});
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone(
+    {noClick: true,
+    accept: {
+      	'string': []
+    }
+    });
+  // console.log(useDropzone())
+  console.log(acceptedFiles)
   const files = acceptedFiles.map(file => (
     <li key={file.path}>
       {file.path} - {file.size} bytes
+      {/* {console.log(file.path))} */}
     </li>
   ));
 

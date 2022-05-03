@@ -27,11 +27,13 @@
     height: 278px;
     border-bottom: 1px solid #1D81A2;
     overflow-y: scroll;
+    /* position: relative; */
 }
 
-/* .chart_datasets .dataset_items {
-    overflow-y: scroll;
-} */
+.dataset_list .react-draggable {
+    display: block;
+    position: absolute;
+}
 
 .chart_columns .chart_datasets {
     cursor: move;

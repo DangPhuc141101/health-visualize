@@ -30,6 +30,7 @@ const Chart = (props) => {
                       {props.columns.map((e) => (
                       <Draggable>
                           <ListGroup>
+                            {/* {console.log(typeof e)} */}
                                 <ListGroup.Item>{e}</ListGroup.Item>
                           </ListGroup>
                       </Draggable>
