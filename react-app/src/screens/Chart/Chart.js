@@ -6,6 +6,7 @@ import { BsBarChart } from 'react-icons/bs';
 import { FcLineChart, FcPieChart } from 'react-icons/fc';
 import { IoMdArrowDropdownCircle } from 'react-icons/io';
 import { MdOutlineStackedBarChart } from 'react-icons/md';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
 import DropFile from '../DropFile/DropFile';
 import './chart.css';
@@ -27,14 +28,14 @@ const Chart = (props) => {
                        <span>Name of datasets</span>
                     </div>
                     <div className='dataset_list'>
-                      {props.columns.map((e) => (
-                      <Draggable>
-                          <ListGroup>
-                            {/* {console.log(typeof e)} */}
-                                <ListGroup.Item>{e}</ListGroup.Item>
-                          </ListGroup>
-                      </Draggable>
-                      ))}
+                        {props.columns.map((e) => (
+                          <Draggable>
+                              <ListGroup>
+                                {/* {console.log(typeof e)} */}
+                                    <ListGroup.Item>{e}</ListGroup.Item>
+                              </ListGroup>
+                          </Draggable>
+                        ))}
                     </div>
                   </div>
                   {/* Filter */}
