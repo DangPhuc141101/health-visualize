@@ -10,25 +10,23 @@ const BarChart = (props) => {
             width={400}
             containerComponent={<VictoryVoronoiContainer />}
         >
-            <VictoryGroup colorScale={"qualitative"} offset={2}>
-            {/* Change here */}
+            <VictoryGroup colorScale={"qualitative"} offset={2} style = {{margin:'50%'}}>
                 {props.yAxis.length ? props.yAxis.map(y =>
                     <VictoryBar
                         data={props.data}
                         x={(d) => d[props.xAxis]}
                         y={d => d[y]}
                         barWidth={2}
+                        style = {{margin:'50%'}}
                     />) : <p></p>}
-
+                
             </VictoryGroup>
             <VictoryAxis
                 label={props.xAxis}
                 style={{
-                    // axis: { stroke: "#756f6a" },
-                    // axisLabel: { fontSize: 20, padding: 30 },
-                    // grid: { stroke: ({ tick }) => tick > 0.5 ? "red" : "grey" },
+                    axisLabel: { fontSize: 14, padding: 30 },
                     ticks: { stroke: "grey", size: 1, transform: 'rotate(90deg)' },
-                    tickLabels: { fontSize: 15, padding: 5 }
+                    tickLabels: { fontSize: 15, padding: 5 },
                 }}
 
             />
