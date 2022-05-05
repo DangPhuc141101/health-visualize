@@ -7,7 +7,7 @@ const BarChart = (props) => {
         <VictoryChart
             domainPadding={10}
             height={400}
-            width={400}
+            width={200}
             containerComponent={<VictoryVoronoiContainer />}
         >
             <VictoryGroup colorScale={"qualitative"} offset={2} style = {{margin:'50%'}}>
@@ -17,16 +17,20 @@ const BarChart = (props) => {
                         x={(d) => d[props.xAxis]}
                         y={d => d[y]}
                         barWidth={2}
-                        style = {{margin:'50%'}}
+                        style = {{padding:'50%'}}
                     />) : <p></p>}
                 
             </VictoryGroup>
             <VictoryAxis
                 label={props.xAxis}
                 style={{
+                    // axis: { stroke: "#756f6a" },
                     axisLabel: { fontSize: 14, padding: 30 },
+                    // border : {},
+                    // grid: { stroke: ({ tick }) => tick > 0.5 ? "red" : "grey" },
                     ticks: { stroke: "grey", size: 1, transform: 'rotate(90deg)' },
-                    tickLabels: { fontSize: 15, padding: 5 },
+                    tickLabels: { fontSize: 10, padding: 5 },
+                    // margin:'50%'
                 }}
 
             />
