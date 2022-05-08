@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
+import PieChart from './PieChart';
 
 const Visualize = (props) => {
     const [typeChart, setTypeChart] = useState();
@@ -8,6 +9,7 @@ const Visualize = (props) => {
     const [yAxis, setYAxis] = useState([]);
     const [size, setSize] = useState();
     const [color, setColor] = useState();
+    const [legend, setLegend] = useState();
 
     const addYAxis = (e) => {
         if (e.target.checked) {
@@ -26,36 +28,36 @@ const Visualize = (props) => {
         setXAxis(e.target.value);
     }
 
+    const handleChangeLegend = (e) => {
+        if (e.target.value !== 'none') setLegend(e.target.value);
+        else setLegend('');
+    }
+
     const handleChangeSize = (e) => {
-        console.log(e.target.value)
-        setSize(e.target.value);
+        setSize(e.target.value); 
     }
 
     const handleChangeColor = (e) => {
         setColor(e.target.value);
     }
+
     return (
-        <Row  style={{ height: '100vh' }}> {console.log("Visualize")}
-       
-            <Col className='border-right border-dark' xs={12} md={8}>
+        <Row  style={{ height: 'calc(100vh - 56px)' }}> 
+            <Col className='border-right border-dark h-100' xs={10} md={9} >
                 {/* <BarChart data={props.data} X={xAxis} Y={yAxis} color={color} size={size} width={'500px'} height={'100vh'}></BarChart> */}
-                {typeChart === "bar" && props.listObjData && xAxis && yAxis.length > 0? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></BarChart> : (null)}
-                {/* tham số data nên dung props.listObjData/*/}
-                {typeChart === "line" ? <p>Line</p> : (null)}
-                {typeChart === "bar" ? <p>Bar</p> : (null)}
-                {typeChart === "scatter" ? <p>Scatter</p> : (null)}
+                {typeChart === "bar" && props.listObjData && xAxis && yAxis.length > 0? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData} legend={legend}></BarChart> : (null)}
+                {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
             </Col>
-            <Col xs={6} md={4}>
-                <Container className='h-50 w-100 overflow-auto p-3' style={{ borderBottom: '2px solid #000' }}>
-               
-                </Container>
+            
+            <Col>
+            {(props.listObjData) ?                 
                 <Container className='h-50 w-100 overflow-auto p-3'>
                     <div className='mb-2 d-flex justify-content-between'>
                         <label>Select chart style</label>
                         <select className='w-50' onChange={handleChangeChart}>
                             <option className='text-center' value="none">None</option>
                             <option className='text-center' value="bar">Bar</option>
-                            <option className='text-center' value="line">Line</option>
+                            <option className='text-center' value="line">Line</option> 
                             <option className='text-center' value="pie">Pie</option>
                             <option className='text-center' value="scatter">Sctter</option>
                         </select>
@@ -78,6 +80,13 @@ const Visualize = (props) => {
                         )) : null}
                     </div>
                     <div className='mb-2 d-flex justify-content-between'>
+                        <label>Legend</label>
+                        <select className='w-50' onChange={handleChangeLegend}>
+                            <option className='text-center' value="none">None</option>
+                            {props.columns ? props.columns.map(column => (<option className='text-center' value={column}>{column}</option>)) : null}
+                        </select>
+                    </div>
+                    <div className='mb-2 d-flex justify-content-between'>
                         <label>Size</label>
                         <select className='w-50' onChange={handleChangeSize}>
                             <option className='text-center' value="none">None</option>
@@ -91,7 +100,7 @@ const Visualize = (props) => {
                             {props.columns ? props.columns.map(column => (<option className='text-center' value={column}>{column}</option>)) : null}
                         </select>
                     </div>
-                </Container>
+                </Container> : null }
             </Col>
         </Row>
     );

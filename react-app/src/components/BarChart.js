@@ -1,106 +1,144 @@
-import React, { useState } from 'react'
-import { Container } from "react-bootstrap";
-import { VictoryChart, VictoryVoronoiContainer, VictoryGroup, VictoryAxis, VictoryBar, VictoryLegend } from 'victory';
-import { sum, max, min, average, countColumn } from "../hook/index";
-
+import React from 'react'
+import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend } from 'victory';
+import { sum, max, min, average, countColumn, getLegend } from "../hook/index";
+import { something } from '../hook/bar';
 const BarChart = (props) => {
-    
-    const [isShow, setIsShow] = useState(false);
-    const height = 800, width = 800;
-    const numColumn = countColumn(props.data,props.xAxis)*props.yAxis.length;
-    console.log()
-    const maxBarWidth = 1.0*(width-20*(numColumn*1.0/props.yAxis.length-1))/numColumn ;
-    console.log(maxBarWidth)
-    //1.0*(width-20*(numColumn/props.yAxis.length-1))/numColumn ;
-    const padding =1.0*maxBarWidth/2;
-    const showDetail = (isShow) => {
-        setIsShow(isShow);
-    }
+    const { xAxis, yAxis, data, legend } = props;
+
+    // config 
+    const width = 800, height = 500;
+    const numColumn = countColumn(data, xAxis);
+    let padding = (numColumn < 10) ? ((numColumn <= 5) ? 20 : 10) : 5;
+    let paddingX = (width - 100 - padding * numColumn) * 1.0 / (numColumn) * 2 / 3;
+    let barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / yAxis.length;
+
+    const tempLegend = getLegend(data, legend);
+    const legendBar = [];
+    tempLegend.forEach(e => legendBar.push(e))
+
+    const newData = something(data, legendBar, legend, yAxis[0], xAxis);
 
     const legends = [];
-    if (props.yAxis.length > 0) {
-        props.yAxis.forEach(element => legends.push({ name: element }))
+    if (legend) {
+        legendBar.forEach(legend => legends.push({ name: legend }));
+        barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / legendBar.length;
+    }
+    else {
+        yAxis.forEach(e => {
+            legends.push({ name: e });
+        })
     }
 
     return (
-        <div style={{height: 800, width: 800}}>   
+        <>
             <VictoryChart
+                responsive={false}
+                animate={{
+                    duration: 500,
+                    onLoad: { duration: 200 }
+                }}
+                domainPadding={{ x: [paddingX, paddingX], y: [50, 50] }}
                 height={height}
                 width={width}
-                domainPadding={20}
-                containerComponent={<VictoryVoronoiContainer />}
+                theme={VictoryTheme.material}
             >
-                <VictoryGroup colorScale={"qualitative"} offset={30}>
-                    {/* Change here */}
-                    {props.yAxis.length > 0 && props.xAxis && props.yAxis.length > 0 ? props.yAxis.map((y, i) =>
-                        <VictoryBar
-                            data={average(props.data, props.xAxis, y)}
-                            x={(d) => d[props.xAxis]}
-                            y={d => d[y]}
-                            barWidth={30}
-                            events={[{
-                                target: "data",
-                                eventHandlers: {
-                                    onMouseOver: (e) => {
-                                        return [
-                                            {
-                                                target: "data",
-                                                mutation: (props) => {
-                                                    console.log(props.datum);
-                                                    setIsShow(true);
-                                                }
-                                            }
-                                        ];
-                                    },
-                                    onMouseOut: (e) => {
-                                        return [
-                                            {
-                                                target: "data",
-                                                mutation: (props) => {
-                                                    console.log("Out");
-                                                    setIsShow(false);
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-
-                            }]}
-                        />) : null}
-                </VictoryGroup>
-                {legends.length > 0 ? 
-                <VictoryLegend 
+                <VictoryLegend x={125} y={10}
+                    centerTitle
                     orientation="horizontal"
+                    colorScale="qualitative"
                     gutter={20}
-                    colorScale={"qualitative"}
+                    itemsPerRow={10}
+                    style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 10 } }}
                     data={legends}
-                /> : null}
+                />
+                <VictoryGroup offset={barWidth}
+                    colorScale={"qualitative"}
+                >
+                    {(!legend ? 
+                        yAxis.map((y, i) => (
+                            <VictoryBar
+                                key={i}
+                                data={sum(data, xAxis, y)}
+                                x={d => d[xAxis]}
+                                y={d => d[y]}
+                                barWidth={barWidth}
+                            >
+                            </VictoryBar>
+                        )) 
+                        :
+                        legendBar.map((legend, i) => {
+                            const dataByLegend = newData[legend];
+                            console.log(newData);
+                            return (
+                                <VictoryBar
+                                    key={i}
+                                    data={dataByLegend}
+                                    x={d => {return d[xAxis] }}
+                                    y={d => d[yAxis[0]]}
+                                    barWidth={barWidth}
+                                >
+                                </VictoryBar>
+                            )
+                        }))}
+
+                </VictoryGroup>
                 <VictoryAxis
-                    crossAxis 
-                    width={width}
+                    crossAxis
                     label={props.xAxis}
+                    tickFormat={(t) => {
+                        if (isNaN(t)) return t;
+                        const words = t.split(' ');
+                        let result = '';
+                        let row = '';
+                        for (let word of words) {
+                            row += `${word} `;
+                            if (row.length > 21) {
+                                result += `\n${word}`;
+                                row = `${word} `;
+                            }
+                            else result += ` ${word}`;
+                        }
+                        return result;
+                    }}
                     style={{
                         axis: { stroke: "#756f6a" },
-                        axisLabel: { fontSize: 15, padding: 30 },
+                        axisLabel: { fontSize: 14, padding: 30 },
                         // ticks: { stroke: "grey", size: 1},
-                        tickLabels: { fontSize: 5, padding: 10, }  // angle: 45
+                        tickLabels: { fontSize: 7, padding: 10, },  // angle: 45
                     }}
                 />
 
-                {/* Frenquenly */}
                 <VictoryAxis
                     dependentAxis
+                    tickFormat={(t) => {
+                        if (t % 1000000 === 0)
+                            return `${t / 1000000}M`;
+
+                        if (t % 1000 === 0)
+                            return `${t / 1000}K`;
+                        return t;
+                    }}
                     crossAxis
                     label={"Frequency"}
                     style={{
                         axis: { stroke: "#756f6a" },
-                        axisLabel: { fontSize: 15, alignItems: 'left' },
-                        tickLabels: { fontSize: 10, padding: 5 }
+                        axisLabel: { fontSize: 14, alignItems: 'left', padding: 35 },
+                        tickLabels: { fontSize: 10, padding: 5 },
+                        ticks: {
+                            size: () => {
+                                const tickSize = 10;
+                                return tickSize;
+                            },
+                            stroke: "black",
+                            strokeWidth: 1
+                        },
                     }}
                 />
+
             </VictoryChart>
-        </div>
+        </>
     );
+
 }
 
 export default BarChart;

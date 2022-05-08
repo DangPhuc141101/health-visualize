@@ -32,11 +32,11 @@ export const sum = (data, x, y) => {
     })
 
     const res= [];
-    //console.log()
+  
     for (let key in obj){
         const resObj ={};
         resObj[x] = key;
-        resObj[y] = obj[key];
+        resObj[y] = +(Math.round(obj[key] + "e+2")  + "e-2");
         res.push(resObj);
     }
     return res;
@@ -87,7 +87,7 @@ const count = (data, x, y) => {
     })
 
     const res= [];
-    //console.log()
+
     for (let key in obj){
         const resObj ={};
         resObj[x] = key;
@@ -116,6 +116,16 @@ export const countColumn = (data, x) => {
     data.forEach((element) => {
         columns.add(element[x]) ;
     })
-    columns.forEach(e => console.log(e))
+   
     return columns.size;
 }
+
+export const getLegend = (data, x) => {
+    const columns = new Set();
+    data.forEach((element) => {
+        columns.add(element[x]) ;
+    })
+    
+    return columns;
+}
+

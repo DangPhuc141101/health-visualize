@@ -3,7 +3,6 @@ import './App.css';
 import ImportFile from './components/ImportFile';
 import Visualize from './components/Visualize';
 function App() {
-  console.log('render app')
   const [data, setData] = useState();
   const [columns, setColumns] = useState();
   const [types , setTypes] = useState();
