@@ -30,10 +30,10 @@
     /* position: relative; */
 }
 
-.dataset_list .react-draggable {
+/* .dataset_list .react-draggable {
     display: block;
     position: absolute;
-}
+} */
 
 .chart_columns .chart_datasets {
     cursor: move;
