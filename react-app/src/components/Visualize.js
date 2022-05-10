@@ -11,6 +11,7 @@ const Visualize = (props) => {
     const [yAxis, setYAxis] = useState([]);
     const [size, setSize] = useState();
     const [color, setColor] = useState();
+    const [legend, setLegend] = useState();
 
     const addColumn = (e) => {
         if (e.target.checked) {
@@ -41,17 +42,25 @@ const Visualize = (props) => {
     const handleChangeColor = (e) => {
         setColor(e.target.value);
     }
+
+    const handleChangeLegend = (e) => {
+        // console.log("this is legend: ",e.target.value)
+        setLegend(e.target.value);
+    }
+
+    // console.log("log from visualize",yAxis)
+
     return (
         <Row className='w-100' style={{ height: '100vh' }}>
-            <Col className='border-right border-dark' xs={12} md={8}>
+            <Col className='border-right border-dark' xs={10} md={9}>
                 {/* <BarChart data={props.data} X={xAxis} Y={yAxis} color={color} size={size} width={'500px'} height={'100vh'}></BarChart> */}
                 {typeChart === "bar" && props.listObjData && xAxis ? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></BarChart> : <p></p>}
                 {/* tham số data nên dung props.listObjData/*/}
-                {typeChart === "line" && props.listObjData && xAxis ? <LineChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></LineChart> : <p></p>}
+                {typeChart === "line" && props.listObjData && xAxis ? <LineChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData} legend={legend}></LineChart> : <p></p>}
                 {typeChart === "bar" ? <p>Bar</p> : <p></p>}
                 {typeChart === "scatter" ? <p>Scatter</p> : <p></p>}
             </Col>
-            <Col xs={6} md={4}>
+            <Col>
                 <Container className='h-50 w-100 overflow-auto p-3' style={{ borderBottom: '2px solid #000' }}>
                     <label>Y</label>
                     {props.columns ? props.columns.map(column => (
@@ -91,6 +100,13 @@ const Visualize = (props) => {
                         <label>Color</label>
                         <select className='w-50' onChange={handleChangeColor}>
                             <option className='text-center' value="none" onChange={handleChangeColor}>None</option>
+                            {props.columns ? props.columns.map(column => (<option className='text-center' value={column}>{column}</option>)) : <p></p>}
+                        </select>
+                    </div>
+                    <div className='mb-2 d-flex justify-content-between'>
+                        <label>Legend</label>
+                        <select className='w-50' onChange={handleChangeLegend}>
+                            <option className='text-center' value="none">None</option>
                             {props.columns ? props.columns.map(column => (<option className='text-center' value={column}>{column}</option>)) : <p></p>}
                         </select>
                     </div>
