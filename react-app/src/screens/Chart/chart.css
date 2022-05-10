@@ -87,7 +87,16 @@
     align-items: center;
     flex-direction: column;
     padding: 5px;
+    height: 56px;
+    margin: 5px;
+}
 
+.chart_items .items_container .item:hover {
+    background-color: #1D81A2;
+    color: #fff;
+    border-radius: 10px;
+    width: 70px;
+    cursor: pointer;
 }
 
 .chart_names .items_container .item span{
@@ -98,10 +107,14 @@
 .chart_axis{
     display: block;
     height: 278px;
-    /* border-bottom: 1px solid #1D81A2; */
-    overflow-y: scroll;
+    overflow: hidden;
+    /* overflow-y: scroll; */
 }
 
-/* .chart_axis .axis_container {
+.chart_axis .x_Axis,
+.chart_axis .y_Axis,
+.chart_axis .legend {
+    display: block;
+    height: 60px;
     overflow-y: scroll;
-} */
+}
