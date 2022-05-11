@@ -1,0 +1,70 @@
+.chartItems_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.chartItems_container .chart_table,
+.chartItems_container .charts {
+    padding: 0 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.chartItems_container .chart_table svg,
+.chartItems_container .charts svg {
+    font-size: 20px;
+}
+
+.chartItems_container .chart_table p,
+.chartItems_container .charts p {
+    font-size: 12px;
+}
+
+.chartItems_container .btn {
+    height: 53px;
+}
+
+.chart_table .position-fixed {
+    z-index: 11
+}
+
+.chartItems_container .active {
+    display: none;
+}
+
+.chartItems_container .hidden {
+    display: block;
+}
+
+.chartItems_container .items_container {
+    z-index: 1111;
+    position: absolute;
+    height: 204px;
+    transform: translate(66px, -23px);
+    padding: 10px;
+    border: 1px solid #1D81A2;
+    background-color: #f9f9f9fe;
+}
+
+.chartItems_container .items_container::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: black;
+}
+
+.chartItems_container .items_container .item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.chartItems_container .items_container .item svg {
+    font-size: 40px;
+}

@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { Dropdown, InputGroup, ListGroup } from 'react-bootstrap';
-import { AiOutlineDotChart } from 'react-icons/ai';
-import { BsBarChart } from 'react-icons/bs';
-import { FcLineChart, FcPieChart } from 'react-icons/fc';
+import { InputGroup, ListGroup } from 'react-bootstrap';
 import { IoMdArrowDropdownCircle } from 'react-icons/io';
-import { MdOutlineStackedBarChart } from 'react-icons/md';
-import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { TiDeleteOutline } from 'react-icons/ti';
 import './chart.css';
+import ChartItems from './ChartItems/ChartItems';
 
 const Chart = (props) => {
     const [xAxis, setXAxis] = useState([]);
     const [yAxis, setYAxis] = useState([]);
     const [legend, setLegend] = useState([]);
-    
     
     const handlerXAxis = (id) => {
       if(xAxis.includes(id) === true) {
@@ -89,8 +86,23 @@ const Chart = (props) => {
   }
 
   const dragend_handler = (e) => {
-    e.target.style.border = "solid black";
+    e.target.style.border = "solid gray";
     e.dataTransfer.clearData();
+  }
+
+  const handleDeletedXAxis = (e) => {
+    const data = xAxis.filter((item) => item !== e)
+    setXAxis(data);
+  }
+
+  const handleDeletedYAxis = (e) => {
+    const data = yAxis.filter((item) => item !== e)
+    setYAxis(data);
+  }
+
+  const handleDeletedLegend = (e) => {
+    const data = legend.filter((item) => item !== e)
+    setLegend(data);
   }
 
 
@@ -109,83 +121,23 @@ const Chart = (props) => {
                     </div>
                     <div className='dataset_list'>
                         {props.columns.map((column) => (
-                          // <Draggable>
-                          //     <ListGroup>
-                          //       {/* {console.log(typeof e)} */}
-                          //           <ListGroup.Item>{e}</ListGroup.Item>
-                          //     </ListGroup>
-                          // </Draggable>
                           <div 
                             draggable='true' 
                             id='src_copy' 
                             onDragStart={(e) => dragstart_handler(e,column)}
                             onDragEnd={(e) => dragend_handler(e)}>
-                            <ListGroup>
-                              <ListGroup.Item>{column}</ListGroup.Item>
-                            </ListGroup>
+                              <ListGroup>
+                                <ListGroup.Item>{column}</ListGroup.Item>
+                              </ListGroup>
                           </div>
                         ))}
                     </div>
                   </div>
-                  {/* Filter */}
-                  <div className='chart_filters'>
-                    <p>Filter</p>
-                    <Dropdown>
-                        <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                          Filter
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu >
-                          <Dropdown.Item href="#/action-1" active>Sum</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2">Average</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">Min</Dropdown.Item>
-                          <Dropdown.Item href="#/action-4">Max</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
+                  
                 </div>
                 {/* ======== Name of chart and Axis ========= */}
                 <div className='chart_names'>
-                  {/* ===== Charts ====== */}
-                  <div className='chart_items'>
-                      <div className='items_container'>
-                        <div className='item'>
-                          <BsBarChart/>
-                          <span>Column Chart</span>
-                        </div>
-                        <div className='item'>
-                          <RiBarChartGroupedFill/>
-                          <span>Grouped Col</span>
-                        </div>
-                        <div className='item'>
-                          <MdOutlineStackedBarChart/>
-                          <span>Stacked Col</span>
-                        </div>
-                        <div className='item'>
-                          <RiBarChartHorizontalFill/>
-                          <span>Bar Chart</span>
-                        </div>
-                        <div className='item'>
-                          <RiBarChartHorizontalLine/>
-                          <span>Grouped Chart</span>
-                        </div>
-                        <div className='item'>
-                          <RiBarChartHorizontalLine/>
-                          <span>Stacked Chart</span>
-                        </div>
-                        <div className='item'>
-                          <AiOutlineDotChart/>
-                          <span>Scatter</span>
-                        </div>
-                        <div className='item'>
-                          <FcPieChart/>
-                          <span>Pie Chart</span>
-                        </div>
-                        <div className='item'>
-                          <FcLineChart/>
-                          <span>Line Chart</span>
-                        </div>
-                      </div>
-                  </div>
+                  <ChartItems/>
                   {/* ===== Axis ====== */}
                   <div className='chart_axis'>
                       <div className='axis_container'>
@@ -199,9 +151,17 @@ const Chart = (props) => {
                             >
                               {xAxis != 0 ? 
                                       <div>
-                                      {xAxis.map((e) =>
+                                      {xAxis.map((e, index) =>
                                         <ul>
-                                          <li>{e}</li>
+                                          <li className='column_items'>
+                                            <div className='column_name'>
+                                              {e}
+                                            </div>
+                                            <div className='column_icons'>
+                                              <RiArrowDropDownLine/>
+                                              <TiDeleteOutline onClick={() => handleDeletedXAxis(e)}/>
+                                            </div>
+                                          </li>
                                         </ul>
                                       )}
                                       </div> 
@@ -220,7 +180,15 @@ const Chart = (props) => {
                                       <div>
                                       {yAxis.map((e) =>
                                         <ul>
-                                          <li>{e}</li>
+                                          <li className='column_items'>
+                                            <div className='column_name'>
+                                              {e}
+                                            </div>
+                                            <div>
+                                              <RiArrowDropDownLine/>
+                                              <TiDeleteOutline onClick={() => handleDeletedYAxis(e)}/>
+                                            </div>
+                                          </li>
                                         </ul>
                                       )}
                                       </div> 
@@ -239,7 +207,15 @@ const Chart = (props) => {
                                       <div>
                                       {legend.map((e) =>
                                         <ul>
-                                          <li>{e}</li>
+                                          <li className='column_items'>
+                                            <div className='column_name'>
+                                              {e}
+                                            </div>
+                                            <div>
+                                              <RiArrowDropDownLine/>
+                                              <TiDeleteOutline onClick={() => handleDeletedLegend(e)}/>
+                                            </div>
+                                          </li>
                                         </ul>
                                       )}
                                       </div> 
