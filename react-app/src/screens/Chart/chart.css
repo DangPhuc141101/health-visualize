@@ -83,17 +83,10 @@
     text-align: center;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
     padding: 5px;
     height: 56px;
     margin: 5px;
-}
-
-.chart_items .items_container .item:hover {
-    background-color: #1D81A2;
-    color: #fff;
-    border-radius: 10px;
-    width: 70px;
-    cursor: pointer;
 }
 
 .chart_names .items_container .item span{

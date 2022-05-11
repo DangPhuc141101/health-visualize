@@ -10,7 +10,6 @@
 .chartItems_container .charts {
     padding: 0 20px;
     font-size: 20px;
-    cursor: pointer;
 }
 
 .chartItems_container .chart_table svg,
@@ -61,10 +60,22 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    align-items: center;
     padding: 5px;
+    cursor: pointer;
+    height: 57px;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
 }
 
 .chartItems_container .items_container .item svg {
     font-size: 40px;
+}
+
+.chartItems_container .items_container .item:hover {
+    background-color: #1D81A2;
+    color: #fff;
+    border-radius: 10px;
+    width: 70px;
+    cursor: pointer;
 }
