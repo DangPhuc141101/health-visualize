@@ -1,7 +1,9 @@
 import React from 'react'
-import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend } from 'victory';
+import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip } from 'victory';
 import { sum, max, min, average, countColumn, getLegend } from "../hook/index";
 import { something } from '../hook/bar';
+
+
 const BarChart = (props) => {
     const { xAxis, yAxis, data, legend } = props;
 
@@ -54,7 +56,7 @@ const BarChart = (props) => {
                 <VictoryGroup offset={barWidth}
                     colorScale={"qualitative"}
                 >
-                    {(!legend ? 
+                    {(!legend ?
                         yAxis.map((y, i) => (
                             <VictoryBar
                                 key={i}
@@ -62,9 +64,33 @@ const BarChart = (props) => {
                                 x={d => d[xAxis]}
                                 y={d => d[y]}
                                 barWidth={barWidth}
-                            >
-                            </VictoryBar>
-                        )) 
+                                style={{
+                                    labels: { fontSize: 8 }
+                                }}
+                                labels={
+                                    ({ datum }) => {
+                                        let result = '\n';
+                                        for (let key in datum) {
+                                            if (key === xAxis || yAxis.includes(key)) {
+                                                result += `${key}: ${datum[key]}\n`;
+                                            }
+
+                                        }
+                                        return result;
+                                    }}
+                                labelComponent={
+                                    <VictoryTooltip
+                                        flyoutStyle={{
+                                            stroke: 'grey',
+                                            fill: 'white',
+                                            shadowColor: 'grey',
+                                            shadowWidth: 5
+                                        }}
+                                    />
+                                }
+                            />
+
+                        ))
                         :
                         legendBar.map((legend, i) => {
                             const dataByLegend = newData[legend];
@@ -73,11 +99,35 @@ const BarChart = (props) => {
                                 <VictoryBar
                                     key={i}
                                     data={dataByLegend}
-                                    x={d => {return d[xAxis] }}
+                                    x={d => { return d[xAxis] }}
                                     y={d => d[yAxis[0]]}
                                     barWidth={barWidth}
-                                >
-                                </VictoryBar>
+                                    style={{
+                                        labels: { fontSize: 8 }
+                                    }}
+                                    labels={
+                                        ({ datum }) => {
+                                            let result = '\n';
+                                            for (let key in datum) {
+                                                if (key === xAxis || yAxis.includes(key)) {
+                                                    result += `${key}: ${datum[key]}\n`;
+                                                }
+
+                                            }
+                                            return result;
+                                        }}
+                                    labelComponent={
+                                        <VictoryTooltip
+                                            flyoutStyle={{
+                                                stroke: 'grey',
+                                                fill: 'white',
+                                                shadowColor: 'grey',
+                                                shadowWidth: 5
+                                            }}
+                                        />
+                                    }
+                                />
+
                             )
                         }))}
 
@@ -119,7 +169,7 @@ const BarChart = (props) => {
                         return t;
                     }}
                     crossAxis
-                    label={"Frequency"}
+                    label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
                     style={{
                         axis: { stroke: "#756f6a" },
                         axisLabel: { fontSize: 14, alignItems: 'left', padding: 35 },
