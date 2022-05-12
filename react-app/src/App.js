@@ -13,7 +13,6 @@ import Table from './screens/Table/Table';
 
 
 function App() {
-  console.log('render app')
   const [data, setData] = useState();
   const [columns, setColumns] = useState();
   const [types , setTypes] = useState();
