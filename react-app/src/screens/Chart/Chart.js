@@ -5,12 +5,20 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { TiDeleteOutline } from 'react-icons/ti';
 import './chart.css';
 import ChartItems from './ChartItems/ChartItems';
-
+import BarChart from '../Charts/BarChart';
+import PieChart from '../Charts/PieChart';
 const Chart = (props) => {
+    const {listObjData} = props;
     const [xAxis, setXAxis] = useState([]);
     const [yAxis, setYAxis] = useState([]);
     const [legend, setLegend] = useState([]);
-    
+    const [typeChart, setTypeChart] = useState('');
+   
+    const handlerTypeChart = (typeChart)=> {
+      setTypeChart(typeChart);
+      console.log(typeChart)
+    }
+
     const handlerXAxis = (id) => {
       if(xAxis.includes(id) === true) {
         return;
@@ -141,7 +149,7 @@ const Chart = (props) => {
                 </div>
                 {/* ======== Name of chart and Axis ========= */}
                 <div className='chart_names'>
-                  <ChartItems/>
+                  <ChartItems getTypeChart = {handlerTypeChart}/>
                   {/* ===== Axis ====== */}
                   <div className='chart_axis'>
                       <div className='axis_container'>
@@ -232,7 +240,9 @@ const Chart = (props) => {
               </div>
               {/* ====== right ========= */}
             <div className='chart_draw'>
-                  right
+           
+            {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
+            {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
             </div>
         </div>
     </>

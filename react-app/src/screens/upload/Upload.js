@@ -10,14 +10,11 @@ const Upload = (props) => {
 
   let history = useNavigate();
 
-  const [file, setFile] = useState();
+  const [file, setFile] = useState('');
   const [dataSource, setDataSource] = useState([]);
   const [columns, setColumns] = useState([]);
   const [query, setQuery] = useState(0);
-  const [onModal, setOnModal] = useState(false);
 
-  console.log(dataSource);
-  console.log(columns)
 
   const handleOnChange = (e) => {
       setFile(e.target.files[0]);

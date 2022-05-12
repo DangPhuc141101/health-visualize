@@ -130,3 +130,8 @@
     font-size: 19px;
     cursor: pointer;
 }
+
+.chart_draw {
+    width: 100%;
+    height: 100vh;
+}

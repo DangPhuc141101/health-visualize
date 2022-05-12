@@ -9,13 +9,28 @@ import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLi
 import {TiDeleteOutline} from 'react-icons/ti';
 import {AiOutlineDotChart} from 'react-icons/ai'
 
-const ChartItems = () => {
-    const [isActive, setIsActive] = useState(false);
+const ChartItems = (props) => {
+    const [isActive, setIsActive] = useState(true);
 
     const ToggleClass = () => {
         setIsActive(!isActive);
     };
 
+    const clickPie = () => {
+       props.getTypeChart('pie');
+    }
+    const clickBar = () => {
+        props.getTypeChart('bar');
+     }
+     const clickStack = () => {
+        props.getTypeChart('stack');
+     }
+     const clickLine = () => {
+        props.getTypeChart('line');
+     }
+     const clickScatter = () => {
+        props.getTypeChart('scatter');
+     }
   return (
     <>
         <div className='chartItems_container'>
@@ -47,13 +62,13 @@ const ChartItems = () => {
                             <RiBarChartGroupedFill/>
                             <span>Grouped Col</span>
                         </div>
-                        <div className='item'>
+                        <div className='item' onClick={clickStack}>
                             <MdOutlineStackedBarChart/>
                             <span>Stacked Col</span>
                         </div>
-                        <div className='item'>
+                        <div className='item' onClick={clickBar}>
                             <RiBarChartHorizontalFill/>
-                            <span>Bar Chart</span>
+                            <span >Bar Chart</span>
                         </div>
                         <div className='item'>
                             <RiBarChartHorizontalLine/>
@@ -63,15 +78,15 @@ const ChartItems = () => {
                             <RiBarChartHorizontalLine/>
                             <span>Stacked Chart</span>
                         </div>
-                        <div className='item'>
+                        <div className='item' onClick={clickScatter}>
                             <AiOutlineDotChart/>
                             <span>Scatter</span>
                         </div>
-                        <div className='item'>
+                        <div className='item' onClick={clickPie}>
                             <FcPieChart/>
                             <span>Pie Chart</span>
                         </div>
-                        <div className='item'>
+                        <div className='item' onClick={clickLine}>
                             <FcLineChart/>
                             <span>Line Chart</span>
                         </div>

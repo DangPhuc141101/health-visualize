@@ -13,13 +13,11 @@ import Table from './screens/Table/Table';
 
 
 function App() {
-  const [data, setData] = useState();
-  const [columns, setColumns] = useState();
-  const [types , setTypes] = useState();
-  const [listObject, setListObject] = useState();
-  const [inputName, setInputName] = useState();
-  
-  console.log(data)
+  const [data, setData] = useState('');
+  const [columns, setColumns] = useState([]);
+  const [types , setTypes] = useState([]);
+  const [listObject, setListObject] = useState([]);
+  const [inputName, setInputName] = useState('');
 
   const saveListObject = (listObjectData) => {
     setListObject(listObjectData)
@@ -49,10 +47,8 @@ function App() {
             <Routes>
               <Route path='/' element={<HomeScreen/>} exact/>
               <Route path='/upload' element={<Upload onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>}/>
-              <Route path='/chart' element={<Chart data={data} columns={columns} types={types} listObjData={listObject} />}/>
+              {(data ? <Route path='/chart' element={<Chart data={data} columns={columns} types={types} listObjData={listObject} />}/> : null)}
               <Route path='/table' element={<Table data={data} columns={columns}/>}/>
-              {/* <ImportFile onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>
-              <Visualize data={data} columns={columns} types={types} listObjData={listObject}/> */}
             </Routes>
           </div>
         </main>
