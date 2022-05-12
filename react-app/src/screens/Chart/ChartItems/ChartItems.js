@@ -13,7 +13,7 @@ const ChartItems = () => {
     const [isActive, setIsActive] = useState(false);
 
     const ToggleClass = () => {
-        setIsActive(!isActive); 
+        setIsActive(!isActive);
     };
 
   return (

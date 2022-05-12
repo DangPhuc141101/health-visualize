@@ -105,8 +105,8 @@ const Chart = (props) => {
     setLegend(data);
   }
 
-  const handleClickDown = () => {
-    console.log('check')
+  const handleClickDown = (e) => {
+    console.log('check', e)
   }
 
 
@@ -162,7 +162,7 @@ const Chart = (props) => {
                                               {e}
                                             </div>
                                             <div className='column_icons'>
-                                              <RiArrowDropDownLine onClick={handleClickDown}/>
+                                              <RiArrowDropDownLine onClick={() => handleClickDown(e)}/>
                                               <TiDeleteOutline onClick={() => handleDeletedXAxis(e)}/>
                                             </div>
                                           </li>
