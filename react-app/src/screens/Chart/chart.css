@@ -1,9 +1,8 @@
 
-
 .chart_container{
     display: flex;
     justify-content: space-between;
-    height: 85vh;
+    height: 82vh;
     background-color: #f9f9f9;
 }
 
@@ -24,8 +23,6 @@
 
 .chart_columns .chart_datasets {
     display: block;
-    height: 278px;
-    border-bottom: 1px solid #1D81A2;
     overflow-y: scroll;
     /* position: relative; */
 }
@@ -86,8 +83,10 @@
     text-align: center;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
     padding: 5px;
-
+    height: 56px;
+    margin: 5px;
 }
 
 .chart_names .items_container .item span{
@@ -97,11 +96,37 @@
 /* ========= Axis ============= */
 .chart_axis{
     display: block;
-    height: 278px;
-    /* border-bottom: 1px solid #1D81A2; */
+    height: 100%;
+    overflow: hidden;
+    /* overflow-y: scroll; */
+}
+
+.chart_axis .x_Axis,
+.chart_axis .y_Axis,
+.chart_axis .legend {
+    display: block;
+    height: 123px;
     overflow-y: scroll;
 }
 
-/* .chart_axis .axis_container {
-    overflow-y: scroll;
-} */
+.axis_container .column_items {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.axis_container .column_items .column_name {
+    White-space: nowrap;
+    Overflow: hidden;
+    Text-overflow: ellipsis;
+    width: 131px;
+}
+
+.axis_container ul {
+    padding-left: 1rem;
+}
+
+.axis_container .column_icons {
+    font-size: 19px;
+    cursor: pointer;
+}
