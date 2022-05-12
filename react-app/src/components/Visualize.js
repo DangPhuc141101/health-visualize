@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
+
 import PieChart from './PieChart';
+
 
 const Visualize = (props) => {
     const [typeChart, setTypeChart] = useState();
@@ -45,8 +47,10 @@ const Visualize = (props) => {
         <Row  style={{ height: 'calc(100vh - 56px)' }}> 
             <Col className='border-right border-dark h-100' xs={10} md={9} >
                 {/* <BarChart data={props.data} X={xAxis} Y={yAxis} color={color} size={size} width={'500px'} height={'100vh'}></BarChart> */}
+
                 {typeChart === "bar" && props.listObjData && xAxis && yAxis.length > 0? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData} legend={legend}></BarChart> : (null)}
                 {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
+
             </Col>
             
             <Col>

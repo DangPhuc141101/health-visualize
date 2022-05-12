@@ -32,6 +32,7 @@ const BarChart = (props) => {
     }
 
     return (
+
         <>
             <VictoryChart
                 responsive={false}

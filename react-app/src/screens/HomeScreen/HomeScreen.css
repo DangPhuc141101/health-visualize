@@ -1,0 +1,21 @@
+.homeScreen_container {
+    display: block;
+    height: 75vh;
+    text-align: center;
+    padding: 30px;
+}
+
+.homeScreen_container .homeScreen_title {
+    font-weight: bold;
+}
+
+.homeScreen_container .homeScreen_option {
+    display: flex;
+    flex-direction: column;
+    /* text-align: left; */
+}
+
+.homeScreen_container .homeScreen_option h7 {
+    font-weight: bold;
+    font-size: 19px;
+}

@@ -1,0 +1,107 @@
+
+
+.chart_container{
+    display: flex;
+    justify-content: space-between;
+    height: 85vh;
+    background-color: #f9f9f9;
+}
+
+.chart_container .chart_title {
+    display: flex;
+}
+
+.chart_title .chart_columns,
+.chart_title .chart_names
+{
+    display: block;
+    width: 228px;
+    height: 555px;
+    border: 2px solid #1D81A2;
+    border-radius: 5px;
+    margin: 0 3px;
+}
+
+.chart_columns .chart_datasets {
+    display: block;
+    height: 278px;
+    border-bottom: 1px solid #1D81A2;
+    overflow-y: scroll;
+    /* position: relative; */
+}
+
+/* .dataset_list .react-draggable {
+    display: block;
+    position: absolute;
+} */
+
+.chart_columns .chart_datasets {
+    cursor: move;
+    user-select: none;
+    z-index: 1;
+}
+
+.chart_columns .chart_filters p{
+    padding: 4px 0 4px 10px;
+}
+
+.chart_filters .dropdown {
+    display: block;
+    text-align: center;
+}
+
+.chart_filters .dropdown-toggle {
+    padding: 6px 68px;
+}
+
+.chart_filters .dropdown-menu {
+    width: 184px;
+}
+
+.chart_filters .list-group {
+    display: block;
+    text-align: center;
+    margin:  0 auto;
+    width: 210px;
+    border: 1px solid #1D81A2;
+}
+
+/* .chart_filters .filter_form {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+} */
+
+.chart_names .items_container {
+    display: grid;
+    height: 278px;
+    border-bottom: 1px solid #1D81A2;
+    font-size: 40px;
+    grid-template-columns: 72px 77px 80px;
+    grid-template-rows: 50px 50px;
+}
+
+.chart_items .items_container .item {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+
+}
+
+.chart_names .items_container .item span{
+    font-size: 10px;
+}
+
+/* ========= Axis ============= */
+.chart_axis{
+    display: block;
+    height: 278px;
+    /* border-bottom: 1px solid #1D81A2; */
+    overflow-y: scroll;
+}
+
+/* .chart_axis .axis_container {
+    overflow-y: scroll;
+} */
