@@ -48,14 +48,6 @@
     background-color: #f9f9f9fe;
 }
 
-.chartItems_container .items_container::before {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: black;
-}
-
 .chartItems_container .items_container .item {
     display: flex;
     flex-direction: column;

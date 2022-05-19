@@ -10,7 +10,7 @@ const HomeScreen = () => {
           <h3>Getting Started</h3>
         </div>
         <div className='homeScreen_option'>
-            <h7>Please upload you file to draw chart</h7>
+            <h7>Please upload your file to draw chart</h7>
             <Link to='/upload'>
                 Upload File CSV to Create Dashboard
             </Link>
