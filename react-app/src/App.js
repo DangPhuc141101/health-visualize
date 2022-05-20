@@ -51,6 +51,8 @@ function App() {
             </Routes>
           </div>
         </main>
+
+      {/* <Footer/> */}
     </Router>
   );
 }

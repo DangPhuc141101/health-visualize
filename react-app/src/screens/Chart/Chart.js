@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import BarChart from '../Charts/BarChart';
 import PieChart from '../Charts/PieChart';
+
 import './chart.css';
 import ChartItems from './ChartItems/ChartItems';
 import DataColumns from './dataColumns/DataColumns';
@@ -9,6 +10,12 @@ import Legend from './legend/Legend';
 import Xaxis from './xAxis/Xaxis';
 import Yaxis from './yAxis/Yaxis';
 
+
+
+import AreaChart from '../Charts/AreaChart';
+import ColumnChart from '../Charts/ColumnChart';
+
+import LineChart from '../Charts/LineChart';
 
 const Chart = (props) => {
     const {listObjData} = props;
@@ -163,11 +170,24 @@ const Chart = (props) => {
               </div>
               {/* ====== right ========= */}
             <div className='chart_draw'>
-            {console.log(props.columns)}
-            {console.log(props.listObjData)}
-              {typeChart === 'table' && props.listObjData ? <Table columns={props.columns} data={props.data}/> : (null)}
-              {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
-              {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
+    
+            {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
+            {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ColumnChart> : (null)}
+            {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
+            {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0? <AreaChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></AreaChart> : (null)}
+            {typeChart === "line" &&
+                listObjData &&
+                xAxis &&
+                yAxis.length > 0 ? (
+                    <LineChart
+                        yAxis={yAxis}
+                        xAxis={xAxis[0]}
+                        data={props.listObjData}
+                        legend={legend[0]}
+                    ></LineChart>
+                ) : (
+                    (null)
+                )}
             </div>
         </div>
     </>
