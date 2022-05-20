@@ -4,7 +4,6 @@ import './App.css';
 import Header from './NavBarScreen/Header/Header';
 import ImportFile from './components/ImportFile';
 import Visualize from './components/Visualize';
-import Footer from './NavBarScreen/Footer/Footer';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import { Container } from 'react-bootstrap';
 import Upload from './screens/upload/Upload';
@@ -52,6 +51,7 @@ function App() {
             </Routes>
           </div>
         </main>
+
       {/* <Footer/> */}
     </Router>
   );

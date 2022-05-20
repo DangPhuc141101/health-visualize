@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { InputGroup, ListGroup } from 'react-bootstrap';
-import { IoMdArrowDropdownCircle } from 'react-icons/io';
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import { TiDeleteOutline } from 'react-icons/ti';
-import './chart.css';
-import ChartItems from './ChartItems/ChartItems';
+import { Table } from 'react-bootstrap';
 import BarChart from '../Charts/BarChart';
 import PieChart from '../Charts/PieChart';
+
+import './chart.css';
+import ChartItems from './ChartItems/ChartItems';
+import DataColumns from './dataColumns/DataColumns';
+import Legend from './legend/Legend';
+import Xaxis from './xAxis/Xaxis';
+import Yaxis from './yAxis/Yaxis';
+
+
+
 import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
 
 import LineChart from '../Charts/LineChart';
+
 const Chart = (props) => {
     const {listObjData} = props;
     const [xAxis, setXAxis] = useState([]);
     const [yAxis, setYAxis] = useState([]);
     const [legend, setLegend] = useState([]);
     const [typeChart, setTypeChart] = useState('');
-   
+    
     const handlerTypeChart = (typeChart)=> {
       setTypeChart(typeChart);
       console.log(typeChart)
@@ -116,12 +122,7 @@ const Chart = (props) => {
     const data = legend.filter((item) => item !== e)
     setLegend(data);
   }
-
-  const handleClickDown = (e) => {
-    console.log('check', e)
-  }
-
-
+  
   return (
     <>
         <div className='chart_container'>
@@ -130,26 +131,11 @@ const Chart = (props) => {
                {/* ======= Name of dataset and filter ====== */}
                 <div className='chart_columns'>
                   {/* Name of dataset */}
-                  <div className='chart_datasets'>
-                    <div className='dataset_title'>
-                       <IoMdArrowDropdownCircle/>
-                       <span>Name of datasets</span>
-                    </div>
-                    <div className='dataset_list'>
-                        {props.columns.map((column) => (
-                          <div 
-                            draggable='true' 
-                            id='src_copy' 
-                            onDragStart={(e) => dragstart_handler(e,column)}
-                            onDragEnd={(e) => dragend_handler(e)}>
-                              <ListGroup>
-                                <ListGroup.Item>{column}</ListGroup.Item>
-                              </ListGroup>
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                  
+                  <DataColumns 
+                    columns={props.columns}
+                    dragstart_handler = {dragstart_handler}
+                    dragend_handler = {dragend_handler}
+                  />
                 </div>
                 {/* ======== Name of chart and Axis ========= */}
                 <div className='chart_names'>
@@ -158,93 +144,33 @@ const Chart = (props) => {
                   <div className='chart_axis'>
                       <div className='axis_container'>
                             {/* === X === */}
-                            <InputGroup.Text id="basic-addon1">X-Axis</InputGroup.Text>
-                            <div 
-                              id='dest_copy' 
-                              onDrop={(e) => drop_handler_xAxis(e)} 
-                              onDragOver={(e) => dragover_handler(e)}
-                              className='x_Axis'
-                            >
-                              {xAxis != 0 ? 
-                                      <div>
-                                      {xAxis.map((e, index) =>
-                                        <ul>
-                                          <li className='column_items'>
-                                            <div className='column_name'>
-                                              {e}
-                                            </div>
-                                            <div className='column_icons'>
-                                              <RiArrowDropDownLine onClick={() => handleClickDown(e)}/>
-                                              <TiDeleteOutline onClick={() => handleDeletedXAxis(e)}/>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      )}
-                                      </div> 
-                                      : 
-                                      <p>Drop here</p>}
-                            </div>
+                            <Xaxis 
+                              xAxis={xAxis} 
+                              drop_handler_xAxis={drop_handler_xAxis} 
+                              dragover_handler={dragover_handler}
+                              handleDeletedXAxis = {handleDeletedXAxis}
+                            />
                             {/* === Y === */}
-                            <InputGroup.Text id="basic-addon2">Y-Axis</InputGroup.Text>
-                            <div 
-                              id='dest_copy' 
-                              onDrop={(e) => drop_handler_YAxis(e)} 
-                              onDragOver={(e) => dragover_handler(e)}
-                              className='y_Axis'
-                            >
-                              {yAxis != 0 ? 
-                                      <div>
-                                      {yAxis.map((e) =>
-                                        <ul>
-                                          <li className='column_items'>
-                                            <div className='column_name'>
-                                              {e}
-                                            </div>
-                                            <div>
-                                              <RiArrowDropDownLine/>
-                                              <TiDeleteOutline onClick={() => handleDeletedYAxis(e)}/>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      )}
-                                      </div> 
-                                      : 
-                                      <p>Drop here</p>}
-                            </div>
+                            <Yaxis
+                              yAxis={yAxis} 
+                              drop_handler_YAxis={drop_handler_YAxis} 
+                              dragover_handler={dragover_handler}
+                              handleDeletedYAxis = {handleDeletedYAxis}
+                            />
                             {/* === Legend === */}
-                            <InputGroup.Text id="basic-addon3">Legend</InputGroup.Text>
-                            <div 
-                              id='dest_copy' 
-                              onDrop={(e) => drop_handler_legend(e)} 
-                              onDragOver={(e) => dragover_handler(e)}
-                              className='legend'
-                            >
-                              {legend != 0 ? 
-                                      <div>
-                                      {legend.map((e) =>
-                                        <ul>
-                                          <li className='column_items'>
-                                            <div className='column_name'>
-                                              {e}
-                                            </div>
-                                            <div>
-                                              <RiArrowDropDownLine/>
-                                              <TiDeleteOutline onClick={() => handleDeletedLegend(e)}/>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      )}
-                                      </div> 
-                                      : 
-                                      <p>Drop here</p>}
-                            </div>
+                            <Legend
+                              legend={legend} 
+                              drop_handler_legend={drop_handler_legend} 
+                              dragover_handler={dragover_handler}
+                              handleDeletedLegend = {handleDeletedLegend}
+                            />
                       </div>
                   </div>
                 </div>
               </div>
               {/* ====== right ========= */}
             <div className='chart_draw'>
-           
+    
             {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
             {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ColumnChart> : (null)}
             {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}

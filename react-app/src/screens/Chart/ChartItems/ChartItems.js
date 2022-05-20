@@ -1,50 +1,81 @@
-import React, {useState} from 'react';
-import './chartItems.css'
-import { BsBarChart } from 'react-icons/bs';
+import React, { useEffect, useRef, useState } from 'react';
+import { AiOutlineDotChart } from 'react-icons/ai';
 import { BiTable } from 'react-icons/bi';
+import { BsBarChart } from 'react-icons/bs';
 import { FcLineChart, FcPieChart } from 'react-icons/fc';
-import { IoMdArrowDropdownCircle } from 'react-icons/io';
 import { MdOutlineStackedBarChart } from 'react-icons/md';
 import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
-import {TiDeleteOutline} from 'react-icons/ti';
-import {AiOutlineDotChart} from 'react-icons/ai'
+import './chartItems.css';
 
 const ChartItems = (props) => {
     const [isActive, setIsActive] = useState(false);
 
+    const chartMenu = useRef();
+
+    useEffect(() => {
+        let handler = (e) => {
+            if(!chartMenu.current.contains(e.target)) {
+                setIsActive(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    })
+
     const ToggleClass = () => {
         setIsActive(!isActive);
     };
+
+    const clickTable = () => {
+        props.getTypeChart('table')
+    }
+
     const clickColumn = () => {
         props.getTypeChart('column');
      }
+
     const clickPie = () => {
        props.getTypeChart('pie');
+       setIsActive(!isActive);
     }
     const clickBar = () => {
         props.getTypeChart('bar');
+        setIsActive(!isActive);
      }
      const clickStack = () => {
-        props.getTypeChart('area');
+        props.getTypeChart('stack');
+        setIsActive(!isActive);
+
      }
      const clickLine = () => {
         props.getTypeChart('line');
+        setIsActive(!isActive);
      }
      const clickScatter = () => {
         props.getTypeChart('scatter');
+        setIsActive(!isActive);
      }
   return (
     <>
         <div className='chartItems_container'>
             {/*======= Chart table ========= */}
             <div className='chart_table'>
-                <button type="button" class="btn btn-primary" id="liveToastBtn">
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    id="liveToastBtn"
+                    onClick={clickTable}
+                >
                     <BiTable/>
                     <p>Table</p>
                 </button>
             </div>
             {/*======= Chart table ========= */}
-            <div className='charts'>
+            <div className='charts' ref={chartMenu}>
                 <button 
                     type="button" 
                     class="btn btn-primary" 
@@ -54,7 +85,7 @@ const ChartItems = (props) => {
                     <BsBarChart/>
                     <p>Chart</p>
                 </button>
-                <div className={isActive ? "hidden" : 'active'}>
+                <div  className={isActive ? "hidden" : 'active'}>
                     <div className='items_container'>
                         <div className='item' onClick={clickColumn}>
                             <BsBarChart/>

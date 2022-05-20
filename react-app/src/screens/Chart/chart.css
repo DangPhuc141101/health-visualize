@@ -15,7 +15,7 @@
 {
     display: block;
     width: 228px;
-    height: 555px;
+    height: 580px;
     border: 2px solid #1D81A2;
     border-radius: 5px;
     margin: 0 3px;
@@ -127,11 +127,21 @@
 }
 
 .axis_container .column_icons {
+    display: flex;
     font-size: 19px;
     cursor: pointer;
 }
 
 .chart_draw {
     width: 100%;
-    height: 600px;
+    height: 89vh;
+}
+
+/* ========= column features =========== */
+.column_icons .active {
+    display: none;
+}
+
+.column_icons .hidden {
+    display: block;
 }
