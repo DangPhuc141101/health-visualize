@@ -1,7 +1,5 @@
 import React from "react";
-
 import { sum, max, min, average, countColumn, getLegend } from "../../hook/index"
-
 import { Container } from "react-bootstrap";
 import {
     VictoryChart,
@@ -12,13 +10,11 @@ import {
     VictoryLine,
     VictoryLegend,
     VictoryTheme,
-
 } from "victory";
 import { useState, useEffect } from "react";
 const LineChart = (props) => {
     const [stateChart, setStateC] = useState({
         xAxisCategory: undefined,
-        xAxisCategory:undefined,
         legend: {},
         annotations: [],
     });
@@ -46,9 +42,7 @@ const LineChart = (props) => {
 
     useEffect(() => {
 
-
         console.log('props.legend', props.legend, '----');
-
         if (!(!!props.legend)) {
             console.log("legend is not choosen");
         } else {
@@ -98,32 +92,57 @@ const LineChart = (props) => {
     }, [props.yAxis, props.legend]);
 
 
-
     const width = 800;
     const height = 500;
 
     return (
         <>
-            {props.legend == undefined || props.legend == "none" ? (
-                <VictoryChart
-
+            <VictoryChart
                 domainPadding={10}
-                height={width}
-                width={height}
+                height={height}
+                width={width}
                 containerComponent={<VictoryVoronoiContainer />}
+                colorScale={"qualitative"}
+                theme={VictoryTheme.material}
             >
+                <VictoryLegend x={125} y={10}
+                    centerTitle
+                    orientation="horizontal"
+                    colorScale="qualitative"
+
+                    itemsPerRow={10}
+                    style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 8 } }}
+                    data={stateChart.annotations}
+                />
+
                 <VictoryGroup colorScale={"qualitative"} offset={2}>
                     {/* Change here */}
-                { props.yAxis.map((y) => (
-                            <VictoryLine
-                                data={sum(props.data, xAxis, y)}
-                                x={(d) => d[props.xAxis]}
-                                y={(d) => d[y]}
-                                barWidth={2}
-                            />
-                        ))}
-                       
-    
+                    {(!legend || legend === 'none') ? props.yAxis.map((y) => (
+                        <VictoryLine
+                            data={sum(props.data, xAxis, y)}
+                            x={(d) => d[props.xAxis]}
+                            y={(d) => d[y]}
+                            barWidth={2}
+                        />
+                    ))
+                        :
+                        (Object.values(stateChart.legend) || []).map((el) => {
+                            return (
+                                <VictoryLine
+                                    categories={{
+                                        x: stateChart.xAxisCategory || [],
+                                    }}
+                                    data={el}
+                                    x={(d) => {
+                                        return `${d["Year"]}`;
+                                    }}
+                                    y={(d) => d[`${props.yAxis[0]}`]}
+                                    barWidth={2}
+                                />
+                            );
+                        })
+                    }
+
                 </VictoryGroup>
                 <VictoryAxis
                     crossAxis
@@ -168,84 +187,9 @@ const LineChart = (props) => {
                         tickLabels: { fontSize: 8, padding: 5 },
                     }}
                 />
-               
             </VictoryChart>
-
-            ) : (
-                <VictoryChart
-                    domainPadding={10}
-                    height={height}
-                    width={width}
-                    containerComponent={<VictoryVoronoiContainer />}
-                    colorScale={"qualitative"}
-                    theme={VictoryTheme.material}
-                >
-                    <VictoryLegend x={125} y={10}
-                        centerTitle
-                        orientation="horizontal"
-                        colorScale="qualitative"
-
-                        itemsPerRow={10}
-                        style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 8 } }}
-                        data={stateChart.annotations}
-                    />
-
-                    <VictoryGroup colorScale={"qualitative"} offset={2}>
-                        {props.yAxis.length ? (
-                            (Object.values(stateChart.legend) || []).map((el) => {
-                                // console.log("el", el);
-                                return (
-                                    <VictoryLine
-                                        categories={{
-                                            x: stateChart.xAxisCategory || [],
-                                        }}
-                                        data={el}
-                                        x={(d) => {
-                                            return `${d["Year"]}`;
-                                        }}
-                                        y={(d) => d[`${props.yAxis[0]}`]}
-                                        barWidth={2}
-                                    />
-                                );
-                            })
-                        ) : (
-                            <p>nothing here</p>
-                        )}
-                    </VictoryGroup>
-                    <VictoryAxis
-                        dependentAxis
-                        tickFormat={(t) => {
-                            if (t % 1000000 === 0)
-                                return `${t / 1000000}M`;
-
-                            if (t % 1000 === 0)
-                                return `${t / 1000}K`;
-                            return t;
-                        }}
-                        crossAxis
-                        label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
-                        style={{
-
-                            axisLabel: { fontSize: 14, alignItems: 'left', padding: 30 },
-                            tickLabels: { fontSize: 8, padding: 5 },
-
-                        }}
-                    />
-                    <VictoryAxis
-                        crossAxis
-                        label={props.xAxis}
-                        style={{
-                            tickLabels: { fontSize: 8, padding: 5 },
-                            axisLabel: { fontSize: 14, padding: 30 }
-                        }}
-                    />
-
-                </VictoryChart>
-            )}
         </>
-
-    );
+    )
 };
 
 export default LineChart;
-
