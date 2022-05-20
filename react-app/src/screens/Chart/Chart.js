@@ -9,6 +9,7 @@ import BarChart from '../Charts/BarChart';
 import PieChart from '../Charts/PieChart';
 import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
+
 import LineChart from '../Charts/LineChart';
 const Chart = (props) => {
     const {listObjData} = props;

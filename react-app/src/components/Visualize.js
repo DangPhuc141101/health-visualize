@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import BarChart from './BarChart';
 
 import PieChart from './PieChart';
+import LineChart from './LineChart/LineChart';
 
 
 const Visualize = (props) => {
@@ -50,7 +51,19 @@ const Visualize = (props) => {
 
                 {typeChart === "bar" && props.listObjData && xAxis && yAxis.length > 0? <BarChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData} legend={legend}></BarChart> : (null)}
                 {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
-
+                {typeChart === "line" &&
+                props.listObjData &&
+                xAxis &&
+                yAxis.length > 0 ? (
+                    <LineChart
+                        yAxis={yAxis}
+                        xAxis={xAxis}
+                        data={props.listObjData}
+                        legend={legend}
+                    ></LineChart>
+                ) : (
+                    <p></p>
+                )}
             </Col>
             
             <Col>
