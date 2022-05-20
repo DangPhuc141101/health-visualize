@@ -10,12 +10,14 @@ import {TiDeleteOutline} from 'react-icons/ti';
 import {AiOutlineDotChart} from 'react-icons/ai'
 
 const ChartItems = (props) => {
-    const [isActive, setIsActive] = useState(true);
+    const [isActive, setIsActive] = useState(false);
 
     const ToggleClass = () => {
         setIsActive(!isActive);
     };
-
+    const clickColumn = () => {
+        props.getTypeChart('column');
+     }
     const clickPie = () => {
        props.getTypeChart('pie');
     }
@@ -23,7 +25,7 @@ const ChartItems = (props) => {
         props.getTypeChart('bar');
      }
      const clickStack = () => {
-        props.getTypeChart('stack');
+        props.getTypeChart('area');
      }
      const clickLine = () => {
         props.getTypeChart('line');
@@ -54,7 +56,7 @@ const ChartItems = (props) => {
                 </button>
                 <div className={isActive ? "hidden" : 'active'}>
                     <div className='items_container'>
-                        <div className='item'>
+                        <div className='item' onClick={clickColumn}>
                             <BsBarChart/>
                             <span>Column Chart</span>
                         </div>

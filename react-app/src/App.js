@@ -52,7 +52,7 @@ function App() {
             </Routes>
           </div>
         </main>
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
   );
 }
