@@ -39,6 +39,7 @@ export const sum = (data, x, y) => {
         resObj[y] = +(Math.round(obj[key] + "e+2")  + "e-2");
         res.push(resObj);
     }
+    res.sort((a, b) => b[y] - a[y]);
     return res;
 }
 
