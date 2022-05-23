@@ -164,7 +164,7 @@ const LineChart = (props) => {
                                         }}
                                         data={el}
                                         x={(d) => {
-                                            return `${d["Year"]}`;
+                                            return `${d[`${props.xAxis}`]}`;
                                         }}
                                         y={(d) => d[`${props.yAxis[0]}`]}
                                         barWidth={2}
