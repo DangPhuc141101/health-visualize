@@ -1,38 +1,25 @@
-import React, {useState} from 'react'
-import './features.css'
+import { Radio } from 'antd';
+import 'antd/dist/antd.css';
+import React, {memo} from 'react';
+import './features.css';
 
 const Features = (props) => {
+  
+  const onChange = (e, id) => {
+    props.parentCallBack(e.target.value, e.target.id)
+  };
+
 
   return (
     <div className='features_container'>
-      <div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Sum"/>
-          <label class="form-check-label" for="exampleRadios1">
-            Sum
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Average"/>
-          <label class="form-check-label" for="exampleRadios2">
-            Average
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Min"/>
-          <label class="form-check-label" for="exampleRadios3">
-            Min
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Max"/>
-          <label class="form-check-label" for="exampleRadios3">
-            Max
-          </label>
-        </div>
-      </div>
+      <Radio.Group onChange={onChange} >
+        <Radio id='1' value='Sum'>Sum</Radio>
+        <Radio id='2' value='Average'>Average</Radio>
+        <Radio id='3' value='Min'>Min</Radio>
+        <Radio id='4' value='Max'>Max</Radio>
+      </Radio.Group>
     </div>
   )
 }
 
-export default Features
+export default memo(Features)

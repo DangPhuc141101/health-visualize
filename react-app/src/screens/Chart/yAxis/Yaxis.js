@@ -6,6 +6,7 @@ import Features from '../../features/Features';
 
 const Yaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
+  const [checked, setChecked] = useState('Sum');
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -19,7 +20,7 @@ const Yaxis = (props) => {
 
     useEffect(() => {
         let handler = (e) => {
-            if(!chartMenu.current.contains(e.target)) {
+            if(!chartMenu.current.contains(e.target.value)) {
                 setIsActive(false)
             }
         }
@@ -30,6 +31,10 @@ const Yaxis = (props) => {
             document.removeEventListener("mousedown", handler);
         }
     })
+
+    const callbackFunction = (childData, id) => {
+      setChecked(childData)
+    }
 
   return (
     <div>
@@ -46,12 +51,12 @@ const Yaxis = (props) => {
                     <ul>
                     <li className='column_items'>
                         <div className='column_name'>
-                          {e}
+                          {checked ? `${checked} of ${e}` : {e}}
                         </div>
                         <div className='column_icons' ref={chartMenu}>
                           <RiArrowDropDownLine onClick={() => handleClickDown(e,index)}/>
                             <div className={isActive === index ? 'hidden' : 'active'}>
-                                <Features/>
+                                <Features parentCallBack = {callbackFunction}/>
                             </div>
                           <TiDeleteOutline onClick={() => props.handleDeletedYAxis(e)}/>
                         </div>

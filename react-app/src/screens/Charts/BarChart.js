@@ -60,11 +60,11 @@ const BarChart = (props) => {
                             <VictoryBar
                                 key={i}
                                 data={sum(data, xAxis, y)}
-                                x={d => d[xAxis]}
+                                x={d => d[xAxis]}   
                                 y={d => d[y]}
                                 barWidth={barWidth}
                                 style={{
-                                    labels: { fontSize: 8 }
+                                    labels: { fontSize: 8 , zIndex: -1}
                                 }}
                                 labels={
                                     ({ datum }) => {

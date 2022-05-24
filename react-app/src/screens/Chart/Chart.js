@@ -163,8 +163,6 @@ const Chart = (props) => {
               </div>
               {/* ====== right ========= */}
             <div className='chart_draw'>
-            {console.log(props.columns)}
-            {console.log(props.listObjData)}
               {typeChart === 'table' && props.listObjData ? <Table columns={props.columns} data={props.data}/> : (null)}
               {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
               {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}

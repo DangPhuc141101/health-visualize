@@ -6,6 +6,7 @@ import Features from '../../features/Features';
 
 const Xaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
+  const [checked, setChecked] = useState(' ');
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -19,7 +20,7 @@ const Xaxis = (props) => {
 
     useEffect(() => {
         let handler = (e) => {
-            if(!chartMenu.current.contains(e.target)) {
+            if(!chartMenu.current.contains(e.target.value)) {
                 setIsActive(false)
             }
         }
@@ -30,6 +31,17 @@ const Xaxis = (props) => {
             document.removeEventListener("mousedown", handler);
         }
     })
+
+  const callbackFunction = (childData, id) => {
+    setChecked(childData)
+  }
+
+  const handleDeleted = (e, index) => {
+    props.handleDeletedXAxis(e);
+    if(index === 0) {
+      setChecked(' ');
+    }
+  }
 
   return (
     <div>
@@ -42,23 +54,23 @@ const Xaxis = (props) => {
         >
         {props.xAxis != 0 ? 
                 <div>
-                  
                   {props.xAxis.map((e, index) =>
-                      <ul>
-                      <li className='column_items'>
-                          <div className='column_name'>
-                            {e}
-                          </div>
-                          <div className='column_icons' ref={chartMenu}>
-                            <RiArrowDropDownLine 
-                              onClick={() => handleClickDown(e,index)}
-                            />
-                            <div className={isActive === index ? 'hidden' : 'active'}>
-                              <Features/>
+                    <ul>
+                        <li className='column_items'>
+                            <div className='column_name'>
+                            {/* */}
+                              {checked ? `${checked} of ${e}` : {e}}
                             </div>
-                            <TiDeleteOutline onClick={() => props.handleDeletedXAxis(e)}/>
-                          </div>
-                      </li>
+                            <div className='column_icons' ref={chartMenu}>
+                              <RiArrowDropDownLine 
+                                onClick={() => handleClickDown(e,index)}
+                              />
+                              <div className={isActive === index ? 'hidden' : 'active'}>
+                                <Features parentCallBack = {callbackFunction}/>
+                              </div>
+                              <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
+                            </div>
+                        </li>
                       </ul>
                   )}
                 </div> 
