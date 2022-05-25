@@ -36,6 +36,13 @@ const Legend = (props) => {
       setChecked(childData)
     }
 
+    const handleDeleted = (e, index) => {
+      props.handleDeletedLegend(e);
+      if(index === 0) {
+        setChecked(' ');
+      }
+    }
+
   return (
     <div>
         <InputGroup.Text id="basic-addon3">Legend</InputGroup.Text>
@@ -58,7 +65,7 @@ const Legend = (props) => {
                           <div className={isActive === index ? 'hidden' : 'active'}>
                                 <Features parentCallBack = {callbackFunction}/>
                               </div>
-                          <TiDeleteOutline onClick={() => props.handleDeletedLegend(e)}/>
+                          <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                         </div>
                     </li>
                     </ul>

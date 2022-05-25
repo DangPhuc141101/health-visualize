@@ -43,6 +43,13 @@ const Xaxis = (props) => {
     }
   }
 
+  const handleChecked = (index) => {
+    if(index === 0 || index !== index-1) {
+      setChecked(' ')
+      console.log("heare")
+    } 
+  }
+
   return (
     <div>
         <InputGroup.Text id="basic-addon1">X-Axis</InputGroup.Text>
@@ -52,14 +59,14 @@ const Xaxis = (props) => {
         onDragOver={(e) => props.dragover_handler(e)}
         className='x_Axis'
         >
-        {props.xAxis != 0 ? 
+        {props.xAxis !== 0 ? 
                 <div>
                   {props.xAxis.map((e, index) =>
                     <ul>
+                    {console.log("In ul", index)}
                         <li className='column_items'>
-                            <div className='column_name'>
-                            {/* */}
-                              {checked ? `${checked} of ${e}` : {e}}
+                            <div className='column_name' onChange={(index) => handleChecked(index)}>
+                              {checked  ? `${checked} of ${e}` : {e}}
                             </div>
                             <div className='column_icons' ref={chartMenu}>
                               <RiArrowDropDownLine 

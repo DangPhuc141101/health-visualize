@@ -6,7 +6,7 @@ import Features from '../../features/Features';
 
 const Yaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
-  const [checked, setChecked] = useState('Sum');
+  const [checked, setChecked] = useState(' ');
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -36,6 +36,13 @@ const Yaxis = (props) => {
       setChecked(childData)
     }
 
+    const handleDeleted = (e, index) => {
+      props.handleDeletedYAxis(e);
+      if(index === 0) {
+        setChecked(' ');
+      }
+    }
+
   return (
     <div>
     <InputGroup.Text id="basic-addon2">Y-Axis</InputGroup.Text>
@@ -58,7 +65,7 @@ const Yaxis = (props) => {
                             <div className={isActive === index ? 'hidden' : 'active'}>
                                 <Features parentCallBack = {callbackFunction}/>
                             </div>
-                          <TiDeleteOutline onClick={() => props.handleDeletedYAxis(e)}/>
+                          <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                         </div>
                     </li>
                     </ul>
