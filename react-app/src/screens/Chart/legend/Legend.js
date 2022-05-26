@@ -6,6 +6,7 @@ import Features from '../../features/Features';
 
 const Legend = (props) => {
   const [isActive, setIsActive] = useState(-1);
+  const [nameRadio, setNameRadio] = useState([]);
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -19,7 +20,7 @@ const Legend = (props) => {
 
     useEffect(() => {
         let handler = (e) => {
-            if(!chartMenu.current.contains(e.target)) {
+            if(!chartMenu.current.contains(e.target.value)) {
                 setIsActive(false)
             }
         }
@@ -30,6 +31,18 @@ const Legend = (props) => {
             document.removeEventListener("mousedown", handler);
         }
     })
+
+    const callbackFunction = (childData, index) => {
+      setNameRadio(pre => {
+        const names = [...pre];
+        names[index] = childData + ' of '
+        return names;
+      });
+   }
+
+    const handleDeleted = (e, index) => {
+      props.handleDeletedLegend(e);
+    }
 
   return (
     <div>
@@ -43,17 +56,17 @@ const Legend = (props) => {
         {props.legend != 0 ? 
                 <div>
                 {props.legend.map((e, index) =>
-                    <ul>
+                    <ul key={index}>
                     <li className='column_items'>
                         <div className='column_name'>
-                          {e}
+                          {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                         </div>
                         <div className='column_icons' ref={chartMenu}>
                           <RiArrowDropDownLine onClick={() => handleClickDown(e,index)}/>
                           <div className={isActive === index ? 'hidden' : 'active'}>
-                                <Features/>
+                                <Features index = {index} parentCallBack = {callbackFunction}/>
                               </div>
-                          <TiDeleteOutline onClick={() => props.handleDeletedLegend(e)}/>
+                          <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                         </div>
                     </li>
                     </ul>

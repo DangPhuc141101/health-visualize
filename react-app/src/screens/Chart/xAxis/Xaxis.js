@@ -6,6 +6,7 @@ import Features from '../../features/Features';
 
 const Xaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
+  const [nameRadio, setNameRadio] = useState([]);
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -19,7 +20,7 @@ const Xaxis = (props) => {
 
     useEffect(() => {
         let handler = (e) => {
-            if(!chartMenu.current.contains(e.target)) {
+            if(!chartMenu.current.contains(e.target.value)) {
                 setIsActive(false)
             }
         }
@@ -31,6 +32,19 @@ const Xaxis = (props) => {
         }
     })
 
+  const callbackFunction = (childData, index) => {
+     setNameRadio(pre => {
+       const names = [...pre];
+       names[index] = childData + ' of '
+       return names;
+     });
+  }
+
+  const handleDeleted = (e, index) => {
+    props.handleDeletedXAxis(e);
+  }
+
+
   return (
     <div>
         <InputGroup.Text id="basic-addon1">X-Axis</InputGroup.Text>
@@ -40,25 +54,25 @@ const Xaxis = (props) => {
         onDragOver={(e) => props.dragover_handler(e)}
         className='x_Axis'
         >
-        {props.xAxis != 0 ? 
+        {props.xAxis !== 0 ? 
                 <div>
-                  
                   {props.xAxis.map((e, index) =>
-                      <ul>
-                      <li className='column_items'>
-                          <div className='column_name'>
-                            {e}
-                          </div>
-                          <div className='column_icons' ref={chartMenu}>
-                            <RiArrowDropDownLine 
-                              onClick={() => handleClickDown(e,index)}
-                            />
-                            <div className={isActive === index ? 'hidden' : 'active'}>
-                              <Features/>
+                    <ul key={index} >
+                        <li className='column_items'>
+                            <div className='column_name'>
+                              {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                             </div>
-                            <TiDeleteOutline onClick={() => props.handleDeletedXAxis(e)}/>
-                          </div>
-                      </li>
+                            <div className='column_icons' ref={chartMenu}>
+                              <RiArrowDropDownLine 
+                              // drop down
+                                onClick={() => handleClickDown(e,index)}
+                              />
+                              <div className={isActive === index ? 'hidden' : 'active'}>
+                                <Features index = {index} parentCallBack = {callbackFunction}/>
+                              </div>
+                              <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
+                            </div>
+                        </li>
                       </ul>
                   )}
                 </div> 
