@@ -6,7 +6,6 @@ import {
     VictoryVoronoiContainer,
     VictoryGroup,
     VictoryAxis,
-    VictoryBar,
     VictoryLine,
     VictoryLegend,
     VictoryTheme,
@@ -119,6 +118,7 @@ const LineChart = (props) => {
                     {/* Change here */}
                     {(!legend || legend === 'none') ? props.yAxis.map((y) => (
                         <VictoryLine
+                            interpolation="natural"
                             data={sum(props.data, xAxis, y)}
                             x={(d) => d[props.xAxis]}
                             y={(d) => d[y]}
