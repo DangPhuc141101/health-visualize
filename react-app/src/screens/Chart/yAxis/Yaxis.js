@@ -6,7 +6,7 @@ import Features from '../../features/Features';
 
 const Yaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
-  const [checked, setChecked] = useState(' ');
+  const [nameRadio, setNameRadio] = useState([]);
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -32,15 +32,16 @@ const Yaxis = (props) => {
         }
     })
 
-    const callbackFunction = (childData, id) => {
-      setChecked(childData)
-    }
+    const callbackFunction = (childData, index) => {
+      setNameRadio(pre => {
+        const names = [...pre];
+        names[index] = childData + ' of '
+        return names;
+      });
+   }
 
     const handleDeleted = (e, index) => {
       props.handleDeletedYAxis(e);
-      if(index === 0) {
-        setChecked(' ');
-      }
     }
 
   return (
@@ -58,12 +59,12 @@ const Yaxis = (props) => {
                     <ul>
                     <li className='column_items'>
                         <div className='column_name'>
-                          {checked ? `${checked} of ${e}` : {e}}
+                        {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                         </div>
                         <div className='column_icons' ref={chartMenu}>
                           <RiArrowDropDownLine onClick={() => handleClickDown(e,index)}/>
                             <div className={isActive === index ? 'hidden' : 'active'}>
-                                <Features parentCallBack = {callbackFunction}/>
+                                <Features index = {index} parentCallBack = {callbackFunction}/>
                             </div>
                           <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                         </div>

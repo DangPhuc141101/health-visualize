@@ -71,8 +71,9 @@
 
 .chart_names .items_container {
     display: grid;
-    height: 278px;
     border-bottom: 1px solid #1D81A2;
+    min-height: 240px;
+    align-items: center;
     font-size: 40px;
     grid-template-columns: 72px 77px 80px;
     grid-template-rows: 50px 50px;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineDotChart } from 'react-icons/ai';
 import { BiTable } from 'react-icons/bi';
 import { BsBarChart } from 'react-icons/bs';
-import { FcLineChart, FcPieChart } from 'react-icons/fc';
+import { FcLineChart, FcPieChart, FcAreaChart, FcDoughnutChart } from 'react-icons/fc';
 import { MdOutlineStackedBarChart } from 'react-icons/md';
 import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
 import './chartItems.css';
@@ -52,6 +52,16 @@ const ChartItems = (props) => {
      }
      const clickScatter = () => {
         props.getTypeChart('scatter');
+        setIsActive(!isActive);
+     }
+
+     const clickArea = () => {
+        props.getTypeChart('area');
+        setIsActive(!isActive);
+     }
+
+     const clickDonut = () => {
+        props.getTypeChart('donut');
         setIsActive(!isActive);
      }
   return (
@@ -117,6 +127,14 @@ const ChartItems = (props) => {
                         <div className='item' onClick={clickLine}>
                             <FcLineChart/>
                             <span>Line Chart</span>
+                        </div>
+                        <div className='item' onClick={clickArea}>
+                            <FcAreaChart/>
+                            <span>Area Chart</span>
+                        </div>
+                        <div className='item' onClick={clickDonut}>
+                            <FcDoughnutChart/>
+                            <span>Donut Chart</span>
                         </div>
                     </div>
                 </div>

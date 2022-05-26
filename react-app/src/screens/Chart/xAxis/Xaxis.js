@@ -6,7 +6,7 @@ import Features from '../../features/Features';
 
 const Xaxis = (props) => {
   const [isActive, setIsActive] = useState(-1);
-  const [checked, setChecked] = useState(' ');
+  const [nameRadio, setNameRadio] = useState([]);
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -32,23 +32,18 @@ const Xaxis = (props) => {
         }
     })
 
-  const callbackFunction = (childData, id) => {
-    setChecked(childData)
+  const callbackFunction = (childData, index) => {
+     setNameRadio(pre => {
+       const names = [...pre];
+       names[index] = childData + ' of '
+       return names;
+     });
   }
 
   const handleDeleted = (e, index) => {
     props.handleDeletedXAxis(e);
-    if(index === 0) {
-      setChecked(' ');
-    }
   }
 
-  const handleChecked = (index) => {
-    if(index === 0 || index !== index-1) {
-      setChecked(' ')
-      console.log("heare")
-    } 
-  }
 
   return (
     <div>
@@ -62,18 +57,18 @@ const Xaxis = (props) => {
         {props.xAxis !== 0 ? 
                 <div>
                   {props.xAxis.map((e, index) =>
-                    <ul>
-                    {console.log("In ul", index)}
+                    <ul key={index} >
                         <li className='column_items'>
-                            <div className='column_name' onChange={(index) => handleChecked(index)}>
-                              {checked  ? `${checked} of ${e}` : {e}}
+                            <div className='column_name'>
+                              {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                             </div>
                             <div className='column_icons' ref={chartMenu}>
                               <RiArrowDropDownLine 
+                              // drop down
                                 onClick={() => handleClickDown(e,index)}
                               />
                               <div className={isActive === index ? 'hidden' : 'active'}>
-                                <Features parentCallBack = {callbackFunction}/>
+                                <Features index = {index} parentCallBack = {callbackFunction}/>
                               </div>
                               <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                             </div>

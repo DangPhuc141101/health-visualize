@@ -5,8 +5,8 @@ import './features.css';
 
 const Features = (props) => {
   
-  const onChange = (e, id) => {
-    props.parentCallBack(e.target.value, e.target.id)
+  const onChange = (e) => {
+    props.parentCallBack(e.target.value, props.index)
   };
 
 

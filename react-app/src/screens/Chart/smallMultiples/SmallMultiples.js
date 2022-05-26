@@ -6,7 +6,7 @@ import Features from '../../features/Features';
 
 const SmallMultiples = (props) => {
 
-    const [isActive, setIsActive] = useState(-1);
+  const [isActive, setIsActive] = useState(-1);
   const [checked, setChecked] = useState(' ');
 
   const handleClickDown = (e, index) => {
