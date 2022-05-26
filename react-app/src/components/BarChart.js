@@ -32,7 +32,6 @@ const BarChart = (props) => {
                     tickLabels: { fontSize: 10, padding: 5 },
                     // margin:'50%'
                 }}
-
             />
         </VictoryChart>
     );
