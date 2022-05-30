@@ -15,7 +15,7 @@ import Yaxis from './yAxis/Yaxis';
 
 import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
-
+import ScatterChart from '../Charts/ScatterChart';
 import LineChart from '../Charts/LineChart';
 
 const Chart = (props) => {
@@ -214,6 +214,7 @@ const Chart = (props) => {
             <div className='chart_draw'>
             {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
             {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ColumnChart> : (null)}
+            {typeChart === "scatter" && listObjData && xAxis[0] && yAxis.length > 0 ? <ScatterChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ScatterChart> : (null)}
             {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
             {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0? <AreaChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></AreaChart> : (null)}
             {typeChart === "line" &&
