@@ -15,18 +15,18 @@ import Yaxis from './yAxis/Yaxis';
 
 import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
-import ScatterChart from '../Charts/ScatterChart';
+
 import LineChart from '../Charts/LineChart';
 import DonutChart from '../Charts/DonutChart';
 
-const Chart = (props) => {
+const TempChart = (props) => {
   const { listObjData } = props;
   const [xAxis, setXAxis] = useState([]);
   const [yAxis, setYAxis] = useState([]);
   const [legend, setLegend] = useState([]);
   const [smallMultiples, setSmallMultiples] = useState([]);
   const [typeChart, setTypeChart] = useState('');
-  const [test, setTest] = useState([]);
+
   const handlerTypeChart = (typeChart) => {
     setTypeChart(typeChart);
   }
@@ -64,7 +64,7 @@ const Chart = (props) => {
     if (yAxis.includes(id) === true) {
       return;
     }
-    setYAxis(pre => [...pre, id])
+    setYAxis(pre => [...pre, {id}])
   }
 
   const drop_handler_YAxis = (e) => {
@@ -158,10 +158,6 @@ const Chart = (props) => {
     e.dataTransfer.clearData();
   }
 
-  const getExpressFunction = (expresFunction) => {
-    setTest(pre => [...expresFunction]);
-  }
-
   return (
     <>
       <div className='chart_container'>
@@ -195,8 +191,6 @@ const Chart = (props) => {
                   drop_handler_YAxis={drop_handler_YAxis}
                   dragover_handler={dragover_handler}
                   handleDeletedYAxis={handleDeletedYAxis}
-                  handleExpressFunction = {getExpressFunction}
-                  legend = {legend}
                 />
                 {/* === Legend === */}
                 <Legend
@@ -218,9 +212,8 @@ const Chart = (props) => {
         </div>
         {/* ====== right ========= */}
         <div className='chart_draw'>
-          {typeChart === "scatter" && listObjData && xAxis[0] && yAxis.length > 0 ? <ScatterChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]} express={test}></ScatterChart> : (null)}
-          {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]} express={test}></BarChart> : (null)}
-          {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}  express={test}></ColumnChart> : (null)}
+          {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
+          {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ColumnChart> : (null)}
           {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0 ? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
           {typeChart === "donut" && props.listObjData && xAxis && yAxis.length > 0 ? <DonutChart value={yAxis} legend={xAxis} data={props.listObjData}></DonutChart> : (null)}
           {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0 ? <AreaChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></AreaChart> : (null)}
@@ -243,4 +236,4 @@ const Chart = (props) => {
   )
 }
 
-export default Chart
+export default TempChart;

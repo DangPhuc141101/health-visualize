@@ -13,6 +13,7 @@ const Features = (props) => {
   return (
     <div className='features_container'>
       <Radio.Group onChange={onChange} >
+        <Radio id='0' value=''>None</Radio>
         <Radio id='1' value='Sum'>Sum</Radio>
         <Radio id='2' value='Average'>Average</Radio>
         <Radio id='3' value='Min'>Min</Radio>

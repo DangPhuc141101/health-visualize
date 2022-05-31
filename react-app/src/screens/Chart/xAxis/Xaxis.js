@@ -35,7 +35,8 @@ const Xaxis = (props) => {
   const callbackFunction = (childData, index) => {
      setNameRadio(pre => {
        const names = [...pre];
-       names[index] = childData + ' of '
+       if (childData !== '') names[index] = childData + ' of ';
+       else names[index] = childData;
        return names;
      });
   }

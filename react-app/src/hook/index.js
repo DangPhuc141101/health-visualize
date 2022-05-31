@@ -98,6 +98,8 @@ const count = (data, x, y) => {
     return res;
 }
 
+const round = (num) => +(Math.round(num + "e+2") + "e-2")
+
 export const average = (data, x, y) => {
     const listSum = sum(data, x, y);
     const listCount = count(data, x, y);
@@ -106,7 +108,7 @@ export const average = (data, x, y) => {
     for (let i=0; i<listSum.length; i++){
         const obj = {};
         obj[x] = listSum[i][x];
-        obj[y] = listSum[i][y]*1.0 / listCount[i][y];
+        obj[y] = round(listSum[i][y]*1.0 / listCount[i][y]);
         listAverage.push(obj);
     }
     return listAverage;

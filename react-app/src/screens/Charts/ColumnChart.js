@@ -1,12 +1,10 @@
 import React from 'react'
-import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip } from 'victory';
+import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip, VictoryLine } from 'victory';
 import { sum, max, min, average, countColumn, getLegend } from "../../hook/index"
 import { something } from '../../hook/bar';
 
-
 const ColumnChart = (props) => {
-    const { xAxis, yAxis, data, legend } = props;
-
+    const { xAxis, yAxis, data, legend, express } = props;
     // config 
     const width = 800, height = 500;
 
@@ -53,41 +51,52 @@ const ColumnChart = (props) => {
                 />
                 <VictoryGroup offset={barWidth}
                     colorScale={"qualitative"}
+                    style={{
+                        data: { strokeWidth: 0.5, fillOpacity: 0.4 }
+                      }}
                 >
                     {(!legend ?
-                        yAxis.map((y, i) => (
-                            <VictoryBar
-                                key={i}
-                                data={sum(data, xAxis, y)}
-                                x={d => d[xAxis]}
-                                y={d => d[y]}
-                                barWidth={barWidth}
-                                style={{
-                                    labels: { fontSize: 8 }
-                                }}
-                                labels={
-                                    ({ datum }) => {
-                                        let result = '\n';
-                                        for (let key in datum) {
-                                            if (key === xAxis || yAxis.includes(key)) {
-                                                result += `${key}: ${datum[key]}\n`;
-                                            }
-
-                                        }
-                                        return result;
+                        yAxis.map((y, i) => {
+                            console.log(express)
+                            let dataByExpress = sum(data, xAxis, y);
+                            if (express[i] === 'Sum') dataByExpress = sum(data, xAxis, y);
+                            if (express[i] === 'Average') dataByExpress = average(data, xAxis, y);
+                            if (express[i] === 'Min') dataByExpress = min(data, xAxis, y);
+                            if (express[i] === 'Max') dataByExpress = max(data, xAxis, y);
+                            return (
+                                <VictoryBar
+                                    key={i}
+                                    data={dataByExpress}
+                                    x={d => d[xAxis]}
+                                    y={d => d[y]}
+                                    barWidth={barWidth}
+                                    style={{
+                                        labels: { fontSize: 8 }
                                     }}
-                                labelComponent={
-                                    <VictoryTooltip
-                                        flyoutStyle={{
-                                            stroke: 'grey',
-                                            fill: 'white',
-                                            shadowColor: 'grey',
-                                            shadowWidth: 5
+                                    labels={
+                                        ({ datum }) => {
+                                            let result = '\n';
+                                            for (let key in datum) {
+                                                if (key === xAxis || yAxis.includes(key)) {
+                                                    result += `${key}: ${datum[key]}\n`;
+                                                }
+
+                                            }
+                                            return result;
                                         }}
-                                    />
-                                }
-                            />
-                        ))
+                                    labelComponent={
+                                        <VictoryTooltip
+                                            flyoutStyle={{
+                                                stroke: 'grey',
+                                                fill: 'white',
+                                                shadowColor: 'grey',
+                                                shadowWidth: 5
+                                            }}
+                                        />
+                                    }
+                                />
+                            )
+                        })
                         :
                         legendBar.map((subLegend, i) => {
                             const dataByLegend = newData[subLegend];
@@ -125,8 +134,7 @@ const ColumnChart = (props) => {
                                 />
 
                             )
-                        }))}
-
+                        }))}                   
                 </VictoryGroup>
                 <VictoryAxis
                     crossAxis
@@ -183,7 +191,6 @@ const ColumnChart = (props) => {
             </VictoryChart>
         </>
     );
-
 }
 
 export default ColumnChart;

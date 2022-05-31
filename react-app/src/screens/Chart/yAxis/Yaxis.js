@@ -32,12 +32,16 @@ const Yaxis = (props) => {
         }
     })
 
-    const callbackFunction = (childData, index) => {
-      setNameRadio(pre => {
-        const names = [...pre];
-        names[index] = childData + ' of '
-        return names;
+    const callbackFunction = async(childData, index) => {
+      await setNameRadio((pre) => {
+        const update = [...pre];
+        update[index] = childData
+        console.log(update)
+        props.handleExpressFunction(update);
+        return update;
       });
+
+     
    }
 
     const handleDeleted = (e, index) => {
@@ -59,7 +63,7 @@ const Yaxis = (props) => {
                     <ul>
                     <li className='column_items'>
                         <div className='column_name'>
-                        {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
+                        {`${(nameRadio[index]) ? nameRadio[index] + ' of ' : ''} ${e}`}
                         </div>
                         <div className='column_icons' ref={chartMenu}>
                           <RiArrowDropDownLine onClick={() => handleClickDown(e,index)}/>
