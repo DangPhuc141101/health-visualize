@@ -21,10 +21,26 @@
     margin: 0 3px;
 }
 
+.chart_title .chart_columns {
+    /* overflow-y: scroll; */
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+.chart_title .chart_columns::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none; 
+  }
+
 .chart_columns .chart_datasets {
     display: block;
-    overflow-y: scroll;
-    /* position: relative; */
+}
+
+.dataset_title {
+    position: sticky;
+    padding: 5px;
+    font-weight: 500;
 }
 
 /* .dataset_list .react-draggable {
@@ -98,16 +114,39 @@
 .chart_axis{
     display: block;
     height: 89%;
-    overflow: hidden;
-    /* overflow-y: scroll; */
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+.chart_axis::-webkit-scrollbar {
+    width: 0 !important;
+    display: none; 
 }
 
 .chart_axis .x_Axis,
 .chart_axis .y_Axis,
-.chart_axis .legend {
+.chart_axis .legend,
+.chart_axis .small_Multiples,
+.chart_axis .values,
+.chart_axis .size {
     display: block;
-    height: 123px;
-    overflow-y: scroll;
+    height: auto;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    border: 1px solid;
+    margin: 4px 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.chart_axis .x_Axis::-webkit-scrollbar,
+.chart_axis .y_Axis::-webkit-scrollbar,
+.chart_axis .legend::-webkit-scrollbar, 
+.chart_axis .small_Multiples::-webkit-scrollbar {
+    width: 0 !important;
+  display: none; 
 }
 
 .axis_container .column_items {
@@ -124,7 +163,7 @@
 }
 
 .axis_container ul {
-    padding-left: 1rem;
+    padding: 1px 1rem;
 }
 
 .axis_container .column_icons {

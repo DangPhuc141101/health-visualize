@@ -4,7 +4,8 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { TiDeleteOutline } from 'react-icons/ti';
 import Features from '../../features/Features';
 
-const Xaxis = (props) => {
+const Value = (props) => {
+
   const [isActive, setIsActive] = useState(-1);
   const [nameRadio, setNameRadio] = useState([]);
 
@@ -41,40 +42,39 @@ const Xaxis = (props) => {
   }
 
   const handleDeleted = (e, index) => {
-    props.handleDeletedXAxis(e);
+    props.handleDeletedValue(e);
   }
-
 
   return (
     <div>
-        <InputGroup.Text id="basic-addon1">X-Axis</InputGroup.Text>
+        <InputGroup.Text id="basic-addon1">Values</InputGroup.Text>
         <div 
         id='dest_copy' 
-        onDrop={(e) => props.drop_handler_xAxis(e)} 
+        onDrop={(e) => props.drop_handler_Values(e)} 
         onDragOver={(e) => props.dragover_handler(e)}
-        className='x_Axis'
+        className='values'
         >
-        {props.xAxis != 0 ? 
+        {props.values != 0 ? 
                 <div>
-                  {props.xAxis.map((e, index) =>
+                {props.values.map((e, index) =>
                     <ul key={index} >
                         <li className='column_items'>
                             <div className='column_name'>
-                              {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
+                            {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                             </div>
                             <div className='column_icons' ref={chartMenu}>
-                              <RiArrowDropDownLine 
-                              // drop down
+                            <RiArrowDropDownLine 
+                            // drop down
                                 onClick={() => handleClickDown(e,index)}
-                              />
-                              <div className={isActive === index ? 'hidden' : 'active'}>
+                            />
+                            <div className={isActive === index ? 'hidden' : 'active'}>
                                 <Features index = {index} parentCallBack = {callbackFunction}/>
-                              </div>
-                              <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
+                            </div>
+                            <TiDeleteOutline onClick={() => handleDeleted(e, index)}/>
                             </div>
                         </li>
-                      </ul>
-                  )}
+                    </ul>
+                )}
                 </div> 
                 : 
                 <p>Drop here</p>}
@@ -83,4 +83,4 @@ const Xaxis = (props) => {
   )
 }
 
-export default Xaxis
+export default Value

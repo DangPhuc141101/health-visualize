@@ -79,7 +79,7 @@ const ChartItems = (props) => {
                     <p>Table</p>
                 </button>
             </div>
-            {/*======= Chart table ========= */}
+            {/*======= Chart ========= */}
             <div className='charts' ref={chartMenu}>
                 <button 
                     type="button" 
