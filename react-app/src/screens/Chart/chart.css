@@ -129,7 +129,8 @@
 .chart_axis .legend,
 .chart_axis .small_Multiples,
 .chart_axis .values,
-.chart_axis .size {
+.chart_axis .size, 
+.chart_axis .secondary_Y_Axis {
     display: block;
     height: auto;
     overflow: auto;
@@ -163,7 +164,7 @@
 }
 
 .axis_container ul {
-    padding: 1px 1rem;
+    padding: 1px 0rem;
 }
 
 .axis_container .column_icons {

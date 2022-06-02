@@ -19,6 +19,7 @@ import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
 
 import LineChart from '../Charts/LineChart';
+import SecondaryY_Axis from './secondaryY_Axis/SecondaryY_Axis';
 
 const Chart = (props) => {
     const {listObjData} = props;
@@ -28,11 +29,18 @@ const Chart = (props) => {
     const [smallMultiples, setSmallMultiples] = useState([]);
     const [values, setValues] = useState([]);
     const [sizes, setSizes] = useState([]);
+    const [secondaryY_Axis, setSecondaryY_Axis] = useState([]);
     const [typeChart, setTypeChart] = useState('');
     
     // ====== Get Chart from Chart Items ========
     const handlerTypeChart = (typeChart)=> {
       setTypeChart(typeChart);
+      setXAxis([]);
+      setYAxis([]);
+      setLegend([]);
+      setSmallMultiples([]);
+      setValues([]);
+      setSizes([]);
     }
 
     //  ====== X-Axis =====
@@ -203,6 +211,35 @@ const Chart = (props) => {
         setSizes(data);
       }
 
+      //  ====== Secondary Y Axis =====
+              const handlerSecondaryY_Axis = (id) => {
+                if(secondaryY_Axis.includes(id) === true) {
+                  return;
+                }
+                setSecondaryY_Axis(pre => [...pre, id])
+              }
+          
+              const drop_handler_SecondaryY_Axis = (e) => {
+                e.preventDefault();
+                e.currentTarget.style.background = "lightblue";
+                const id = e.dataTransfer.getData("text");
+                handlerSecondaryY_Axis(id);
+                if (id == "src_move" && e.target.id == "dest_move"){
+                  e.target.appendChild(document.getElementById(id));
+                  if (id == "src_copy" && e.target.id == "dest_copy") {
+                    var nodeCopy = document.getElementById(id).cloneNode(true);
+                    nodeCopy.id = "newId";
+                    e.target.appendChild(nodeCopy);
+                }
+              }
+            }
+          
+            const handleDeletedSecondaryY_Axis = (e) => {
+              const data = secondaryY_Axis.filter((item) => item !== e)
+              setSecondaryY_Axis(data);
+            }
+      
+
   // ========= Drag - Drop =========
     const dragstart_handler = (e, column) => {
       e.dataTransfer.setData("text", column)
@@ -239,7 +276,7 @@ const Chart = (props) => {
                   <div className='chart_axis'>
                       <div className='axis_container'>
                             {/* === X === */}
-                            {typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' ? 
+                            {typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
                               <Xaxis 
                               xAxis={xAxis} 
                               drop_handler_xAxis={drop_handler_xAxis} 
@@ -248,7 +285,7 @@ const Chart = (props) => {
                               /> : (null)
                             }
                             {/* === Y === */}
-                            {typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' ? 
+                            {typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
                               <Yaxis
                                 yAxis={yAxis} 
                                 drop_handler_YAxis={drop_handler_YAxis} 
@@ -257,7 +294,7 @@ const Chart = (props) => {
                               /> : (null)
                             }
                             {/* === Legend === */}
-                            {typeChart === 'pie' || typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' ? 
+                            {typeChart === 'pie' || typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
                               <Legend
                                 legend={legend} 
                                 drop_handler_legend={drop_handler_legend} 
@@ -266,7 +303,7 @@ const Chart = (props) => {
                               /> : (null)
                             }
                             {/* === SmallMultiples === */}
-                            {typeChart === 'bar' || typeChart === 'line' ? 
+                            {typeChart === 'bar' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
                                 <SmallMultiples
                                   smallMultiples = {smallMultiples}
                                   drop_handler_smallMultiples = {drop_handler_smallMultiples}
@@ -293,7 +330,17 @@ const Chart = (props) => {
                                   handleDeletedSize = {handleDeletedSize}
                                 /> 
                                 : (null)
-                          }
+                            }
+                            {/* === Secondary === */}
+                            {typeChart === 'area' ? 
+                                <SecondaryY_Axis
+                                  secondaryY_Axis = {secondaryY_Axis}
+                                  drop_handler_SecondaryY_Axis = {drop_handler_SecondaryY_Axis}
+                                  dragover_handler = {dragover_handler}
+                                  handleDeletedSecondaryY_Axis = {handleDeletedSecondaryY_Axis}
+                                /> 
+                                : (null)
+                            }
                             
                       </div>
                   </div>

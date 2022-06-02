@@ -32,10 +32,12 @@ const ChartItems = (props) => {
 
     const clickTable = () => {
         props.getTypeChart('table')
+        setIsActive(!isActive);
     }
 
     const clickColumn = () => {
         props.getTypeChart('column');
+        setIsActive(!isActive);
      }
 
     const clickPie = () => {
