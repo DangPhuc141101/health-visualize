@@ -34,6 +34,10 @@ const ChartItems = (props) => {
         props.getTypeChart('table')
     }
 
+    const clickColumn = () => {
+        props.getTypeChart('column');
+     }
+
     const clickPie = () => {
        props.getTypeChart('pie');
        setIsActive(!isActive);
@@ -45,6 +49,7 @@ const ChartItems = (props) => {
      const clickStack = () => {
         props.getTypeChart('stack');
         setIsActive(!isActive);
+
      }
      const clickLine = () => {
         props.getTypeChart('line');
@@ -92,7 +97,7 @@ const ChartItems = (props) => {
                 </button>
                 <div  className={isActive ? "hidden" : 'active'}>
                     <div className='items_container'>
-                        <div className='item'>
+                        <div className='item' onClick={clickColumn}>
                             <BsBarChart/>
                             <span>Column Chart</span>
                         </div>

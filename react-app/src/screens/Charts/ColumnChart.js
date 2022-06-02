@@ -4,16 +4,16 @@ import { sum, max, min, average, countColumn, getLegend } from "../../hook/index
 import { something } from '../../hook/bar';
 
 
-const BarChart = (props) => {
+const ColumnChart = (props) => {
     const { xAxis, yAxis, data, legend } = props;
 
     // config 
-    const width = 700, height = 500;
+    const width = 800, height = 500;
 
     const numColumn = countColumn(data, xAxis);
     let padding = (numColumn < 10) ? ((numColumn <= 5) ? 20 : 10) : 5;
-    let paddingX = (height - 100 - padding * numColumn) * 1.0 / (numColumn) * 2 / 3;
-    let barWidth = (height - 100 - padding * numColumn) * 1.0 / (numColumn) / yAxis.length;
+    let paddingX = (width - 100 - padding * numColumn) * 1.0 / (numColumn) * 2 / 3;
+    let barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / yAxis.length;
 
     const tempLegend = getLegend(data, legend);
     const legendBar = [];
@@ -24,19 +24,19 @@ const BarChart = (props) => {
     const legends = [];
     if (legend) {
         legendBar.forEach(legend => legends.push({ name: legend }));
-        barWidth = (height - 100 - padding * numColumn) * 1.0 / (numColumn) / legendBar.length;
+        barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / legendBar.length;
     }
     else {
         yAxis.forEach(e => {
-            legends.push({ name: e.toString() });
+            legends.push({ name: e });
         })
     }
-    const lengthLegends = legends.map(legend => legend['name'].length);
-    console.log(lengthLegends)
+
     return (
         <>
             <VictoryChart
                 responsive={false}
+
                 domainPadding={{ x: [paddingX, paddingX], y: [0, 50] }}
                 height={height}
                 width={width}
@@ -46,7 +46,7 @@ const BarChart = (props) => {
                     centerTitle
                     orientation="horizontal"
                     colorScale="qualitative"
-                    
+                    gutter={20}
                     itemsPerRow={10}
                     style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 8 } }}
                     data={legends}
@@ -57,14 +57,13 @@ const BarChart = (props) => {
                     {(!legend ?
                         yAxis.map((y, i) => (
                             <VictoryBar
-                                horizontal
                                 key={i}
                                 data={sum(data, xAxis, y)}
-                                x={d => d[xAxis]}   
+                                x={d => d[xAxis]}
                                 y={d => d[y]}
                                 barWidth={barWidth}
                                 style={{
-                                    labels: { fontSize: 8 , zIndex: -1}
+                                    labels: { fontSize: 8 }
                                 }}
                                 labels={
                                     ({ datum }) => {
@@ -94,7 +93,6 @@ const BarChart = (props) => {
                             const dataByLegend = newData[subLegend];
                             return (
                                 <VictoryBar
-                                    horizontal
                                     key={i}
                                     data={dataByLegend}
                                     x={d => { return d[xAxis] }}
@@ -140,7 +138,7 @@ const BarChart = (props) => {
                         let row = '';
                         for (let word of words) {
                             row += `${word} `;
-                            if (row.length > 15) {
+                            if (row.length > 21) {
                                 result += `\n${word}`;
                                 row = `${word} `;
                             }
@@ -149,10 +147,10 @@ const BarChart = (props) => {
                         return result;
                     }}
                     style={{
-                        axis: { stroke: "#756f6a", },
-                        axisLabel: { fontSize: 14, padding: 60, flex: 'left' },
+                        axis: { stroke: "#756f6a" },
+                        axisLabel: { fontSize: 14, padding: 30 },
                         // ticks: { stroke: "grey", size: 1},
-                        tickLabels: { fontSize: 8, padding: 10, },  // angle: 45
+                        tickLabels: { fontSize: 10, padding: 10, },  // angle: 45
                     }}
                 />
 
@@ -169,10 +167,17 @@ const BarChart = (props) => {
                     crossAxis
                     label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
                     style={{
-                       
+                        axis: { stroke: "#756f6a" },
                         axisLabel: { fontSize: 14, alignItems: 'left', padding: 35 },
-                        tickLabels: { fontSize: 8, padding: 5 },
-                       
+                        tickLabels: { fontSize: 10, padding: 5 },
+                        ticks: {
+                            size: () => {
+                                const tickSize = 10;
+                                return tickSize;
+                            },
+                            stroke: "black",
+                            strokeWidth: 1
+                        },
                     }}
                 />
             </VictoryChart>
@@ -181,4 +186,4 @@ const BarChart = (props) => {
 
 }
 
-export default BarChart;
+export default ColumnChart;
