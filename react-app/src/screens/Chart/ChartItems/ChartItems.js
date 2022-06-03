@@ -32,10 +32,12 @@ const ChartItems = (props) => {
 
     const clickTable = () => {
         props.getTypeChart('table')
+        setIsActive(!isActive);
     }
 
     const clickColumn = () => {
         props.getTypeChart('column');
+        setIsActive(!isActive);
      }
 
     const clickPie = () => {
@@ -84,7 +86,7 @@ const ChartItems = (props) => {
                     <p>Table</p>
                 </button>
             </div>
-            {/*======= Chart table ========= */}
+            {/*======= Chart ========= */}
             <div className='charts' ref={chartMenu}>
                 <button 
                     type="button" 
