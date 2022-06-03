@@ -1,20 +1,50 @@
-import React from 'react'
+import React from 'react';
+import { Row, Col } from 'antd';
+import calculateTextWidth from "calculate-text-width";
 import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip, VictoryLine } from 'victory';
 import { sum, max, min, average, countColumn, getLegend, getMultiple, dataMultiple } from "../../hook/index"
 import { something } from '../../hook/bar';
 
-const ColumnChart = (props) => {
-    const { xAxis, yAxis, data, legend, express, smallMultiple } = props;
-    // const multiples = getMultiple(data, smallMultiple);
-    // const databyMultipe = dataMultiple(data, multiples, smallMultiple);
-  
+const MultipleChart = (props) => {
+    let { xAxis, yAxis, data, legend, express, smallMultiple } = props;
+    const multiples = getMultiple(data, smallMultiple);
+    const databyMultipe = dataMultiple(data, multiples, smallMultiple);
+    
     // config 
-    const width = 800, height = 500;
+    const width = 400, height = 300;
     const numColumn = countColumn(data, xAxis);
+
     let padding = (numColumn < 10) ? ((numColumn <= 5) ? 20 : 10) : 5;
     let paddingX = (width - 100 - padding * numColumn) * 1.0 / (numColumn) * 2 / 3;
     let barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / yAxis.length;
 
+    const style = {
+        labelXAxis:{ fontSize: width/50 },
+        labelTick: { fontSize: width/100},
+        labelYAxis:{ fontSize: width/50 , alignItems: 'left', padding: 35 },
+        legend: { border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 7 } },
+        tooltip: {
+            stroke: 'grey',
+            fill: 'white',
+            shadowColor: 'grey',
+            shadowWidth: 5
+        }
+    }
+   
+    // create a array multiples with format [[element1, element2], [element3, element4], ....] to add data to grid
+    /**
+     * 
+     * @param {*} multiples 
+     * @param {*} col 
+     * @returns array [[element1, element2], [element3, element4], ....]
+     * note function splice in array => this function return a sub array is remove from start index to delete count. (array.splice(startIndex, deleteCount)) can replace item more
+     */
+    const arrayBlock = (multiples, col=2) => {
+        const blocks = [];
+        while (multiples.length) blocks.push(multiples.splice(0, 2));
+        return blocks;
+    }
+  
     const tempLegend = getLegend(data, legend);
     const legendBar = [];
     tempLegend.forEach(e => legendBar.push(e))
@@ -34,7 +64,15 @@ const ColumnChart = (props) => {
 
     return (
         <>
-            <VictoryChart
+            {arrayBlock([...multiples]).map((row) => {              
+                return (
+                    <Row>
+                        {row.map(col => {
+                            data= databyMultipe[col];
+                          
+                            return (
+                                <Col span={12}>
+                                    <VictoryChart
                 responsive={false}
                 domainPadding={{ x: [paddingX, paddingX], y: [0, 50] }}
                 width={width}
@@ -47,7 +85,7 @@ const ColumnChart = (props) => {
                     colorScale="qualitative"
                     gutter={20}
                     itemsPerRow={10}
-                    style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 8 } }}
+                    style={style.legend}
                     data={legends}
                 />
                 <VictoryGroup offset={barWidth}
@@ -63,7 +101,7 @@ const ColumnChart = (props) => {
                             if (express[i] === 'Average') dataByExpress = average(data, xAxis, y);
                             if (express[i] === 'Min') dataByExpress = min(data, xAxis, y);
                             if (express[i] === 'Max') dataByExpress = max(data, xAxis, y);
-                            {console.log(dataByExpress)}
+        
                             return (
                                 <VictoryBar
                                     key={i}
@@ -72,7 +110,7 @@ const ColumnChart = (props) => {
                                     y={d => d[y]}
                                     barWidth={barWidth}
                                     style={{
-                                        labels: { fontSize: 8 }
+                                        labels: { fontSize: 7 }
                                     }}
                                     labels={
                                         ({ datum }) => {
@@ -86,12 +124,7 @@ const ColumnChart = (props) => {
                                         }}
                                     labelComponent={
                                         <VictoryTooltip
-                                            flyoutStyle={{
-                                                stroke: 'grey',
-                                                fill: 'white',
-                                                shadowColor: 'grey',
-                                                shadowWidth: 5
-                                            }}
+                                            flyoutStyle={style.tooltip}
                                         />
                                     }
                                 />
@@ -123,12 +156,7 @@ const ColumnChart = (props) => {
                                         }}
                                     labelComponent={
                                         <VictoryTooltip
-                                            flyoutStyle={{
-                                                stroke: 'grey',
-                                                fill: 'white',
-                                                shadowColor: 'grey',
-                                                shadowWidth: 5
-                                            }}
+                                            flyoutStyle={style.tooltip}
                                         />
                                     }
                                 />
@@ -141,11 +169,13 @@ const ColumnChart = (props) => {
                     tickFormat={(t) => {
                         if (!isNaN(t)) return t;
                         const words = t.split(' ');
+                        
                         let result = '';
                         let row = '';
                         for (let word of words) {
                             row += `${word} `;
-                            if (row.length > 21) {
+                            const calculatedWidth = calculateTextWidth(row, `normal ${style.labelTick.fontSize}px sans-serif`)
+                            if (calculatedWidth > barWidth*yAxis.length) {
                                 result += `\n${word}`;
                                 row = `${word} `;
                             }
@@ -155,9 +185,8 @@ const ColumnChart = (props) => {
                     }}
                     style={{
                         axis: { stroke: "#756f6a" },
-                        axisLabel: { fontSize: 14, padding: 30 },
-                        // ticks: { stroke: "grey", size: 1},
-                        tickLabels: { fontSize: 10, padding: 10, },  // angle: 45
+                        axisLabel: style.labelXAxis,
+                        tickLabels: style.labelTick,  
                     }}
                 />
                 <VictoryAxis
@@ -165,7 +194,6 @@ const ColumnChart = (props) => {
                     tickFormat={(t) => {
                         if (t % 1000000 === 0)
                             return `${t / 1000000}M`;
-
                         if (t % 1000 === 0)
                             return `${t / 1000}K`;
                         return t;
@@ -174,8 +202,8 @@ const ColumnChart = (props) => {
                     label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
                     style={{
                         axis: { stroke: "#756f6a" },
-                        axisLabel: { fontSize: 14, alignItems: 'left', padding: 35 },
-                        tickLabels: { fontSize: 10, padding: 5 },
+                        axisLabel: style.labelYAxis,
+                        tickLabels: style.labelTick,
                         ticks: {
                             size: () => {
                                 const tickSize = 10;
@@ -187,8 +215,14 @@ const ColumnChart = (props) => {
                     }}
                 />
             </VictoryChart>
+                                </Col>
+                            )
+                        })}
+                        <Col></Col>
+                    </Row>
+            )})} 
         </>
     );
 }
 
-export default ColumnChart;
+export default MultipleChart;

@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
 import Header from './NavBarScreen/Header/Header';
-import ImportFile from './components/ImportFile';
-import Visualize from './components/Visualize';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
 import { Container } from 'react-bootstrap';
 import Upload from './screens/upload/Upload';
 import Chart from './screens/Chart/Chart'
 import Table from './screens/Table/Table';
-
 
 function App() {
   const [data, setData] = useState('');

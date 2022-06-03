@@ -18,6 +18,7 @@ import ColumnChart from '../Charts/ColumnChart';
 import ScatterChart from '../Charts/ScatterChart';
 import LineChart from '../Charts/LineChart';
 import DonutChart from '../Charts/DonutChart';
+import MultipleChart from '../Charts/SmallMultipeChart';
 
 const Chart = (props) => {
   const { listObjData } = props;
@@ -218,9 +219,10 @@ const Chart = (props) => {
         </div>
         {/* ====== right ========= */}
         <div className='chart_draw'>
+        {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 && smallMultiples[0] ? <MultipleChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}  express={test} smallMultiple={smallMultiples[0]}></MultipleChart> : (null)}
           {typeChart === "scatter" && listObjData && xAxis[0] && yAxis.length > 0 ? <ScatterChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]} express={test}></ScatterChart> : (null)}
           {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]} express={test}></BarChart> : (null)}
-          {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}  express={test}></ColumnChart> : (null)}
+          {/* {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 && smallMultiples[0] ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}  express={test} smallMultiple={smallMultiples[0]}></ColumnChart> : (null)} */}
           {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0 ? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
           {typeChart === "donut" && props.listObjData && xAxis && yAxis.length > 0 ? <DonutChart value={yAxis} legend={xAxis} data={props.listObjData}></DonutChart> : (null)}
           {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0 ? <AreaChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></AreaChart> : (null)}

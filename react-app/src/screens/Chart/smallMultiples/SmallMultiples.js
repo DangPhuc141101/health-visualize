@@ -7,7 +7,7 @@ import Features from '../../features/Features';
 const SmallMultiples = (props) => {
 
   const [isActive, setIsActive] = useState(-1);
-  const [checked, setChecked] = useState(' ');
+  const [nameRadio, setNameRadio] = useState([]);
 
   const handleClickDown = (e, index) => {
     if(isActive === index) {
@@ -33,23 +33,19 @@ const SmallMultiples = (props) => {
         }
     })
 
-  const callbackFunction = (childData, id) => {
-    setChecked(childData)
-  }
+    const callbackFunction = (childData, index) => {
+      setNameRadio(pre => {
+        const names = [...pre];
+        if (childData !== '') names[index] = childData + ' of ';
+        else names[index] = childData;
+        return names;
+      });
+   }
 
   const handleDeleted = (e, index) => {
     props.handleDeletedSmallMultiples(e);
-    if(index === 0) {
-      setChecked(' ');
-    }
   }
-
-  const handleChecked = (index) => {
-    if(index === 0 || index !== index-1) {
-      setChecked(' ')
-      console.log("heare")
-    } 
-  }
+ 
 
   return (
     <div>
@@ -64,10 +60,9 @@ const SmallMultiples = (props) => {
                 <div>
                     {props.smallMultiples.map((e, index) =>
                         <ul>
-                            {console.log("In ul", index)}
                             <li className='column_items'>
-                                <div className='column_name' onChange={(index) => handleChecked(index)}>
-                                    {checked  ? `${checked} of ${e}` : {e}}
+                                <div className='column_name'>
+                                {`${(nameRadio[index]) ? nameRadio[index] : ''} ${e}`}
                                 </div>
                                 <div className='column_icons' ref={chartMenu}>
                                     <RiArrowDropDownLine onClick={() => handleClickDown(e,index)}/>
