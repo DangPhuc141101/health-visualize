@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import {IoReturnDownBackOutline} from 'react-icons/io5'
 import { Button, Container, Form, Modal } from 'react-bootstrap';
-import TableData from '../../components/TableData';
+import TableData from '../TableData/TableData';
 import './upload.css';
 
 const Upload = (props) => {

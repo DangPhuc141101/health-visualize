@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import TableData from '../../components/TableData';
+import TableData from '../TableData/TableData';
 import "./header.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {LinkContainer} from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavLink, NavDropdown } from 'react-bootstrap'
 import {AiOutlineHome, AiOutlineBarChart, AiOutlineBell} from 'react-icons/ai'
@@ -54,4 +55,4 @@ const Header = (props) => {
   )
 }
 
-export default Header
+export default Header;

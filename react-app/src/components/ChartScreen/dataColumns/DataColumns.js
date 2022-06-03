@@ -11,10 +11,11 @@ const DataColumns = (props) => {
                 <span>Name of datasets</span>
             </div>
             <div className='dataset_list'>
-                {props.columns.map((column) => (
+                {props.columns.map((column, index) => (
                 <div 
                     draggable='true' 
                     id='src_copy' 
+                    key={index}
                     onDragStart={(e) => props.dragstart_handler(e,column)}
                     onDragEnd={(e) => props.dragend_handler(e)}>
                     <ListGroup>
