@@ -13,7 +13,7 @@ import Value from './value/Value';
 import Xaxis from './xAxis/Xaxis';
 import Yaxis from './yAxis/Yaxis';
 
-
+import { AiOutlineDoubleRight } from 'react-icons/ai';
 
 import AreaChart from '../Charts/AreaChart';
 import ColumnChart from '../Charts/ColumnChart';
@@ -31,6 +31,11 @@ const Chart = (props) => {
     const [sizes, setSizes] = useState([]);
     const [secondaryY_Axis, setSecondaryY_Axis] = useState([]);
     const [typeChart, setTypeChart] = useState('');
+
+    const [isActive, setIsActive] = useState(true);
+
+    const [activeNameChart, setActiveNameChart] = useState(true);
+ 
     
     // ====== Get Chart from Chart Items ========
     const handlerTypeChart = (typeChart)=> {
@@ -255,33 +260,54 @@ const Chart = (props) => {
     e.dataTransfer.clearData();
   }
 
+  // ======================
+  const handleShow = () => {
+    setIsActive(!isActive)
+  }
+
+
+  const handleShowName = () => {
+    setActiveNameChart(!activeNameChart)
+  }
+
   return (
     <>
         <div className='chart_container'>
           {/* ======== left ========= */}
              <div className='chart_title'>
                {/* ======= Name of dataset and filter ====== */}
-                <div className='chart_columns'>
+                <div className= {isActive ? 'chart_columns' : 'chart_columns hidden'}> 
                   {/* Name of dataset */}
-                  <DataColumns 
+                  <DataColumns
+                    handleShow = {() => handleShow()}
                     columns={props.columns}
                     dragstart_handler = {dragstart_handler}
                     dragend_handler = {dragend_handler}
                   />
                 </div>
+                {/* ------- display and hidden ------- */}
+                <div className={isActive === false ? 'chart_column_small' : 'chart_column_small hidden'}>
+                  <div className='small_icon'>
+                    <AiOutlineDoubleRight onClick={handleShow}/>
+                  </div>
+                  <span className='rotate'>Name of dataset</span>
+                </div>
                 {/* ======== Name of chart and Axis ========= */}
-                <div className='chart_names'>
-                  <ChartItems getTypeChart = {handlerTypeChart}/>
+                <div className={activeNameChart ? 'chart_names' : 'chart_names hidden' } >
+                  <ChartItems
+                     getTypeChart = {handlerTypeChart}
+                     handleShowName = {() => handleShowName()}
+                  />
                   {/* ===== Axis ====== */}
                   <div className='chart_axis'>
                       <div className='axis_container'>
                             {/* === X === */}
                             {typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
                               <Xaxis 
-                              xAxis={xAxis} 
-                              drop_handler_xAxis={drop_handler_xAxis} 
-                              dragover_handler={dragover_handler}
-                              handleDeletedXAxis = {handleDeletedXAxis}
+                                xAxis={xAxis} 
+                                drop_handler_xAxis={drop_handler_xAxis} 
+                                dragover_handler={dragover_handler}
+                                handleDeletedXAxis = {handleDeletedXAxis}
                               /> : (null)
                             }
                             {/* === Y === */}
@@ -344,6 +370,13 @@ const Chart = (props) => {
                             
                       </div>
                   </div>
+                </div>
+                {/* ------- display and hidden ------- */}
+                <div className={activeNameChart === false ? 'chart_name_small' : 'chart_name_small hidden'}>
+                  <div className='small_icon'>
+                    <AiOutlineDoubleRight  onClick={handleShowName}/>
+                  </div>
+                  <span className='rotate'>Visualization</span>
                 </div>
               </div>
               {/* ====== right ========= */}

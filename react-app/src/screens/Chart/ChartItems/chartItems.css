@@ -1,6 +1,6 @@
 .chartItems_container {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     text-align: center;
     padding: 5px 15px;
@@ -69,5 +69,12 @@
     color: #fff;
     border-radius: 10px;
     width: 70px;
+    cursor: pointer;
+}
+
+.chartItems_container .chart_icon {
+    display: block;
+    width: 20px;
+    height: 15px;
     cursor: pointer;
 }

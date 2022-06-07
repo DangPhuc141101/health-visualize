@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineDotChart } from 'react-icons/ai';
 import { BiTable } from 'react-icons/bi';
 import { BsBarChart } from 'react-icons/bs';
+import { AiOutlineDoubleLeft } from 'react-icons/ai';
 import { FcLineChart, FcPieChart, FcAreaChart, FcDoughnutChart } from 'react-icons/fc';
 import { MdOutlineStackedBarChart } from 'react-icons/md';
 import { RiBarChartGroupedFill, RiBarChartHorizontalFill, RiBarChartHorizontalLine } from 'react-icons/ri';
@@ -145,6 +146,9 @@ const ChartItems = (props) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='chart_icon'>
+                <AiOutlineDoubleLeft onClick={(e) => props.handleShowName(e)}/>
             </div>
         </div>
     </>

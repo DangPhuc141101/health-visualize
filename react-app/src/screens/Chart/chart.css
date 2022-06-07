@@ -21,6 +21,55 @@
     margin: 0 3px;
 }
 
+.chart_title .chart_columns.hidden,
+.chart_title .chart_names.hidden{
+    display: none;
+}
+
+
+.chart_title .chart_column_small,
+.chart_title .chart_name_small {
+    display: flex;
+    position: relative;
+    width: 15%; 
+    height: 107%;
+    border: 2px solid #1D81A2;
+    border-radius: 5px;
+    margin: 0 3px;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+
+.chart_title .chart_column_small span,
+.chart_title .chart_name_small span{
+    font-size: 15px;
+    font-weight: 550;
+    position: absolute;
+    top: 16%;
+    left: 50%;
+}
+
+.chart_column_small .small_icon,
+.chart_name_small .small_icon {
+    font-size: 15px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+.chart_column_small.hidden,
+.chart_name_small.hidden {
+    display: none;
+}
+
+.chart_title .chart_column_small .rotate,
+.chart_title .chart_name_small .rotate{
+    width: 122px;
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+    transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
 .chart_title .chart_columns {
     /* overflow-y: scroll; */
     overflow: auto;
@@ -37,11 +86,32 @@
     display: block;
 }
 
+.chart_columns 
+
 .dataset_title {
     position: sticky;
+    display:  flex;
     padding: 5px;
     font-weight: 500;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.dataset_title .dataset_Name {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dataset_title .dataset_icon {
+    cursor: pointer;
+    border: none;
+    width: 32px;
+    height: 25px;
+    background-color: transparent;
+    z-index: 111111111111111;
+}
+
 
 /* .dataset_list .react-draggable {
     display: block;
@@ -108,6 +178,10 @@
 
 .chart_names .items_container .item span{
     font-size: 10px;
+}
+
+.chart_columns .active {
+    display: none;
 }
 
 /* ========= Axis ============= */
@@ -185,4 +259,14 @@
 
 .column_icons .hidden {
     display: block;
+}
+
+
+
+
+/* ===================  */
+.dataset_title .dataSet_icons {
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
