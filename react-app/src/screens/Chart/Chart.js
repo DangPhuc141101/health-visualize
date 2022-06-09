@@ -35,6 +35,7 @@ const Chart = (props) => {
     const [isActive, setIsActive] = useState(true);
 
     const [activeNameChart, setActiveNameChart] = useState(true);
+
  
     
     // ====== Get Chart from Chart Items ========
@@ -256,7 +257,7 @@ const Chart = (props) => {
     }
 
   const dragend_handler = (e) => {
-    e.target.style.border = "solid gray";
+    // e.target.style.border = "solid gray";
     e.dataTransfer.clearData();
   }
 
@@ -279,6 +280,7 @@ const Chart = (props) => {
                 <div className= {isActive ? 'chart_columns' : 'chart_columns hidden'}> 
                   {/* Name of dataset */}
                   <DataColumns
+                    nameData = {props.nameData}
                     handleShow = {() => handleShow()}
                     columns={props.columns}
                     dragstart_handler = {dragstart_handler}
@@ -320,7 +322,7 @@ const Chart = (props) => {
                               /> : (null)
                             }
                             {/* === Legend === */}
-                            {typeChart === 'pie' || typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area' ? 
+                            {typeChart === 'pie' || typeChart === 'bar' || typeChart === 'scatter' || typeChart === 'line' || typeChart === 'column' || typeChart === 'area'|| typeChart === 'donut' ? 
                               <Legend
                                 legend={legend} 
                                 drop_handler_legend={drop_handler_legend} 
@@ -338,7 +340,7 @@ const Chart = (props) => {
                               />
                               : (null)}
                             {/* === Value === */}
-                            {typeChart === 'pie' || typeChart === '' || typeChart === 'scatter' ?
+                            {typeChart === 'pie' || typeChart === '' || typeChart === 'scatter'|| typeChart === 'donut'  ?
                                 <Value
                                   values = {values}
                                   drop_handler_Values = {drop_handler_Values}

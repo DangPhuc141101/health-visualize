@@ -86,8 +86,6 @@
     display: block;
 }
 
-.chart_columns 
-
 .dataset_title {
     position: sticky;
     display:  flex;
@@ -95,6 +93,8 @@
     font-weight: 500;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 8px;
 }
 
 .dataset_title .dataset_Name {
@@ -180,9 +180,9 @@
     font-size: 10px;
 }
 
-.chart_columns .active {
+/* .chart_columns .active {
     display: none;
-}
+} */
 
 /* ========= Axis ============= */
 .chart_axis{
@@ -234,7 +234,7 @@
     White-space: nowrap;
     Overflow: hidden;
     Text-overflow: ellipsis;
-    width: 131px;
+    width: 157px;
 }
 
 .axis_container ul {

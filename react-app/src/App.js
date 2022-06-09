@@ -18,6 +18,9 @@ function App() {
   const [listObject, setListObject] = useState([]);
   const [inputName, setInputName] = useState('');
 
+  const [nameData, setNameData] = useState()
+
+
   const saveListObject = (listObjectData) => {
     setListObject(listObjectData)
   }
@@ -37,7 +40,10 @@ function App() {
     setColumns(col);
   }
 
-  
+  const inputDataName  = (name) => {
+    setNameData(name)
+  }
+
   return (
     <Router>
       <Header/>
@@ -45,9 +51,38 @@ function App() {
           <div className='app_container'>
             <Routes>
               <Route path='/' element={<HomeScreen/>} exact/>
-              <Route path='/upload' element={<Upload onSaveData = {saveData} saveListObject={saveListObject} onSaveInputName={saveInputName}/>}/>
-              {(data ? <Route path='/chart' element={<Chart data={data} columns={columns} types={types} listObjData={listObject} />}/> : null)}
-              <Route path='/table' element={<Table data={data} columns={columns}/>}/>
+              <Route path='/upload'
+                 element={
+                   <Upload 
+                    onSaveData = {saveData} 
+                    saveListObject={saveListObject} 
+                    onSaveInputName={saveInputName}
+                    inputDataName = {inputDataName}
+                    />
+                  }
+               />
+              {(data ? 
+                  <Route path='/chart' 
+                    element={
+                      <Chart 
+                        data={data} 
+                        columns={columns} 
+                        types={types} 
+                        listObjData={listObject} 
+                        nameData = {nameData}
+                      />
+                    }
+                  /> 
+                  : null)
+              }
+              <Route path='/table' 
+                 element={
+                   <Table 
+                    data={data} 
+                    columns={columns}
+                     />
+                  }
+              />
             </Routes>
           </div>
         </main>

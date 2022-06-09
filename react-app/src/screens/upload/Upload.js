@@ -15,6 +15,10 @@ const Upload = (props) => {
   const [columns, setColumns] = useState([]);
   const [query, setQuery] = useState(0);
 
+  
+
+  // let mycheck = file.name.split(".").splice(0,1);
+  // console.log(mycheck)
 
   const handleOnChange = (e) => {
       setFile(e.target.files[0]);
@@ -43,7 +47,8 @@ const Upload = (props) => {
           props.onSaveData(data);
           prepareData(data.health);
           
-          console.log(dataSource)
+          let nameData = file.name.split(".").splice(0,1);
+          props.inputDataName(nameData)
       }
   };
 

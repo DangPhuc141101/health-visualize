@@ -1,0 +1,81 @@
+.dataset_list .data_container {
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.dataset_list .data_container.active {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.dataset_list .data_container.active::before {
+    color: #3498db;
+    top: -10px;
+    left: -30px;
+    transform: rotateY(180deg);
+}
+
+.data_container .data_title {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 10px 19px;
+}
+
+.data_container .data_title .title_icon {
+    margin-right: 5px;
+}
+
+.data_container .data_list {
+    display: block;
+    margin: 7px 0 0;
+    width: 90%;
+    transform: translateX(27px);  
+}
+
+.dataset_list .data_container.active .data_list {
+    display: none;
+}
+
+.data_container .data_toggle {
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 0;
+    position: absolute;
+    top: 0%;
+    right: 9%;
+    height: 25px;
+    width: 22px;
+    margin: 10px 0;
+}
+
+.data_container .data_toggle:focus {
+    outline: 0;
+}
+
+.data_container .data_toggle .down {
+    display: none;
+}
+
+.dataset_list .data_container.active .data_toggle .arrowUp {
+    color: #fff;
+    display: none;
+}
+
+.dataset_list .data_container.active .data_toggle .down {
+    display: block;
+}
+
+.dataset_list .data_title .title_name {
+    White-space: nowrap;
+    Overflow: hidden;
+    Text-overflow: ellipsis;
+    width: 143px;
+    font-size: 14px;
+}
