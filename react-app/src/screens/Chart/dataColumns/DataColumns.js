@@ -7,11 +7,25 @@ import './dataColumns.css';
 
 const DataColumns = (props) => {
 
-    console.log(props.nameData)
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(-1);
+    const [valueIndex, setValueIndex] = useState();
 
-    const handleChange = (id) => {
-        setIsActive(!isActive)
+    const handleChange = (index) => {
+        if(isActive === index) {
+            setIsActive(-1)
+        } else {
+            setIsActive(index)
+        }
+        setValueIndex(index)
+    }
+
+    const handleClick = () => {
+        const hi = document.getElementsByClassName('data_container').style.border = "1px solid black"
+        return hi;
+    }
+
+    const handleSaveIndex = (i) => {
+        // setValueIndex(i);
     }
 
   return (
@@ -31,32 +45,39 @@ const DataColumns = (props) => {
                 </button>
             </div>
             <div className='dataset_list'>
-                <div className={isActive ? 'data_container' : 'data_container active'} >
-                    <h6 className='data_title'>
-                        <BsTable className='title_icon'/>
-                        <div className='title_name'>
-                            {props.nameData}
-                        </div>
-                    </h6>
-                    <div className='data_list'>
-                        {props.columns.map((column) => (
-                            <div 
-                                draggable='true' 
-                                id='src_copy' 
-                                onDragStart={(e) => props.dragstart_handler(e,column)}
-                                onDragEnd={(e) => props.dragend_handler(e)}>
-                                <ListGroup key={column}>
-                                    <ListGroup.Item>{column}</ListGroup.Item>
-                                </ListGroup>
+            {props.nameData.map((name, i) => (
+                <div className={isActive === i ? 'data_container' : 'data_container active'} onChange={handleSaveIndex(i)}>
+                    <div className='data_ListContainer'>
+                        <div>
+                            <h6 className='data_title' key={i}>
+                                <BsTable className='title_icon'/>
+                                <div className='title_name' onClick={handleClick}>
+                                    {name}
+                                </div>
+                            </h6>
+                    
+                            <div className='data_list'>
+                                {props.columns[i].map((column, j) => (
+                                    <div 
+                                        draggable='true' 
+                                        id='src_copy' 
+                                        onDragStart={(e) => props.dragstart_handler(e,column)}
+                                        onDragEnd={(e) => props.dragend_handler(e)}>
+                                        <ListGroup key={j}>
+                                            <ListGroup.Item>{column}</ListGroup.Item>
+                                        </ListGroup>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                            <button className='data_toggle' onClick={() => handleChange(i)}>
+                                <AiOutlineDown className='down'/>
+                                <IoIosArrowUp className='arrowUp'/>
+                            </button>
+                        </div>
                     </div>
-                    <button className='data_toggle' onClick={() => handleChange()}>
-                        <AiOutlineDown className='down'/>
-                        <IoIosArrowUp className='arrowUp'/>
-                    </button>
-                </div>
-            </div>
+                </div>    
+            ))}
+        </div>
         </div>
     </div>
   )

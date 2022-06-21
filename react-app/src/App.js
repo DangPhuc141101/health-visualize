@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
 import Header from './NavBarScreen/Header/Header';
@@ -18,12 +18,20 @@ function App() {
   const [listObject, setListObject] = useState([]);
   const [inputName, setInputName] = useState('');
 
-  const [nameData, setNameData] = useState()
+  const [nameData, setNameData] = useState([])
+
+  const [datas, setDatas] = useState([]); 
+
+  console.log('Check data here: ',datas);
+  console.log("Check List Object here: ", listObject)
+  console.log('Check column:', columns)
+  console.log('Check data in app: ', data)
+
 
 
   const saveListObject = (listObjectData) => {
-    setListObject(listObjectData)
-  }
+    setListObject(pre => [...pre, listObjectData])
+  } 
 
   const saveInputName = (inputName) => {
     setInputName(inputName);
@@ -37,11 +45,12 @@ function App() {
     const col = [];
     for (const key in data.health)
       col.push(key);
-    setColumns(col);
+    setColumns(pre => [...pre, col]);
+    setDatas(pre => [...pre, data.health])
   }
 
   const inputDataName  = (name) => {
-    setNameData(name)
+    setNameData(pre => [...pre, name])
   }
 
   return (
@@ -68,7 +77,8 @@ function App() {
                         data={data} 
                         columns={columns} 
                         types={types} 
-                        listObjData={listObject} 
+                        // thay đổi index của listObjData[index]
+                        listObjData={listObject[0]} 
                         nameData = {nameData}
                       />
                     }

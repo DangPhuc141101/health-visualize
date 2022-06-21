@@ -79,7 +79,7 @@ const ChartItems = (props) => {
             <div className='chart_table'>
                 <button 
                     type="button" 
-                    class="btn btn-primary" 
+                    className="btn btn-primary" 
                     id="liveToastBtn"
                     onClick={clickTable}
                 >
@@ -91,7 +91,7 @@ const ChartItems = (props) => {
             <div className='charts' ref={chartMenu}>
                 <button 
                     type="button" 
-                    class="btn btn-primary" 
+                    className="btn btn-primary" 
                     id="liveToastBtn"
                     onClick={ToggleClass}
                 >

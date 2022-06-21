@@ -78,4 +78,5 @@
     Text-overflow: ellipsis;
     width: 143px;
     font-size: 14px;
+    cursor: pointer;
 }

@@ -6,11 +6,13 @@ import { something } from '../../hook/bar';
 
 const BarChart = (props) => {
     const { xAxis, yAxis, data, legend } = props;
-
+    
+    console.log('Check data in Bar Chart',data)
     // config 
     const width = 700, height = 500;
 
     const numColumn = countColumn(data, xAxis);
+    console.log(numColumn)
     let padding = (numColumn < 10) ? ((numColumn <= 5) ? 20 : 10) : 5;
     let paddingX = (height - 100 - padding * numColumn) * 1.0 / (numColumn) * 2 / 3;
     let barWidth = (height - 100 - padding * numColumn) * 1.0 / (numColumn) / yAxis.length;

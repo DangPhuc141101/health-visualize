@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import {IoReturnDownBackOutline} from 'react-icons/io5'
 import { Button, Container, Form, Modal } from 'react-bootstrap';
@@ -14,11 +14,6 @@ const Upload = (props) => {
   const [dataSource, setDataSource] = useState([]);
   const [columns, setColumns] = useState([]);
   const [query, setQuery] = useState(0);
-
-  
-
-  // let mycheck = file.name.split(".").splice(0,1);
-  // console.log(mycheck)
 
   const handleOnChange = (e) => {
       setFile(e.target.files[0]);
@@ -35,21 +30,21 @@ const Upload = (props) => {
   const handleOnSubmit = async (e) => {
       e.preventDefault();
 
-      if (file) {
-          let formData = new FormData();
-          formData.append('file', file);
-          formData.append("upload_preset", "ml_default");
-          formData.append('row', 3)
+        if (file) {
+            let formData = new FormData();
+            formData.append('file', file);
+            formData.append("upload_preset", "ml_default");
+            formData.append('row', 3)
 
-          const response = await axios.post('http://localhost:8000/api/test/?row=' + query, formData)
-          const data = response.data;
+            const response = await axios.post('http://localhost:8000/api/test/?row=' + query, formData)
+            const data = response.data;
 
-          props.onSaveData(data);
-          prepareData(data.health);
-          
-          let nameData = file.name.split(".").splice(0,1);
-          props.inputDataName(nameData)
-      }
+            props.onSaveData(data);
+            prepareData(data.health);
+
+            let nameData = file.name.split(".").splice(0,1);
+            props.inputDataName(nameData)
+        }
   };
 
   const prepareData = (data) => {
@@ -103,7 +98,7 @@ const Upload = (props) => {
             <Modal.Body>
               <Form.Group controlId="formFileSm" className="mb-3">
                 <Form.Label>Small file input example</Form.Label>
-                <Form.Control type="file" size="sm" name="upload_file" accept=".csv" onChange={handleOnChange} className="mb-2" />
+                <Form.Control type="file" multiple  size="sm" name="upload_file" accept=".csv" onChange={handleOnChange} className="mb-2" />
                 <Form.Control size="sm" placeholder="Small text" onChange={handleOnChangeInput} type="number" min={0} value={query} className="mb-2" />
                 <Form.Control size="sm" placeholder="Small text" onChange={getInputName} type="text" className="mb-2" />
                 <Button variant="secondary" size="sm" onClick={handleOnSubmit}>
