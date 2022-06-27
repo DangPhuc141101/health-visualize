@@ -4,7 +4,6 @@ import { sum, max, min, average, countColumn, getLegend } from "../../hook/index
 
 const PieChart = (props) => {
     const { legend, value } = props;
-   console.log('Render PieChart')
     const height = 500, width = 800;
     const dataPie = sum(props.data, legend, value[0])
     const xAxis = legend;

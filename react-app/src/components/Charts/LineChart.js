@@ -1,6 +1,5 @@
 import React from "react";
 import { sum, max, min, average, countColumn, getLegend } from "../../hook/index"
-import { Container } from "react-bootstrap";
 import {
     VictoryChart,
     VictoryVoronoiContainer,
@@ -41,7 +40,6 @@ const LineChart = (props) => {
 
     useEffect(() => {
 
-        console.log('props.legend', props.legend, '----');
         if (!(!!props.legend)) {
             console.log("legend is not choosen");
         } else {
@@ -52,7 +50,6 @@ const LineChart = (props) => {
                 legendArrTemp.push(`${item[`${props.legend}`]}`);
             });
             const legendArr = Array.from(new Set(legendArrTemp));
-            console.log("this is legend categories: ", legendArr);
 
             const dataAnnotation = legendArr.map((label) => {
                 return { name: `${label}` };
@@ -66,8 +63,6 @@ const LineChart = (props) => {
                 } catch (e) {
                     console.log(e);
                 }
-
-                // xAxisCategoryTemp.push(item[`${props.xAxis}`])
             });
             const xAxisCategoryTemp1 = Array.from(
                 new Set(xAxisCategoryTemp)
@@ -95,7 +90,7 @@ const LineChart = (props) => {
     const height = 500;
 
     return (
-        <>
+        <div style={{width: 800, height: 500}}>
             <VictoryChart
                 domainPadding={10}
                 height={height}
@@ -188,7 +183,7 @@ const LineChart = (props) => {
                     }}
                 />
             </VictoryChart>
-        </>
+        </div>
     )
 };
 

@@ -33,7 +33,8 @@ const ColumnChart = (props) => {
     }
 
     return (
-        <>
+        <div style={{width:width, height:height}
+        }>
             <VictoryChart
                 responsive={false}
 
@@ -48,7 +49,7 @@ const ColumnChart = (props) => {
                     colorScale="qualitative"
                     gutter={20}
                     itemsPerRow={10}
-                    style={{ border: { stroke: "black" }, title: { fontSize: 14 }, labels: { fontSize: 8 } }}
+                    style={{ title: { fontSize: 14 }, labels: { fontSize: 8 } }}
                     data={legends}
                 />
                 <VictoryGroup offset={barWidth}
@@ -181,7 +182,7 @@ const ColumnChart = (props) => {
                     }}
                 />
             </VictoryChart>
-        </>
+        </div>
     );
 
 }

@@ -43,7 +43,6 @@ const Upload = (props) => {
           props.onSaveData(data);
           prepareData(data.health);
           
-          console.log(dataSource)
       }
   };
 

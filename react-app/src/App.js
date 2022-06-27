@@ -4,8 +4,9 @@ import './App.css';
 import Header from './components/Header/Header';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import Upload from './components/UploadScreen/Upload';
-import Chart from './components/ChartScreen/Chart/Chart';
 import Table from './components/TableScreen/Table'
+import Chart from './components/ChartScreen/Chart/Chart';
+import ChartTest from './components/ChartScreen/Chart/ChartTest';
 
 function App() {
   const [data, setData] = useState('');
@@ -16,6 +17,8 @@ function App() {
 
   const saveListObject = (listObjectData) => {
     setListObject(listObjectData)
+    // setListOject([...listOjectDat, listOjectdata])
+    // 
   }
 
   const saveInputName = (inputName) => {
@@ -41,12 +44,11 @@ function App() {
           <Routes>
             <Route path='/' element={<HomeScreen />} exact />
             <Route path='/upload' element={<Upload onSaveData={saveData} saveListObject={saveListObject} onSaveInputName={saveInputName} />} />
-            {(data ? <Route path='/chart' element={<Chart data={data} columns={columns} types={types} listObjData={listObject} />} /> : null)}
+            {(data ? <Route path='/chart' element={<ChartTest data={data} columns={columns} types={types} listObjData={listObject} />} /> : null)}
             <Route path='/table' element={<Table data={data} columns={columns} />} />
           </Routes>
         </div>
       </main>
-
       {/* <Footer/> */}
     </Router>
   );
