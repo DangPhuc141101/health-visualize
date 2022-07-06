@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip } from 'victory';
 import { sum, max, min, average, countColumn, getLegend } from "../../hook/index"
 import { something } from '../../hook/bar';
@@ -6,7 +6,6 @@ import { something } from '../../hook/bar';
 
 const BarChart = (props) => {
     const { xAxis, yAxis, data, legend } = props;
-
     // config 
     const width = 700, height = 500;
 
@@ -32,7 +31,7 @@ const BarChart = (props) => {
         })
     }
     const lengthLegends = legends.map(legend => legend['name'].length);
-    console.log(lengthLegends)
+
     return (
         <>
             <VictoryChart

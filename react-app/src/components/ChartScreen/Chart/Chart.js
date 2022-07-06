@@ -17,6 +17,8 @@ import ColumnChart from '../../Charts/ColumnChart';
 import BarChart from '../../Charts/BarChart';
 import PieChart from '../../Charts/PieChart';
 import LineChart from '../../Charts/LineChart';
+import MultipleChart from '../../Charts/MultipleChart';
+import ResizeDrag from '../../Charts/ResizeDrag';
 
 
 const Chart = (props) => {
@@ -49,11 +51,8 @@ const Chart = (props) => {
     setXAxis(pre => [...pre, id])
   }
 
-  const drop_handler_xAxis = (e) => {
-    e.preventDefault();
-    e.currentTarget.style.background = "lightblue";
-    const id = e.dataTransfer.getData("text");
-    handlerXAxis(id);
+  // ===== support drop handler ====
+  const supportHandler = (e, id) => {
     if (id == "src_move" && e.target.id == "dest_move") {
       e.target.appendChild(document.getElementById(id));
       if (id == "src_copy" && e.target.id == "dest_copy") {
@@ -62,6 +61,13 @@ const Chart = (props) => {
         e.target.appendChild(nodeCopy);
       }
     }
+  }
+  const drop_handler_xAxis = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.background = "lightblue";
+    const id = e.dataTransfer.getData("text");
+    supportHandler(e,id)
+    handlerXAxis(id);
   }
 
   const handleDeletedXAxis = (e) => {
@@ -81,15 +87,9 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    
+    supportHandler(e,id);
     handlerYAxis(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedYAxis = (e) => {
@@ -109,15 +109,9 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    
+    supportHandler(e,id)
     handlerLegend(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedLegend = (e) => {
@@ -137,15 +131,8 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    supportHandler(e,id);
     handlerSmallMultiples(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedSmallMultiples = (e) => {
@@ -165,15 +152,8 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    supportHandler(e,id)
     handlerValues(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedValue = (e) => {
@@ -193,15 +173,9 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    
+    supportHandler(e,id)
     handlerSizes(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedSize = (e) => {
@@ -221,22 +195,15 @@ const Chart = (props) => {
     e.preventDefault();
     e.currentTarget.style.background = "lightblue";
     const id = e.dataTransfer.getData("text");
+    
+    supportHandler(e,id);
     handlerSecondaryY_Axis(id);
-    if (id == "src_move" && e.target.id == "dest_move") {
-      e.target.appendChild(document.getElementById(id));
-      if (id == "src_copy" && e.target.id == "dest_copy") {
-        var nodeCopy = document.getElementById(id).cloneNode(true);
-        nodeCopy.id = "newId";
-        e.target.appendChild(nodeCopy);
-      }
-    }
   }
 
   const handleDeletedSecondaryY_Axis = (e) => {
     const data = secondaryY_Axis.filter((item) => item !== e)
     setSecondaryY_Axis(data);
   }
-
 
   // ========= Drag - Drop =========
   const dragstart_handler = (e, column) => {
@@ -346,10 +313,13 @@ const Chart = (props) => {
         </div>
         {/* ====== right ========= */}
         <div className='chart_draw'>
+          {console.log(listObjData)}
+          
+          {typeChart === "pie" && listObjData && values[0] && legend[0] ? <ResizeDrag value={values[0]} legend={legend[0]} data={props.listObjData}></ResizeDrag> : (<p>Helllllo</p>)}
           {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
-          {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0 ? <ColumnChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></ColumnChart> : (null)}
-          {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0 ? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)}
-          {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0 ? <AreaChart yAxis={yAxis} xAxis={xAxis} data={props.listObjData}></AreaChart> : (null)}
+          {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0  && smallMultiples.length > 0? <MultipleChart smallMultiple={smallMultiples[0]} yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></MultipleChart> : (null)}
+          {/* {typeChart === "pie" && props.listObjData && xAxis && yAxis.length > 0 ? <PieChart value={yAxis} legend={xAxis} data={props.listObjData}></PieChart> : (null)} */}
+          {typeChart === "area" && props.listObjData && xAxis && yAxis.length > 0 ? <AreaChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData}></AreaChart> : (null)}
           {typeChart === "line" &&
             listObjData &&
             xAxis &&

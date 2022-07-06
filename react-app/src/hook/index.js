@@ -5,7 +5,6 @@ import axios from "axios";
 export const useData = (formData, query) => {
     const [listData, setListData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    console.log("use ecffect")
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
         try {
@@ -25,7 +24,7 @@ export const useData = (formData, query) => {
 
 export const sum = (data, x, y) => {
     const obj = {};
-    
+
     data.forEach((element, i) => {
         if (!obj[element[x]]) obj[element[x]] = element[y];  
         else obj[element[x]] += element[y]; 
@@ -40,6 +39,7 @@ export const sum = (data, x, y) => {
         res.push(resObj);
     }
     res.sort((a, b) => b[y] - a[y]);
+    
     return res;
 }
 
@@ -130,3 +130,17 @@ export const getLegend = (data, x) => {
     return columns;
 }
 
+export const dataMultiple = (data, multiples, multipleName) => {
+    const result ={};
+    multiples.forEach(multiple => {
+        const dataByMultiple = data.filter(element => element[multipleName] === multiple);
+        result[multiple] = dataByMultiple;
+    })
+
+    return result;
+}
+
+export const getMultiple = (data, multipleName) => {
+    const multiples = [...new Set(data.map(item => item[multipleName]))]; 
+    return multiples;
+} 

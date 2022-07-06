@@ -21,9 +21,9 @@ const SmallMultiples = (props) => {
 
     useEffect(() => {
         let handler = (e) => {
-            if(!chartMenu.current.contains(e.target.value)) {
-                setIsActive(false)
-            }
+            // if(!chartMenu.current.contains(e.target.value)) {
+            //     setIsActive(false)
+            // }
         }
 
         document.addEventListener("mousedown", handler);
