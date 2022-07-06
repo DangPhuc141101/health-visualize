@@ -271,9 +271,6 @@ const Chart = (props) => {
     setActiveNameChart(!activeNameChart)
   }
 
-  console.log('Chart list Object',listObjData)
-  console.log('Props chart list object', props.listObjData)
-
   return (
     <>
         <div className='chart_container'>
