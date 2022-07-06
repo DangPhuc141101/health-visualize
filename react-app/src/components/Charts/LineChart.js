@@ -18,7 +18,6 @@ const LineChart = (props) => {
     });
 
     const { xAxis, yAxis, legend } = props;
-
     const dataByLegend = (data, legends, legendField, yAxis, xAxis) => {
         const result = {};
         (legends || []).forEach((legend) => {

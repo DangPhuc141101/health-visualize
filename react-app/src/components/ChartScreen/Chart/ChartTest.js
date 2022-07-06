@@ -46,7 +46,7 @@ const ChartTest = (props) => {
 
   // ====== Get Chart from Chart Items ========
   const handlerTypeChart = (typeChart) => {
-    if (selectedChart.index){
+    if (selectedChart.index >= 0){
       setListChart((prev)=>{
         prev[selectedChart.index].type = typeChart;
         return prev;

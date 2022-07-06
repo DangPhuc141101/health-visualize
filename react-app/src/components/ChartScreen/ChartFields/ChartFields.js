@@ -9,7 +9,6 @@ import SecondaryY_Axis from '../ChartField/secondaryY_Axis/SecondaryY_Axis';
 import Size from '../ChartField/size/Size';
 
 const ChartFields = (props) => {
-  console.log(props.fields)
   const {xAxis, yAxis, legend, smallMultiples, values, sizes, secondaryY_Axis} = props.fields;
   const { typeChart } = props;
  

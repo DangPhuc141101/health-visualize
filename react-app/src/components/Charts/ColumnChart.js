@@ -23,7 +23,7 @@ const ColumnChart = (props) => {
 
     const legends = [];
     if (legend) {
-        legendBar.forEach(legend => legends.push({ name: legend }));
+        legendBar.forEach(legend => legends.push({ name: legend.toString()}));
         barWidth = (width - 100 - padding * numColumn) * 1.0 / (numColumn) / legendBar.length;
     }
     else {

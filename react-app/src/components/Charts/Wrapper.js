@@ -19,27 +19,27 @@ const Wrapper = (props) => {
         try {
             switch(type){
                 case 'column':
-                    return (xAxis[0] && yAxis.length > 0  && smallMultiples.length > 0?
+                    return (xAxis && yAxis  ?
                         <ColumnChart 
                             data={props.data} 
-                            smallMultiple={smallMultiples[0]} 
+                            smallMultiple={(smallMultiples) ? smallMultiples[0] : null} 
                             yAxis={yAxis} xAxis={xAxis[0]} 
-                            legend={legend[0]}/>:null)
+                            legend={legend ? legend[0] : null}/>:null)
                 case 'bar':
-                    return (xAxis[0] && yAxis.length > 0 ? <BarChart data={props.data} yAxis={yAxis} xAxis={xAxis[0]} legend={legend[0]}/> : null)
+                    return (xAxis && yAxis ? <BarChart data={props.data} yAxis={yAxis} xAxis={xAxis[0]} legend={legend ? legend[0] : null}/> : null)
                 case 'pie':
-                    return (values[0] && legend[0] ? <PieChart data={props.data} value={values} legend={legend}/> : null)
+                    return (values && legend ? <PieChart data={props.data} value={values} legend={legend}/> : null)
                 // case 'donut':
                 //     return <DonutChart/>
                 case 'line':
-                    return (xAxis && yAxis.length > 0 ? 
+                    return (xAxis && yAxis ? 
                     <LineChart yAxis={yAxis} 
                             xAxis={xAxis[0]}
                             data={props.data}
-                            legend={legend[0]}
+                            legend={legend ? legend[0] : null}
                         /> : null)
                 case 'area':
-                    return (xAxis && yAxis.length > 0 ? <AreaChart data={props.data} yAxis={yAxis} xAxis={xAxis[0]} /> : null)
+                    return (xAxis && yAxis ? <AreaChart data={props.data} yAxis={yAxis} xAxis={xAxis[0]} /> : null)
             }
         }
         catch(e) {
@@ -75,6 +75,7 @@ const Wrapper = (props) => {
                     height: 300
                 }}
                 bounds={"parent"}
+                key={index}
             >
                 {createChart()}
             </Rnd>

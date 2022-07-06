@@ -5,7 +5,6 @@ import axios from "axios";
 export const useData = (formData, query) => {
     const [listData, setListData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    console.log("use ecffect")
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
         try {
@@ -25,7 +24,7 @@ export const useData = (formData, query) => {
 
 export const sum = (data, x, y) => {
     const obj = {};
-    console.log(x, y, 'data by sum')
+
     data.forEach((element, i) => {
         if (!obj[element[x]]) obj[element[x]] = element[y];  
         else obj[element[x]] += element[y]; 
