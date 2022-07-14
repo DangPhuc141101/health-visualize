@@ -13,13 +13,8 @@ const ChartTest = (props) => {
   const initialField = {xAxis:[], yAxis:[], legend:[], smallMultiples:[], values:[], sizes:[], secondaryY_Axis:[]};
 
   console.log(listChart)
-  console.log(listField)
-  console.log(listField[0])
-
   // handle delete chart 
   const handleDeleteChart = (type,index) => {
-    console.log('parent type: ', type)
-    console.log('parent index: ', index)
     const listChartDeleted = listChart.filter((chart) => chart.type !== type)
     setListChart(listChartDeleted)
     setListField(listField[index] = [])
@@ -30,18 +25,13 @@ const ChartTest = (props) => {
   const onGetFields = (attribute, isAdd)=>{
     // add a attribute to a list fields of a chart   
     const {index} = selectedChart;  
-    console.log('index', index)
     const key = Object.keys(attribute)[0];
-    console.log(key)
     const value = Object.values(attribute)[0]; 
-    console.log(value)     
      
     if (index >=0){
       if (isAdd) {
         setListField((prev)=>{
           let field = prev[index];
-          console.log('pre', prev[index])
-          console.log(field)
           if (field[key]) {
             if (!field[key].includes(value)) field[key].push(value);
           }
