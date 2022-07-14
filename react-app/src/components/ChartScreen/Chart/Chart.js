@@ -32,6 +32,7 @@ const Chart = (props) => {
   const [secondaryY_Axis, setSecondaryY_Axis] = useState([]);
   const [typeChart, setTypeChart] = useState('');
 
+
   // ====== Get Chart from Chart Items ========
   const handlerTypeChart = (typeChart) => {
     setTypeChart(typeChart);
@@ -220,13 +221,14 @@ const Chart = (props) => {
     e.dataTransfer.clearData();
   }
 
+
   return (
     <>
       <div className='chart_container'>
         {/* ======== left ========= */}
         <div className='chart_title'>
           {/* ======= Name of dataset and filter ====== */}
-          <div className='chart_columns'>
+           <div className='chart_columns'>
             {/* Name of dataset */}
             <DataColumns
               columns={props.columns}
@@ -234,8 +236,9 @@ const Chart = (props) => {
               dragend_handler={dragend_handler}
             />
           </div>
+
           {/* ======== Name of chart and Axis ========= */}
-          <div className='chart_names'>
+         <div className='chart_names'>
             <ChartItems getTypeChart={handlerTypeChart} />
             {/* ===== Axis ====== */}
             <div className='chart_axis'>
@@ -313,8 +316,7 @@ const Chart = (props) => {
         </div>
         {/* ====== right ========= */}
         <div className='chart_draw'>
-          {console.log(listObjData)}
-          
+          {console.log(listObjData)}          
           {typeChart === "pie" && listObjData && values[0] && legend[0] ? <ResizeDrag value={values[0]} legend={legend[0]} data={props.listObjData}></ResizeDrag> : (<p>Helllllo</p>)}
           {typeChart === "bar" && listObjData && xAxis[0] && yAxis.length > 0 ? <BarChart yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></BarChart> : (null)}
           {typeChart === "column" && listObjData && xAxis[0] && yAxis.length > 0  && smallMultiples.length > 0? <MultipleChart smallMultiple={smallMultiples[0]} yAxis={yAxis} xAxis={xAxis[0]} data={props.listObjData} legend={legend[0]}></MultipleChart> : (null)}

@@ -90,7 +90,7 @@ const ChartItems = (props) => {
             <div className='charts' ref={chartMenu}>
                 <button 
                     type="button" 
-                    class="btn btn-primary" 
+                    className="btn btn-primary" 
                     id="liveToastBtn"
                     onClick={ToggleClass}
                 >
