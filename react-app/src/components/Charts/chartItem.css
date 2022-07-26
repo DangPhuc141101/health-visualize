@@ -1,0 +1,11 @@
+.chartContainer_Items {
+    /* border: 1px solid #ccc; */
+}
+
+.chartContainer_Items .delete_icon {
+    display: block;
+    font-size: 30px;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+}

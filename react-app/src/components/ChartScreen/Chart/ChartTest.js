@@ -12,13 +12,21 @@ const ChartTest = (props) => {
   const [listField, setListField] = useState([]);
   const initialField = {xAxis:[], yAxis:[], legend:[], smallMultiples:[], values:[], sizes:[], secondaryY_Axis:[]};
 
+  console.log(listChart)
+  // handle delete chart 
+  const handleDeleteChart = (type,index) => {
+    const listChartDeleted = listChart.filter((chart) => chart.type !== type)
+    setListChart(listChartDeleted)
+    setListField(listField[index] = [])
+  }
+
   // isAdd = true => add
   // isAdd = false => remove
   const onGetFields = (attribute, isAdd)=>{
     // add a attribute to a list fields of a chart   
     const {index} = selectedChart;  
     const key = Object.keys(attribute)[0];
-    const value = Object.values(attribute)[0];      
+    const value = Object.values(attribute)[0]; 
      
     if (index >=0){
       if (isAdd) {
@@ -103,7 +111,7 @@ const ChartTest = (props) => {
           </div>
         </div>
         {/* ====== right ========= */}
-        <ChartDraw selectChartHandler={selectChartHandler} selectChart={selectedChart} listChart={listChart} data={props.listObjData} listField={listField}></ChartDraw>
+        <ChartDraw handleDeleteChart= {handleDeleteChart} selectChartHandler={selectChartHandler} selectChart={selectedChart} listChart={listChart} data={props.listObjData} listField={listField}></ChartDraw>
       </div>
     </>
   )

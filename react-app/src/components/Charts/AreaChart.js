@@ -2,6 +2,8 @@ import React from 'react'
 import { VictoryChart, VictoryGroup, VictoryAxis, VictoryTheme, VictoryLegend, VictoryTooltip, VictoryArea } from 'victory';
 import { sum, max, min, average, countColumn, getLegend } from "../../hook/index"
 import calculateTextWidth from "calculate-text-width";
+import './chartItem.css';
+import { TiDeleteOutline } from 'react-icons/ti';
 
 const AreaChart = (props) => {
     const { xAxis, yAxis, data, legend } = props;
@@ -40,76 +42,84 @@ const AreaChart = (props) => {
             shadowWidth: 5
         }
     }
+
+    const handleDelete = () => {
+        
+    }
+
     return (
         <>
-            <VictoryChart
-                responsive={false}
-                theme={VictoryTheme.material}   
-                // domainPadding={{ x: [paddingX, paddingX], y: [50, 50] }}
-                height={height}
-                width={width}
-            //</>theme={VictoryTheme.material}
-            >
-                <VictoryGroup>
-                    
-                    {(!legend ? yAxis.map((y,index) => {
-                        
-                        return (<VictoryArea
-                            data={max(data, xAxis, y)}
+            <div className='chartContainer_Items'>
+                <VictoryChart
+                    responsive={false}
+                    theme={VictoryTheme.material}   
+                    // domainPadding={{ x: [paddingX, paddingX], y: [50, 50] }}
+                    height={height}
+                    width={width}
+                //</>theme={VictoryTheme.material}
+                >
+                   
+                    <VictoryGroup>
+                        {(!legend ? yAxis.map((y,index) => {
+                            
+                            return (<VictoryArea
+                                data={max(data, xAxis, y)}
+                                x = {d => d[xAxis]}
+                                y = {d => d[y]}
+                                style={{ data: { stroke: "#c43a31", strokeWidth: 1, strokeLinecap: "round", fillOpacity: 0.4, fill: `${colors[index]}` }}}>
+        
+                            </VictoryArea>)
+                        })
+                        :
+                        <VictoryArea
+                            data={max(data, xAxis, yAxis[0])}
                             x = {d => d[xAxis]}
-                            y = {d => d[y]}
-                            style={{ data: { stroke: "#c43a31", strokeWidth: 1, strokeLinecap: "round", fillOpacity: 0.4, fill: `${colors[index]}` }}}>
-    
-                        </VictoryArea>)
-                    })
-                    :
-                    <VictoryArea
-                        data={max(data, xAxis, yAxis[0])}
-                        x = {d => d[xAxis]}
-                        y = {d => d[yAxis[0]]}
-                        style={style.area}>
+                            y = {d => d[yAxis[0]]}
+                            style={style.area}>
 
-                    </VictoryArea>
-                    )}
+                        </VictoryArea>
+                        )}
+                        
+                    </VictoryGroup>
+                    <TiDeleteOutline className='delete_icon' onClick={() => handleDelete()}/>
+                    <VictoryAxis
+                        crossAxis
+                        label={props.xAxis}
                     
-                </VictoryGroup>
-                <VictoryAxis
-                    crossAxis
-                    label={props.xAxis}
-                  
-                    tickFormat={(t) => {
-                        if (!isNaN(t)) return t;
-                        const words = t.split(' ');
+                        tickFormat={(t) => {
+                            if (!isNaN(t)) return t;
+                            const words = t.split(' ');
 
-                        let result = '';
-                        let row = '';
-                        for (let word of words) {
-                            row += `${word} `;
-                            const calculatedWidth = calculateTextWidth(row, `normal ${style.labelTick.fontSize}px sans-serif`)
-                            if (calculatedWidth > 21) {
-                                result += `\n${word}`;
-                                row = `${word} `;
+                            let result = '';
+                            let row = '';
+                            for (let word of words) {
+                                row += `${word} `;
+                                const calculatedWidth = calculateTextWidth(row, `normal ${style.labelTick.fontSize}px sans-serif`)
+                                if (calculatedWidth > 21) {
+                                    result += `\n${word}`;
+                                    row = `${word} `;
+                                }
+                                else result += ` ${word}`;
                             }
-                            else result += ` ${word}`;
-                        }
-                        return result;
-                    }}
-                    style={style.xAxis}
-                />
-                <VictoryAxis
-                    dependentAxis
-                    tickFormat={(t) => {
-                        if (t % 1000000 === 0)
-                            return `${t / 1000000}M`;
+                            return result;
+                        }}
+                        style={style.xAxis}
+                    />
+                    <VictoryAxis
+                        dependentAxis
+                        tickFormat={(t) => {
+                            if (t % 1000000 === 0)
+                                return `${t / 1000000}M`;
 
-                        if (t % 1000 === 0)
-                            return `${t / 1000}K`;
-                        return t;
-                    }}
-                    label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
-                    style={style.yAxis}
-                />
-            </VictoryChart>
+                            if (t % 1000 === 0)
+                                return `${t / 1000}K`;
+                            return t;
+                        }}
+                        label={(yAxis.length == 1 || legend) ? yAxis[0] : 'Frequency'}
+                        style={style.yAxis}
+                    />
+                </VictoryChart>
+            </div>
         </>
     );
 
