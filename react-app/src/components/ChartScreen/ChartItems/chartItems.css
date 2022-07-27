@@ -71,3 +71,14 @@
     width: 70px;
     cursor: pointer;
 }
+
+.chartItems_container .icon_chartItems {
+    display: flex;
+        font-size: 18px;
+        margin-top: -30px;
+        border: 1px solid #ccc;
+        height: 23px;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+}
