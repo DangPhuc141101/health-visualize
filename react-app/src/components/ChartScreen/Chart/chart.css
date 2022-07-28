@@ -1,46 +1,58 @@
-
-.chart_container{
-    display: flex;
-    justify-content: space-between;
-    height: 82vh;
-    background-color: #f9f9f9;
+.chart_container {
+  display: flex;
+  justify-content: space-between;
+  height: 82vh;
+  background-color: #f9f9f9;
 }
 
 .chart_container .chart_title {
-    display: flex;
+  display: flex;
 }
 
 .chart_title .chart_columns,
-.chart_title .chart_names
-{
-    display: block;
-    width: 228px;
-    height: 107%;
-    border: 2px solid #1D81A2;
-    border-radius: 5px;
-    margin: 0 3px;
+.chart_title .chart_names {
+  display: block;
+  width: 228px;
+  height: 107%;
+  border: 2px solid #1d81a2;
+  border-radius: 5px;
+  margin: 0 3px;
 }
 
 .chart_title .chart_columns {
-    /* overflow-y: scroll; */
-    overflow: auto;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
+  /* overflow-y: scroll; */
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
 }
 
-.chart_title .chart_columns::-webkit-scrollbar { 
-    width: 0 !important;
-    display: none; 
-  }
+.chart_title .chart_columns::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
 
 .chart_columns .chart_datasets {
-    display: block;
+  display: block;
 }
 
 .dataset_title {
-    position: sticky;
-    padding: 5px;
-    font-weight: 500;
+  position: sticky;
+  padding: 5px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* icon show and display */
+.dataset_title .title_icon {
+  display: flex;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  height: 23px;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 /* .dataset_list .react-draggable {
@@ -49,34 +61,34 @@
 } */
 
 .chart_columns .chart_datasets {
-    cursor: move;
-    user-select: none;
-    z-index: 1;
+  cursor: move;
+  user-select: none;
+  z-index: 1;
 }
 
-.chart_columns .chart_filters p{
-    padding: 4px 0 4px 10px;
+.chart_columns .chart_filters p {
+  padding: 4px 0 4px 10px;
 }
 
 .chart_filters .dropdown {
-    display: block;
-    text-align: center;
+  display: block;
+  text-align: center;
 }
 
 .chart_filters .dropdown-toggle {
-    padding: 6px 68px;
+  padding: 6px 68px;
 }
 
 .chart_filters .dropdown-menu {
-    width: 184px;
+  width: 184px;
 }
 
 .chart_filters .list-group {
-    display: block;
-    text-align: center;
-    margin:  0 auto;
-    width: 210px;
-    border: 1px solid #1D81A2;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  width: 210px;
+  border: 1px solid #1d81a2;
 }
 
 /* .chart_filters .filter_form {
@@ -86,42 +98,42 @@
 } */
 
 .chart_names .items_container {
-    display: grid;
-    border-bottom: 1px solid #1D81A2;
-    min-height: 240px;
-    align-items: center;
-    font-size: 40px;
-    grid-template-columns: 72px 77px 80px;
-    grid-template-rows: 50px 50px;
+  display: grid;
+  border-bottom: 1px solid #1d81a2;
+  min-height: 240px;
+  align-items: center;
+  font-size: 40px;
+  grid-template-columns: 72px 77px 80px;
+  grid-template-rows: 50px 50px;
 }
 
 .chart_items .items_container .item {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px;
-    height: 56px;
-    margin: 5px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+  height: 56px;
+  margin: 5px;
 }
 
-.chart_names .items_container .item span{
-    font-size: 10px;
+.chart_names .items_container .item span {
+  font-size: 10px;
 }
 
 /* ========= Axis ============= */
-.chart_axis{
-    display: block;
-    height: 89%;
-    overflow: auto;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
+.chart_axis {
+  display: block;
+  height: 89%;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
 }
 
 .chart_axis::-webkit-scrollbar {
-    width: 0 !important;
-    display: none; 
+  width: 0 !important;
+  display: none;
 }
 
 .chart_axis .x_Axis,
@@ -129,60 +141,73 @@
 .chart_axis .legend,
 .chart_axis .small_Multiples,
 .chart_axis .values,
-.chart_axis .size, 
+.chart_axis .size,
 .chart_axis .secondary_Y_Axis {
-    display: block;
-    height: auto;
-    overflow: auto;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
-    border: 1px solid;
-    margin: 4px 5px;
-    border-radius: 5px;
-    padding-left: 5px;
+  display: block;
+  height: auto;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  border: 1px solid;
+  margin: 4px 5px;
+  border-radius: 5px;
+  padding-left: 5px;
 }
 
 .chart_axis .x_Axis::-webkit-scrollbar,
 .chart_axis .y_Axis::-webkit-scrollbar,
-.chart_axis .legend::-webkit-scrollbar, 
+.chart_axis .legend::-webkit-scrollbar,
 .chart_axis .small_Multiples::-webkit-scrollbar {
-    width: 0 !important;
-  display: none; 
+  width: 0 !important;
+  display: none;
 }
 
 .axis_container .column_items {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
 }
 
 .axis_container .column_items .column_name {
-    White-space: nowrap;
-    Overflow: hidden;
-    Text-overflow: ellipsis;
-    width: 131px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 131px;
 }
 
 .axis_container ul {
-    padding: 1px 0rem;
+  padding: 1px 0rem;
 }
 
 .axis_container .column_icons {
-    display: flex;
-    font-size: 19px;
-    cursor: pointer;
+  display: flex;
+  font-size: 19px;
+  cursor: pointer;
 }
 
 .chart_draw {
-    width: 100%;
-    height: 89vh;
+  width: 100%;
+  height: 89vh;
 }
 
 /* ========= column features =========== */
 .column_icons .active {
-    display: none;
+  display: none;
 }
 
 .column_icons .hidden {
-    display: block;
+  display: block;
+}
+
+/* ====== Chart Name Small ========= */
+.chart_name_small {
+  display: flex;
+  position: relative;
+  width: 15%;
+  height: 107%;
+  border: 2px solid #1d81a2;
+  border-radius: 5px;
+  margin: 0 3px;
+  justify-content: center;
+  padding: 0 15px;
 }

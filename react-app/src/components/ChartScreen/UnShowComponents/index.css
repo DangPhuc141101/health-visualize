@@ -1,0 +1,61 @@
+.chart_columns,
+.chart_names {
+  display: block;
+  width: 228px;
+  height: 107%;
+  border: 2px solid #1d81a2;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+
+.chart_column_small,
+.chart_name_small {
+  display: flex;
+  position: relative;
+  width: 9%;
+  height: 107%;
+  border: 2px solid #1d81a2;
+  border-radius: 5px;
+  margin: 0 3px;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.chart_column_small span,
+.chart_name_small span {
+  font-size: 15px;
+  font-weight: 550;
+  position: absolute;
+  top: 16%;
+  left: 50%;
+}
+
+.chart_column_small .small_icon,
+.chart_name_small .small_icon {
+  display: flex;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  height: 23px;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
+.chart_column_small .rotate,
+.chart_name_small .rotate {
+  width: 122px;
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
+.chart_column_small.hidden,
+.chart_name_small.hidden {
+  display: none;
+}
+
+.chart_title .chart_columns.hidden,
+.chart_title .chart_names.hidden {
+  display: none;
+}
