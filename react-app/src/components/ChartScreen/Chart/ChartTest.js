@@ -100,7 +100,7 @@ const ChartTest = (props) => {
   };
 
   const dragend_handler = (e) => {
-    e.target.style.border = "solid gray";
+    // e.target.style.border = "solid gray";
     e.dataTransfer.clearData();
   };
 
@@ -109,7 +109,6 @@ const ChartTest = (props) => {
   };
 
   const handleShowName = () => {
-    console.log("first");
     setActiveNameChart(!activeNameChart);
   };
 
@@ -122,6 +121,7 @@ const ChartTest = (props) => {
           <div className={isActive ? "chart_columns" : "chart_columns hidden"}>
             {/* Name of dataset */}
             <DataColumns
+              nameData={props.nameData}
               handleShow={() => handleShow()}
               columns={props.columns}
               dragstart_handler={dragstart_handler}
