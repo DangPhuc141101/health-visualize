@@ -8,8 +8,6 @@ import PieChart from "./PieChart";
 import LineChart from "./LineChart";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const WrapperContext = createContext();
-
 const Wrapper = (props) => {
   const height = 500,
     width = 800;
@@ -42,7 +40,7 @@ const Wrapper = (props) => {
         case "column":
           return xAxis && yAxis ? (
             <ColumnChart
-              data={props.data}
+              data={props?.data}
               smallMultiple={smallMultiples ? smallMultiples[0] : null}
               yAxis={yAxis}
               xAxis={xAxis[0]}
@@ -52,7 +50,7 @@ const Wrapper = (props) => {
         case "bar":
           return xAxis && yAxis ? (
             <BarChart
-              data={props.data}
+              data={props?.data}
               yAxis={yAxis}
               xAxis={xAxis[0]}
               legend={legend ? legend[0] : null}
@@ -75,7 +73,7 @@ const Wrapper = (props) => {
           ) : null;
         case "area":
           return xAxis && yAxis ? (
-            <AreaChart data={props.data} yAxis={yAxis} xAxis={xAxis[0]} />
+            <AreaChart data={props?.data} yAxis={yAxis} xAxis={xAxis[0]} />
           ) : null;
         default:
           return null;

@@ -44,10 +44,10 @@ const DataColumns = (props) => {
               }
             >
               <div className="data_ListContainer">
-                <div>
+                <div key={i}>
                   <h6 className="data_title" key={i}>
                     <BsTable className="title_icon" />
-                    <div className="title_name" onClick={handleClick}>
+                    <div className="title_name" onClick={handleClick} key={i}>
                       {name}
                     </div>
                   </h6>
@@ -62,7 +62,7 @@ const DataColumns = (props) => {
                       onDragStart={(e) => props.dragstart_handler(e, column)}
                       onDragEnd={(e) => props.dragend_handler(e)}
                     >
-                      <ListGroup>
+                      <ListGroup key={index}>
                         <ListGroup.Item>{column}</ListGroup.Item>
                       </ListGroup>
                     </div>

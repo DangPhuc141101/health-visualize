@@ -30,8 +30,11 @@ const ChartTest = (props) => {
   // handle delete chart
   const handleDeleteChart = (type, index) => {
     const listChartDeleted = listChart.filter((chart) => chart.type !== type);
+    const listChartFieldDeleted = listField.filter((chart, i) => i !== index);
+    console.log("listChartFieldDeleted: ", listChartFieldDeleted);
     setListChart(listChartDeleted);
-    setListField((listField[index] = []));
+    // setListField((listField[index] = []));
+    setListField(listChartFieldDeleted);
   };
 
   // isAdd = true => add
@@ -67,7 +70,7 @@ const ChartTest = (props) => {
   const handlerTypeChart = (typeChart) => {
     if (selectedChart.index >= 0) {
       setListChart((prev) => {
-        prev[selectedChart.index].type = typeChart;
+        prev[selectedChart?.index].type = typeChart;
         return prev;
       });
       setListField((prev) => [
