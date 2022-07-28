@@ -109,7 +109,6 @@ const ChartTest = (props) => {
   };
 
   const handleShowName = () => {
-    console.log("first");
     setActiveNameChart(!activeNameChart);
   };
 
