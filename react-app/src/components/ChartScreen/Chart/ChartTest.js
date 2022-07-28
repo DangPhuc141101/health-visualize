@@ -27,7 +27,6 @@ const ChartTest = (props) => {
     secondaryY_Axis: [],
   };
 
-  console.log(listChart);
   // handle delete chart
   const handleDeleteChart = (type, index) => {
     const listChartDeleted = listChart.filter((chart) => chart.type !== type);
