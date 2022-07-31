@@ -10,43 +10,51 @@ const ChartTest = (props) => {
   const [selectedChart, setSelectedChart] = useState('');
   const [listChart, setListChart] = useState([]);
   const [listField, setListField] = useState([]);
-  const initialField = {xAxis:[], yAxis:[], legend:[], smallMultiples:[], values:[], sizes:[], secondaryY_Axis:[]};
+  const initialField = { xAxis: [], yAxis: [], legend: [], smallMultiples: [], values: [], sizes: [], secondaryY_Axis: [] };
 
-  console.log(listChart)
   // handle delete chart 
-  const handleDeleteChart = (type,index) => {
-    const listChartDeleted = listChart.filter((chart) => chart.type !== type)
+  const handleDeleteChart = (type, indexDelete) => {
+    console.log(indexDelete, "delete")
+    console.log(listChart, "charts")
+    const listChartDeleted = listChart.filter((chart, index) => {
+      console.log(index, indexDelete)
+      return index != indexDelete;
+    })
+    setSelectedChart({});
     setListChart(listChartDeleted)
-    setListField(listField[index] = [])
+    setListField((prev) => {
+      const listFieldDeleted = prev.filter((filed, index) => index != indexDelete);
+      return listFieldDeleted;
+    })
   }
 
   // isAdd = true => add
   // isAdd = false => remove
-  const onGetFields = (attribute, isAdd)=>{
+  const onGetFields = (attribute, isAdd) => {
     // add a attribute to a list fields of a chart   
-    const {index} = selectedChart;  
+    const { index } = selectedChart;
     const key = Object.keys(attribute)[0];
-    const value = Object.values(attribute)[0]; 
-     
-    if (index >=0){
+    const value = Object.values(attribute)[0];
+
+    if (index >= 0) {
       if (isAdd) {
-        setListField((prev)=>{
+        setListField((prev) => {
           let field = prev[index];
           if (field[key]) {
             if (!field[key].includes(value)) field[key].push(value);
           }
           else field[key] = [value];
-          return [...prev.slice(0,index), field, ...prev.slice(index+1)];
+          return [...prev.slice(0, index), field, ...prev.slice(index + 1)];
         })
       }
       else {
-        setListField((prev)=>{
+        setListField((prev) => {
           let field = prev[index];
           if (field[key]) {
             field[key] = field[key].filter(item => item !== value);
           }
           else field[key] = [];
-          return [...prev.slice(0,index), field, ...prev.slice(index+1)];
+          return [...prev.slice(0, index), field, ...prev.slice(index + 1)];
         })
       }
     }
@@ -54,30 +62,38 @@ const ChartTest = (props) => {
 
   // ====== Get Chart from Chart Items ========
   const handlerTypeChart = (typeChart) => {
-    if (selectedChart.index >= 0){
-      setListChart((prev)=>{
+    if (selectedChart.index >= 0) {    // chart being selected
+      console.log(selectedChart)
+      setListChart((prev) => {
         prev[selectedChart.index].type = typeChart;
         return prev;
       })
-      setListField((prev)=>[...prev.slice(0,selectedChart.index), {}, prev.slice(selectedChart.index+1)]);
+      setListField((prev) => {
+        prev[selectedChart.index] = { none: 'nothing' };
+        return prev;
+      });
+      setSelectedChart((prev) => ({
+        ...prev,
+        type: typeChart
+      }));
     }
     else {
-      setListChart((prev)=>[...prev, {type:typeChart}]);
+      setListChart((prev) => [...prev, { type: typeChart }]);
       setListField(prev => [...prev, {}]);
     }
-  } 
+  }
 
   const selectChartHandler = (indexSelected, typeselected) => {
-      if (selectedChart.index === indexSelected) {
-        setSelectedChart({});
-      }
-      else setSelectedChart((prev) => ({
-        ...prev,
-        index: indexSelected,
-        type: typeselected
-      }));
+    if (selectedChart.index === indexSelected) {
+      setSelectedChart({});
+    }
+    else setSelectedChart((prev) => ({
+      ...prev,
+      index: indexSelected,
+      type: typeselected
+    }));
   }
-  
+
   // ========= Drag - Drop =========
   const dragstart_handler = (e, column) => {
     e.dataTransfer.setData("text", column)
@@ -107,11 +123,11 @@ const ChartTest = (props) => {
           <div className='chart_names'>
             <ChartItems getTypeChart={handlerTypeChart} />
             {/* ===== Axis ====== */}
-            <ChartFields typeChart={selectedChart.type} getFields={onGetFields} fields={(listField[selectedChart.index] ? listField[selectedChart.index] : {})}></ChartFields>
+            <ChartFields typeChart={selectedChart.type} getFields={onGetFields} fields={(listField[selectedChart.index] ? listField[selectedChart.index] : undefined)}></ChartFields>
           </div>
         </div>
         {/* ====== right ========= */}
-        <ChartDraw handleDeleteChart= {handleDeleteChart} selectChartHandler={selectChartHandler} selectChart={selectedChart} listChart={listChart} data={props.listObjData} listField={listField}></ChartDraw>
+        <ChartDraw handleDeleteChart={handleDeleteChart} selectChartHandler={selectChartHandler} selectChart={selectedChart} listChart={listChart} data={props.listObjData} listField={listField}></ChartDraw>
       </div>
     </>
   )
