@@ -7,6 +7,8 @@ import ColumnChart from "./ColumnChart";
 import PieChart from "./PieChart";
 import LineChart from "./LineChart";
 import { TiDeleteOutline } from "react-icons/ti";
+import { BsThreeDots } from "react-icons/bs";
+import DeleteChartDetail from "../ChartScreen/features/DeleteChartDetail/DeleteChartDetail";
 
 const Wrapper = (props) => {
   const height = 500,
@@ -22,7 +24,11 @@ const Wrapper = (props) => {
   } = props?.fields;
   const { index, type, fields, listChart } = props;
 
-  // console.log('listChart', props.listChart)
+  const [active, setActive] = useState(false);
+
+  const handleActive = () => {
+    setActive(!active);
+  };
 
   const clickWrapperHandler = (e) => {
     props.onClickWrapper(props.index, props.type);
@@ -32,6 +38,10 @@ const Wrapper = (props) => {
   const handleDeleteChart = (type, index) => {
     props.handleDeleteChart(type, index);
   };
+
+  // const checkDelete = (type, index) => {
+  //   console.log(type);
+  // };
 
   // -- create Chart --
   const createChart = () => {
@@ -107,11 +117,20 @@ const Wrapper = (props) => {
       position: "absolute",
       display: "block",
       right: "5px",
-      top: "5px",
+      top: "-0px",
       fontSize: "20px",
       cursor: "pointer",
       height: "20px",
-      zIndex: "1000",
+      zIndex: "10000000",
+    },
+
+    deleteDetail: {
+      position: "absolute",
+      backgroundColor: "#f0ebe3",
+      display: "block",
+      borderRadius: "9px",
+      zIndex: "10000000",
+      top: "0",
     },
   };
   return (
@@ -127,10 +146,22 @@ const Wrapper = (props) => {
       bounds={"parent"}
       key={index}
     >
-      <TiDeleteOutline
-        style={style.icon}
-        onClick={() => handleDeleteChart(type, index)}
-      />
+      {/*
+    <TiDeleteOutline
+    style={style.icon}
+    onClick={() => handleDeleteChart(type, index)}
+    />
+  */}
+      <BsThreeDots style={style.icon} onClick={handleActive} />
+      {active && (
+        <DeleteChartDetail
+          style={style.deleteDetail}
+          handleDeleteChart={handleDeleteChart}
+          handleActive={handleActive}
+          type={type}
+          index={index}
+        />
+      )}
       {createChart()}
     </Rnd>
   );
