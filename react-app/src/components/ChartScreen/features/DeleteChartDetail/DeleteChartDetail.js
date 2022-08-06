@@ -8,7 +8,6 @@ import { FaFileExport } from "react-icons/fa";
 import "./DeleteChartDetail.css";
 
 const DeleteChartDetail = (props) => {
-  console.log("delete details: ", props?.type);
   return (
     <>
       <div style={props.style}>

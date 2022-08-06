@@ -33,7 +33,6 @@ const ChartTest = (props) => {
     const listChartFieldDeleted = listField.filter((chart, i) => i !== index);
     console.log("listChartFieldDeleted: ", listChartFieldDeleted);
     setListChart(listChartDeleted);
-    // setListField((listField[index] = []));
     setListField(listChartFieldDeleted);
   };
 
@@ -113,6 +112,8 @@ const ChartTest = (props) => {
   const handleShowName = () => {
     setActiveNameChart(!activeNameChart);
   };
+
+  console.log("props.listObjData: ", props.listObjData);
 
   return (
     <>
