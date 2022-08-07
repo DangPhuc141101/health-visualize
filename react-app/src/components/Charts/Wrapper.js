@@ -16,8 +16,7 @@ const Wrapper = (props) => {
     const { xAxis, yAxis, legend, smallMultiples, values, sizes, secondaryY_Axis } = props.fields;
     const { index, type, fields, listChart } = props;
 
-
-    // console.log('listChart', props.listChart)
+  // console.log('listChart', props.listChart)
 
     const clickWrapperHandler = (e) => {
         props.onClickWrapper(props.index, props.type);
@@ -74,6 +73,7 @@ const Wrapper = (props) => {
             return null;
         }
     }
+  };
 
     const style = {
         rnd: {

@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import './chart.css';
-import ChartItems from '../ChartItems/ChartItems';
-import ChartFields from '../ChartFields/ChartFields';
-import DataColumns from '../dataColumns/DataColumns';
-import ChartDraw from '../ChartDraw/ChartDraw';
+import "./chart.css";
+import ChartItems from "../ChartItems/ChartItems";
+import ChartFields from "../ChartFields/ChartFields";
+import DataColumns from "../dataColumns/DataColumns";
+import ChartDraw from "../ChartDraw/ChartDraw";
+import UnShowNameDatasets from "../UnShowComponents/UnShowNameDatasets";
+import UnShowVisualize from "../UnShowComponents/UnShowVisualize";
 
 const ChartTest = (props) => {
-  const [selectedChart, setSelectedChart] = useState('');
+  const [selectedChart, setSelectedChart] = useState("");
   const [listChart, setListChart] = useState([]);
   const [listField, setListField] = useState([]);
   const initialField = { xAxis: [], yAxis: [], legend: [], smallMultiples: [], values: [], sizes: [], secondaryY_Axis: [] };
+  const [isActive, setIsActive] = useState(true);
+  const [activeNameChart, setActiveNameChart] = useState(true);
 
-  // handle delete chart 
+  // handle delete chart
   const handleDeleteChart = (type, indexDelete) => {
     console.log(indexDelete, "delete")
     console.log(listChart, "charts")
@@ -58,7 +62,7 @@ const ChartTest = (props) => {
         })
       }
     }
-  }
+  };
 
   // ====== Get Chart from Chart Items ========
   const handlerTypeChart = (typeChart) => {
@@ -96,41 +100,91 @@ const ChartTest = (props) => {
 
   // ========= Drag - Drop =========
   const dragstart_handler = (e, column) => {
-    e.dataTransfer.setData("text", column)
-    e.effectAllowed = 'copyMove';
-  }
+    e.dataTransfer.setData("text", column);
+    e.effectAllowed = "copyMove";
+  };
 
   const dragend_handler = (e) => {
-    e.target.style.border = "solid gray";
+    // e.target.style.border = "solid gray";
     e.dataTransfer.clearData();
-  }
+  };
+
+  const handleShow = () => {
+    setIsActive(!isActive);
+  };
+
+  const handleShowName = () => {
+    setActiveNameChart(!activeNameChart);
+  };
 
   return (
     <>
-      <div className='chart_container'>
+      <div className="chart_container">
         {/* ======== left ========= */}
-        <div className='chart_title'>
+        <div className="chart_title">
           {/* ======= Name of dataset and filter ====== */}
-          <div className='chart_columns'>
+          <div className={isActive ? "chart_columns" : "chart_columns hidden"}>
             {/* Name of dataset */}
             <DataColumns
+              nameData={props.nameData}
+              handleShow={() => handleShow()}
               columns={props.columns}
               dragstart_handler={dragstart_handler}
               dragend_handler={dragend_handler}
             />
           </div>
+          {/* ========== Hanlde Display Name of dataset and filter ========= */}
+          <div
+            className={
+              isActive === false
+                ? "chart_column_small"
+                : "chart_column_small hidden"
+            }
+          >
+            <UnShowNameDatasets handleShow={() => handleShow()} />
+          </div>
           {/* ======== Name of chart and Axis ========= */}
-          <div className='chart_names'>
-            <ChartItems getTypeChart={handlerTypeChart} />
+          <div
+            className={activeNameChart ? "chart_names" : "chart_names hidden"}
+          >
+            <ChartItems
+              handleShowName={() => handleShowName()}
+              getTypeChart={handlerTypeChart}
+            />
             {/* ===== Axis ====== */}
-            <ChartFields typeChart={selectedChart.type} getFields={onGetFields} fields={(listField[selectedChart.index] ? listField[selectedChart.index] : undefined)}></ChartFields>
+            <ChartFields
+              typeChart={selectedChart.type}
+              getFields={onGetFields}
+              fields={
+                listField[selectedChart.index]
+                  ? listField[selectedChart.index]
+                  : undefined
+              }
+            ></ChartFields>
+          </div>
+          {/* === undisplay visualized === */}
+          <div
+            className={
+              activeNameChart === false
+                ? "chart_name_small"
+                : "chart_name_small hidden"
+            }
+          >
+            <UnShowVisualize handleShowName={() => handleShowName()} />
           </div>
         </div>
         {/* ====== right ========= */}
-        <ChartDraw handleDeleteChart={handleDeleteChart} selectChartHandler={selectChartHandler} selectChart={selectedChart} listChart={listChart} data={props.listObjData} listField={listField}></ChartDraw>
+        <ChartDraw
+          handleDeleteChart={handleDeleteChart}
+          selectChartHandler={selectChartHandler}
+          selectChart={selectedChart}
+          listChart={listChart}
+          data={props.listObjData}
+          listField={listField}
+        ></ChartDraw>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default ChartTest;

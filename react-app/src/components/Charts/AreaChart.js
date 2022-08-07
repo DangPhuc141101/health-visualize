@@ -137,7 +137,6 @@ const AreaChart = (props) => {
             })}
         </>
     );
-
-}
+};
 
 export default AreaChart;
