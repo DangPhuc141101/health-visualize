@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, createContext } from "react";
+import React from 'react';
+import { useState, createContext } from 'react';
 import { Rnd } from "react-rnd";
 import AreaChart from "./AreaChart";
 import BarChart from "./BarChart";
@@ -10,19 +10,11 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { BsThreeDots } from "react-icons/bs";
 import DeleteChartDetail from "../ChartScreen/features/DeleteChartDetail/DeleteChartDetail";
 
+
 const Wrapper = (props) => {
-  const height = 500,
-    width = 800;
-  const {
-    xAxis,
-    yAxis,
-    legend,
-    smallMultiples,
-    values,
-    sizes,
-    secondaryY_Axis,
-  } = props?.fields;
-  const { index, type, fields, listChart } = props;
+    const height = 500, width = 800;
+    const { xAxis, yAxis, legend, smallMultiples, values, sizes, secondaryY_Axis } = props.fields;
+    const { index, type, fields, listChart } = props;
 
   const [active, setActive] = useState(false);
 
@@ -30,14 +22,14 @@ const Wrapper = (props) => {
     setActive(!active);
   };
 
-  const clickWrapperHandler = (e) => {
-    props.onClickWrapper(props.index, props.type);
-  };
+    const clickWrapperHandler = (e) => {
+        props.onClickWrapper(props.index, props.type);
+    }
 
-  // -- handle delete Chart --
-  const handleDeleteChart = (type, index) => {
-    props.handleDeleteChart(type, index);
-  };
+    // -- handle delete Chart --
+    const handleDeleteChart = (type, index) => {
+        props.handleDeleteChart(type, index);
+    }
 
   // const checkDelete = (type, index) => {
   //   console.log(type);

@@ -4,12 +4,12 @@ import calculateTextWidth from "calculate-text-width";
 import { VictoryChart, VictoryGroup, VictoryAxis, VictoryBar, VictoryTheme, VictoryLegend, VictoryTooltip, VictoryLine } from 'victory';
 import { sum, max, min, average, countColumn, getLegend, getMultiple, dataMultiple } from "../../hook/index"
 import { something } from '../../hook/bar';
-const {Resizable} = require('react-resizable');
+const { Resizable } = require('react-resizable');
 const MultipleChart = (props) => {
     let { xAxis, yAxis, data, legend, express, smallMultiple } = props;
     const multiples = getMultiple(data, smallMultiple);
     const databyMultipe = dataMultiple(data, multiples, smallMultiple);
-    const layout = [{ key: 'test', x: 0, y: 0, width: 200, height: 100, zIndex: 1 }]    
+    const layout = [{ key: 'test', x: 0, y: 0, width: 200, height: 100, zIndex: 1 }]
     // config 
     const width = 400, height = 300;
     const numColumn = countColumn(data, xAxis);
@@ -44,7 +44,7 @@ const MultipleChart = (props) => {
         while (multiples.length) blocks.push(multiples.splice(0, 2));
         return blocks;
     }
-    
+
     const tempLegend = getLegend(data, legend);
     const legendBar = [];
     tempLegend.forEach(e => legendBar.push(e))
@@ -78,7 +78,7 @@ const MultipleChart = (props) => {
                     <Row>
                         {row.map(col => {
                             data = databyMultipe[col];
-                            
+
                             return (
                                 <Col span={12}>
                                     <VictoryChart
@@ -88,7 +88,7 @@ const MultipleChart = (props) => {
                                         height={height}
                                         theme={VictoryTheme.material}
                                     >
-                                        
+
                                         <VictoryGroup offset={barWidth}
                                             colorScale={"qualitative"}
                                             style={{
@@ -103,7 +103,6 @@ const MultipleChart = (props) => {
                                                     // if (express[i] === 'Average') dataByExpress = average(data, xAxis, y);
                                                     // if (express[i] === 'Min') dataByExpress = min(data, xAxis, y);
                                                     // if (express[i] === 'Max') dataByExpress = max(data, xAxis, y);
-
                                                     return (
                                                         <VictoryBar
                                                             key={i}
@@ -224,7 +223,7 @@ const MultipleChart = (props) => {
                     </Row>
                 )
             })}
-       </>
+        </>
     );
 }
 

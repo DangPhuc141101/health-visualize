@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Xaxis from '../ChartField/xAxis/Xaxis';
 import Yaxis from '../ChartField/yAxis/Yaxis';
@@ -9,12 +9,21 @@ import SecondaryY_Axis from '../ChartField/secondaryY_Axis/SecondaryY_Axis';
 import Size from '../ChartField/size/Size';
 
 const ChartFields = (props) => {
-  const {xAxis, yAxis, legend, smallMultiples, values, sizes, secondaryY_Axis} = props.fields;
+  console.log("render chart field", props.fields)
+  if (!props.fields) {
+    console.log("render empty")
+    return (
+      <div className='chart_axis'>
+        <div className='axis_container'>
+        </div>
+      </div>);
+  }
+  const { xAxis, yAxis, legend, smallMultiples, values, sizes, secondaryY_Axis } = props.fields;
   const { typeChart } = props;
- 
+
   //  ====== X-Axis =====
   const handlerXAxis = (field) => {
-    props.getFields({xAxis: field}, true);
+    props.getFields({ xAxis: field }, true);
   }
 
   const dragover_handler = (e) => {
@@ -42,12 +51,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedXAxis = (field) => {
-    props.getFields({xAxis: field}, false);
+    props.getFields({ xAxis: field }, false);
   }
 
   // ====== Y-Axis =====
   const handlerYAxis = (field) => {
-    props.getFields({yAxis: field}, true);
+    props.getFields({ yAxis: field }, true);
   }
 
   const drop_handler_YAxis = (e) => {
@@ -58,12 +67,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedYAxis = (field) => {
-    props.getFields({yAxis: field}, false);
+    props.getFields({ yAxis: field }, false);
   }
 
   // ====== Legend =====
   const handlerLegend = (field) => {
-    props.getFields({legend: field}, true);
+    props.getFields({ legend: field }, true);
   }
 
   const drop_handler_legend = (e) => {
@@ -74,12 +83,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedLegend = (field) => {
-    props.getFields({legend: field});
+    props.getFields({ legend: field });
   }
 
   //  ====== Small Multiples =====
   const handlerSmallMultiples = (field) => {
-    props.getFields({smallMultiples: field}, true);
+    props.getFields({ smallMultiples: field }, true);
   }
 
   const drop_handler_smallMultiples = (e) => {
@@ -90,12 +99,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedSmallMultiples = (field) => {
-    props.getFields({smallMultiples: field}, false);
+    props.getFields({ smallMultiples: field }, false);
   }
 
   //  ====== Value =====
   const handlerValues = (field) => {
-    props.getFields({values: field}, true);
+    props.getFields({ values: field }, true);
   }
 
   const drop_handler_Values = (e) => {
@@ -106,12 +115,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedValue = (field) => {
-    props.getFields({values: field}, false);
+    props.getFields({ values: field }, false);
   }
 
   //  ====== Size =====
   const handlerSizes = (field) => {
-    props.getFields({sizes: field}, true);
+    props.getFields({ sizes: field }, true);
   }
 
   const drop_handler_sizes = (e) => {
@@ -122,12 +131,12 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedSize = (field) => {
-    props.getFields({sizes: field}, false);
+    props.getFields({ sizes: field }, false);
   }
 
   //  ====== Secondary Y Axis =====
   const handlerSecondaryY_Axis = (field) => {
-    props.getFields({secondaryY_Axis: field}, true);
+    props.getFields({ secondaryY_Axis: field }, true);
   }
 
   const drop_handler_SecondaryY_Axis = (e) => {
@@ -138,7 +147,7 @@ const ChartFields = (props) => {
   }
 
   const handleDeletedSecondaryY_Axis = (field) => {
-    props.getFields({secondaryY_Axis: field}, false);
+    props.getFields({ secondaryY_Axis: field }, false);
   }
 
   return (
