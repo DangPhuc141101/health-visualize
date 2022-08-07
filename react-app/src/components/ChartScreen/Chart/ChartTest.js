@@ -12,35 +12,30 @@ const ChartTest = (props) => {
   const [selectedChart, setSelectedChart] = useState("");
   const [listChart, setListChart] = useState([]);
   const [listField, setListField] = useState([]);
-
+  const initialField = { xAxis: [], yAxis: [], legend: [], smallMultiples: [], values: [], sizes: [], secondaryY_Axis: [] };
   const [isActive, setIsActive] = useState(true);
-
   const [activeNameChart, setActiveNameChart] = useState(true);
 
-  const initialField = {
-    xAxis: [],
-    yAxis: [],
-    legend: [],
-    smallMultiples: [],
-    values: [],
-    sizes: [],
-    secondaryY_Axis: [],
-  };
-
   // handle delete chart
-  const handleDeleteChart = (type, index) => {
-    const listChartDeleted = listChart.filter((chart) => chart.type !== type);
-    const listChartFieldDeleted = listField.filter((chart, i) => i !== index);
-    console.log("listChartFieldDeleted: ", listChartFieldDeleted);
-    setListChart(listChartDeleted);
-    // setListField((listField[index] = []));
-    setListField(listChartFieldDeleted);
-  };
+  const handleDeleteChart = (type, indexDelete) => {
+    console.log(indexDelete, "delete")
+    console.log(listChart, "charts")
+    const listChartDeleted = listChart.filter((chart, index) => {
+      console.log(index, indexDelete)
+      return index != indexDelete;
+    })
+    setSelectedChart({});
+    setListChart(listChartDeleted)
+    setListField((prev) => {
+      const listFieldDeleted = prev.filter((filed, index) => index != indexDelete);
+      return listFieldDeleted;
+    })
+  }
 
   // isAdd = true => add
   // isAdd = false => remove
   const onGetFields = (attribute, isAdd) => {
-    // add a attribute to a list fields of a chart
+    // add a attribute to a list fields of a chart   
     const { index } = selectedChart;
     const key = Object.keys(attribute)[0];
     const value = Object.values(attribute)[0];
@@ -51,49 +46,57 @@ const ChartTest = (props) => {
           let field = prev[index];
           if (field[key]) {
             if (!field[key].includes(value)) field[key].push(value);
-          } else field[key] = [value];
+          }
+          else field[key] = [value];
           return [...prev.slice(0, index), field, ...prev.slice(index + 1)];
-        });
-      } else {
+        })
+      }
+      else {
         setListField((prev) => {
           let field = prev[index];
           if (field[key]) {
-            field[key] = field[key].filter((item) => item !== value);
-          } else field[key] = [];
+            field[key] = field[key].filter(item => item !== value);
+          }
+          else field[key] = [];
           return [...prev.slice(0, index), field, ...prev.slice(index + 1)];
-        });
+        })
       }
     }
   };
 
   // ====== Get Chart from Chart Items ========
   const handlerTypeChart = (typeChart) => {
-    if (selectedChart.index >= 0) {
+    if (selectedChart.index >= 0) {    // chart being selected
+      console.log(selectedChart)
       setListChart((prev) => {
-        prev[selectedChart?.index].type = typeChart;
+        prev[selectedChart.index].type = typeChart;
+        return prev;
+      })
+      setListField((prev) => {
+        prev[selectedChart.index] = { none: 'nothing' };
         return prev;
       });
-      setListField((prev) => [
-        ...prev.slice(0, selectedChart.index),
-        {},
-        prev.slice(selectedChart.index + 1),
-      ]);
-    } else {
-      setListChart((prev) => [...prev, { type: typeChart }]);
-      setListField((prev) => [...prev, {}]);
+      setSelectedChart((prev) => ({
+        ...prev,
+        type: typeChart
+      }));
     }
-  };
+    else {
+      setListChart((prev) => [...prev, { type: typeChart }]);
+      setListField(prev => [...prev, {}]);
+    }
+  }
 
   const selectChartHandler = (indexSelected, typeselected) => {
     if (selectedChart.index === indexSelected) {
       setSelectedChart({});
-    } else
-      setSelectedChart((prev) => ({
-        ...prev,
-        index: indexSelected,
-        type: typeselected,
-      }));
-  };
+    }
+    else setSelectedChart((prev) => ({
+      ...prev,
+      index: indexSelected,
+      type: typeselected
+    }));
+  }
 
   // ========= Drag - Drop =========
   const dragstart_handler = (e, column) => {
@@ -155,7 +158,7 @@ const ChartTest = (props) => {
               fields={
                 listField[selectedChart.index]
                   ? listField[selectedChart.index]
-                  : {}
+                  : undefined
               }
             ></ChartFields>
           </div>
