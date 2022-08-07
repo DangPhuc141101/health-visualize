@@ -16,7 +16,6 @@ const ChartTest = (props) => {
   const [isActive, setIsActive] = useState(true);
   const [activeNameChart, setActiveNameChart] = useState(true);
 
-  // handle delete chart
   const handleDeleteChart = (type, indexDelete) => {
     console.log(indexDelete, "delete")
     console.log(listChart, "charts")
@@ -116,6 +115,8 @@ const ChartTest = (props) => {
   const handleShowName = () => {
     setActiveNameChart(!activeNameChart);
   };
+
+  console.log("props.listObjData: ", props.listObjData);
 
   return (
     <>

@@ -1,0 +1,31 @@
+.deleteChart_container {
+  display: block;
+  width: 140px;
+  height: auto;
+
+  border-radius: 9px;
+  z-index: 10000000;
+  position: absolute;
+  top: 0;
+  right: -350px;
+}
+
+.deleteChart_container .container {
+  padding: 0;
+}
+
+.deleteChart_container .col_1,
+.deleteChart_container .col_2,
+.deleteChart_container .col_3 {
+  /* border-bottom: 3px ridge; */
+  padding: 2px;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+.deleteChart_container .col_1:hover,
+.deleteChart_container .col_2:hover,
+.deleteChart_container .col_3:hover {
+  background-color: #ccc;
+  border-radius: 9px;
+}
